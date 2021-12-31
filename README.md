@@ -5,4 +5,4 @@ This is an introductory course to microcontrollers, sensors, and actuators using
 
 ## Why the Arduino Nano 33 BLE Sense
 
-[https://docs.arduino.cc/static/c18e027f826663ba9f16ffd94b60500f/ABX00031-pinout.png]
+(https://docs.arduino.cc/static/c18e027f826663ba9f16ffd94b60500f/ABX00031-pinout.png)
