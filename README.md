@@ -1,5 +1,5 @@
 # Introduction to Interactive Prototyping for anyone
-##Using the Arduino Nano BLE 33 Sense
+## Using the Arduino Nano BLE 33 Sense
 
 This is an introductory course to microcontrollers, sensors, and actuators using Arduino Nano 33 BLE Sense. Originally created for Malmo University students in the Spring term 2021.
 
