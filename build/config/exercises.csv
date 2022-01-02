@@ -1,0 +1,52 @@
+00-Welcome
+01-The_kit,<iframe src="https://player.vimeo.com/video/525788797?h=281d358be6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+02-Communication,<iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+03-Introduction_to_prototyping
+04-Breadboard
+05-Jumperwires
+06-Arduino_IDE,<iframe src="https://player.vimeo.com/video/525798753?h=f748b8ef74" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+07-Programming_Arduino
+08-Arduino_Cores_install_Nano_33_BLE,<iframe src="https://player.vimeo.com/video/525820169?h=3ad3328261" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+09-Your_first_program_blink,<iframe src="https://player.vimeo.com/video/526673724?h=6bbdb9cd17" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+10-The_LED
+11-Multicolored_LEDs,<iframe src="https://player.vimeo.com/video/526678031?h=70752ae7ba" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+12-BlinkRGB,<iframe src="https://player.vimeo.com/video/526681657?h=2012290d9f" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+13-Explore_sensors_intuitively,<iframe src="https://player.vimeo.com/video/526697799?h=8249067253" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+14-What_are_components,<iframe src="https://player.vimeo.com/video/527692409?h=d1fbec5bbe" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+15-Buttons_tactile_switches,<iframe src="https://player.vimeo.com/video/527290564?h=2a7b2e5b39" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+16-Buttons_library,<iframe src="https://player.vimeo.com/video/527406260?h=017ea47364" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+17-Ohms_Law
+18-Resistors,<iframe src="https://player.vimeo.com/video/527697379?h=11ee1e7f3e" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+19-Potentiometers,<iframe src="https://player.vimeo.com/video/527713993?h=b942914a3a" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+20-Experiment_ButtonsRGB,<iframe src="https://player.vimeo.com/video/527429303?h=18cc00558b" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+21-Actuators,<iframe src="https://player.vimeo.com/video/527960318?h=4ef324d152" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+22-Servomotors,<iframe src="https://player.vimeo.com/video/527937284?h=e93dc4a1eb" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+23-Variables,<iframe src="https://player.vimeo.com/video/527938676?h=a331466dd6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+24-Arrays,<iframe src="https://player.vimeo.com/video/527945252?h=fdbe9863a2" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+25-Addressable_LEDs_LEDring,<iframe src="https://player.vimeo.com/video/527960956?h=151fee0ae7" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+26-Experiment_with_actuators
+27-Serial_communication,<iframe src="https://player.vimeo.com/video/528549597?h=ffb1176fd9" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+28-HackerNight_rubber_ducky,<iframe src="https://player.vimeo.com/video/528555129?h=f045b7f6c3" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+29-Non_blocking_code_single_LED,<iframe src="https://player.vimeo.com/video/528560097?h=fab684b5fd" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+30-Non_blocking_code_LEDring_and_button,<iframe src="https://player.vimeo.com/video/528571191?h=736bb1e2d4" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+31-Experiment_many_inputs,<iframe src="https://player.vimeo.com/video/528573144?h=f3213546d3" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+32-Non_blocking_button_serial,<iframe src="https://player.vimeo.com/video/529116948?h=bb9d982e00" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+33-Non_blocking_button_potentiometer,<iframe src="https://player.vimeo.com/video/529117959?h=d33a603a12" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+34-Non_blocking_button_potentiometer_LEDring,<iframe src="https://player.vimeo.com/video/529120110?h=7a76cb4fd0" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+35-Non_blocking_time_counter_with_reset_and_color_control,<iframe src="https://player.vimeo.com/video/529121918?h=ffeb6445a9" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+36-Non_blocking_time_counter_with_reset_color_control_and_proximity,<iframe src="https://player.vimeo.com/video/529128095?h=312ef42e86" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+37-State_machine
+38-AI_introduction
+39-AI_neural_networks_basics
+40-AI_technologies_available
+41-AI_training_with_Jupyter_microphone
+42-AI_training_with_Jupyter_IMU
+43-AI_training_in_your_PC
+44-AI_training_on_board
+45-BLE_basics
+46-BLE_wireless_LED
+47-BLE_wireless_button
+48-BLE_bidirectional
+49-BLE_dashboard_webBLE_vanillaJS
+50-BLE_dashboard_webBLE_p5js
+51-Serial_dashboard_Processing
