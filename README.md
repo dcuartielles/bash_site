@@ -38,4 +38,6 @@ The content's scaffolding is created by running the build process. Check:
 * Creation code is under the *build* folder
 * Configuration is under the *build/config* folder, including templaes and *CSV* files
 * Run the creation script if you make changes in the code, it will update the articles without having to copy-paste into the articles
+* Fills in title of all code example files
+* Fills in title and video information of all lecture materials
 

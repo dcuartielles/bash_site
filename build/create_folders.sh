@@ -112,7 +112,7 @@ while read -r file video; do
     echo -e   "****************************************\n"
 
     ## Append text at the end of the file
-    echo "[${file}](${file}/${file}.md)" >> $INDEX_FILE
+    echo "* [${file}](${file}/${file}.md)" >> $INDEX_FILE
     
 done < $DATA_FILE
 
