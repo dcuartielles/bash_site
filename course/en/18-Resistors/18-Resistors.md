@@ -10,7 +10,7 @@
 
 ## Parts
 
-[PARTS]
+
 
 ## Video tutorial
 

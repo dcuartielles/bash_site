@@ -2,6 +2,8 @@
 
 ## Objectives
 
+* Learn about jumperwires and cables
+* Practice color coding to simplify your work
 
 
 ## Introduction
@@ -10,7 +12,10 @@
 
 ## Parts
 
-[PARTS]
+* Arduino board
+* Breadboard
+* Jumperwires
+
 
 
 

@@ -2,6 +2,9 @@
 
 ## Objectives
 
+* Discover programming environments
+* Learn the basics of Arduino's code editor
+* Identify the different parts of the editor
 
 
 ## Introduction
@@ -10,7 +13,8 @@
 
 ## Parts
 
-[PARTS]
+* Your computer
+* The Arduino IDE
 
 ## Video tutorial
 

@@ -22,6 +22,12 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220104: the big separation
+
+* Modified the separator in the *CSV* file to support text with commas
+* Added parts to the exercises and the substitution in the creation script
+* Separated exercise number from the filename, which will  allow ordering the articles in different ways by changing the number, sorting the dataset, and rendering the content
+
 ### 20220103: get an objective
 
 * Includes objectives in the articles

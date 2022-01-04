@@ -12,7 +12,11 @@
 
 ## Parts
 
-[PARTS]
+* Arduino board
+* Breadboard
+* Jumperwires
+* 1 x LED
+
 
 
 

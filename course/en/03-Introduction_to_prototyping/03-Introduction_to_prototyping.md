@@ -13,7 +13,8 @@
 
 ## Parts
 
-[PARTS]
+* Your computer
+
 
 
 
