@@ -2,7 +2,10 @@
 
 ## Objectives
 
-[OBJECTIVES]
+* Discover other people interested in prototyping
+* Tools to communicate with classmates
+* How to report issues and get help
+
 
 ## Introduction
 

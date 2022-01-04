@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220103: get an objective
+
+* Includes objectives in the articles
+* No video link? Remove it entirely from the template
+
 ### 20220102: the indexing commit
 
 * Generates an index file

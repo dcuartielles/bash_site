@@ -2,7 +2,10 @@
 
 ## Objectives
 
-[OBJECTIVES]
+* Get to know the structure of this course
+* Learn about the reasons for this book
+* Get to know the tools
+
 
 ## Introduction
 
@@ -12,7 +15,7 @@
 
 [PARTS]
 
-## Video tutorial
+
 
 
 

@@ -2,7 +2,10 @@
 
 ## Objectives
 
-[OBJECTIVES]
+* Learn about the parts of the kit needed
+* Distinguish between components and ready mades
+* Get to know Arduino boards
+
 
 ## Introduction
 

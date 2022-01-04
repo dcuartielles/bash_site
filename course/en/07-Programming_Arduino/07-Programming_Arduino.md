@@ -2,7 +2,7 @@
 
 ## Objectives
 
-[OBJECTIVES]
+
 
 ## Introduction
 
@@ -12,7 +12,7 @@
 
 [PARTS]
 
-## Video tutorial
+
 
 
 

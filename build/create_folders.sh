@@ -25,7 +25,7 @@ mkdir course
 mkdir course/en
 
 ## Create files, add titles, add video if it exists
-while read -r file video; do
+while read -r file video objectives; do
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"
@@ -65,17 +65,33 @@ while read -r file video; do
         echo "Code [NAME] not found in course/en/${file}/${file}.md"
     fi
     
-    ## Fix video
-	VIDEO="${video//$'\"'/\\\"}"
-	VIDEO="${VIDEO//\//\\\/}" 
-    echo -e "** VIDEO ** \n$VIDEO"
-    if grep -Fq "[VIDEO]" "course/en/${file}/${file}.md"
+    ## Fix objectives
+    if grep -Fq "[OBJECTIVES]" "course/en/${file}/${file}.md"
     then
-	    sed -i "s/\[VIDEO\]/$VIDEO/" "course/en/${file}/${file}.md"
+	    OBJECTIVES="${objectives//\/\\}"
+	    sed -i "s/\[OBJECTIVES\]/$OBJECTIVES/" "course/en/${file}/${file}.md"
     else
-        echo "Code [VIDEO] not found in course/en/${file}/${file}.md"
+        echo "Code [OBJECTIVES] not found in course/en/${file}/${file}.md"
     fi
     
+    ## Fix video
+    if [[ $video != "" ]]
+    then
+    	VIDEO="${video//$'\"'/\\\"}"
+    	VIDEO="${VIDEO//\//\\\/}" 
+        echo -e "** VIDEO ** \n$VIDEO"
+        if grep -Fq "[VIDEO]" "course/en/${file}/${file}.md"
+        then
+	        sed -i "s/\[VIDEO\]/$VIDEO/" "course/en/${file}/${file}.md"
+        else
+            echo "Code [VIDEO] not found in course/en/${file}/${file}.md"
+        fi
+    else
+        echo -e "No video link, removing it from template"
+        sed -i "s/\[VIDEO\]//" "course/en/${file}/${file}.md"
+        sed -i "s/## Video tutorial//" "course/en/${file}/${file}.md"
+
+    fi
 	
 	## Fix code ...
 	CODE=`cat src/${file}/${file}.ino`
@@ -105,7 +121,7 @@ echo "# Course Index" > $INDEX_FILE
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
 ## Add links to all articles
-while read -r file video; do
+while read -r file video objectives; do
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"
@@ -125,7 +141,7 @@ CURRENT_FILE=""
 FOLLOWING_FILE=""
 
 ## Iterate through the content
-while read -r file video; do
+while read -r file video objectives; do
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"

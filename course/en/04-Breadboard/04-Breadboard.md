@@ -2,7 +2,9 @@
 
 ## Objectives
 
-[OBJECTIVES]
+* Learn about breadboard types
+* Try you own connection of components on the breadboad
+
 
 ## Introduction
 
@@ -12,7 +14,7 @@
 
 [PARTS]
 
-## Video tutorial
+
 
 
 

@@ -2,7 +2,10 @@
 
 ## Objectives
 
-[OBJECTIVES]
+* Learn why prototyping is important for designers (and others)
+* Get to know projects made within different contexts
+* Find out interesting tools and techniques
+
 
 ## Introduction
 
@@ -12,7 +15,7 @@
 
 [PARTS]
 
-## Video tutorial
+
 
 
 

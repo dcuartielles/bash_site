@@ -2,7 +2,7 @@
 
 ## Objectives
 
-[OBJECTIVES]
+
 
 ## Introduction
 

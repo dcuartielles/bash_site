@@ -1,8 +1,8 @@
-00-Welcome
-01-The_kit,<iframe src="https://player.vimeo.com/video/525788797?h=281d358be6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-02-Communication,<iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-03-Introduction_to_prototyping
-04-Breadboard
+00-Welcome,,* Get to know the structure of this course\n* Learn about the reasons for this book\n* Get to know the tools\n
+01-The_kit,<iframe src="https://player.vimeo.com/video/525788797?h=281d358be6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>,* Learn about the parts of the kit needed\n* Distinguish between components and ready mades\n* Get to know Arduino boards\n
+02-Communication,<iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>,* Discover other people interested in prototyping\n* Tools to communicate with classmates\n* How to report issues and get help\n
+03-Introduction_to_prototyping,,* Learn why prototyping is important for designers (and others)\n* Get to know projects made within different contexts\n* Find out interesting tools and techniques\n
+04-Breadboard,,* Learn about breadboard types\n* Try you own connection of components on the breadboad\n
 05-Jumperwires
 06-Arduino_IDE,<iframe src="https://player.vimeo.com/video/525798753?h=f748b8ef74" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 07-Programming_Arduino
