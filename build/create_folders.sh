@@ -78,7 +78,9 @@ while read -r number file video objectives parts; do
     ## Fix parts
     if grep -Fq "[PARTS]" "course/en/${filename}/${filename}.md"
     then
-	    PARTS="${parts//\/\\}"
+	    ##PARTS="${parts//\/\\}"
+    	PARTS="${parts//$'\/'/\\\/}"
+    	PARTS="${PARTS//\//\\\/}" 
 	    sed -i "s/\[PARTS\]/$PARTS/" "course/en/${filename}/${filename}.md"
     else
         echo "Code [PARTS] not found in course/en/${filename}/${filename}.md"
