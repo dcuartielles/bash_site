@@ -25,7 +25,7 @@ mkdir course
 mkdir course/en
 
 ## Create files, add titles, add video if it exists
-while read -r number file video objectives parts; do
+while read -r number hasCode file video objectives parts; do
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"
@@ -76,14 +76,22 @@ while read -r number file video objectives parts; do
     fi
     
     ## Fix parts
-    if grep -Fq "[PARTS]" "course/en/${filename}/${filename}.md"
+    if [[ $parts != "" ]]
     then
-	    ##PARTS="${parts//\/\\}"
-    	PARTS="${parts//$'\/'/\\\/}"
-    	PARTS="${PARTS//\//\\\/}" 
-	    sed -i "s/\[PARTS\]/$PARTS/" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[PARTS]" "course/en/${filename}/${filename}.md"
+        then
+	        ##PARTS="${parts//\/\\}"
+        	PARTS="${parts//$'\/'/\\\/}"
+        	PARTS="${PARTS//\//\\\/}" 
+	        sed -i "s/\[PARTS\]/$PARTS/" "course/en/${filename}/${filename}.md"
+        else
+            echo "Code [PARTS] not found in course/en/${filename}/${filename}.md"
+        fi
     else
-        echo "Code [PARTS] not found in course/en/${filename}/${filename}.md"
+        echo -e "No parts in this record, removing it from template"
+        sed -i "s/\[PARTS\]//" "course/en/${filename}/${filename}.md"
+        sed -i "s/## Parts//" "course/en/${filename}/${filename}.md"
+
     fi
 
     ## Fix video
@@ -106,23 +114,32 @@ while read -r number file video objectives parts; do
     fi
 	
 	## Fix code ...
-	CODE=`cat src/${filename}/${filename}.ino`
-	CODE="${CODE//$'\n'/\\n}"
-	CODE="\\\`\\\`\\\`c_cpp\\n\/\/$filename\\n$CODE\\n\\\`\\\`\\\`"
-	##echo -e "** CODE ** \n$CODE"
-    if grep -Fq "[CODE]" "course/en/${filename}/${filename}.md"
+	if [[ $hasCode == "Y" ]]
     then
-        ## This is a hack to respect the square brackets in the template file
-        sed -i "s/\[CODE\]/INSERTCODEHERE/" "course/en/${filename}/${filename}.md"
 
+	    CODE=`cat src/${filename}/${filename}.ino`
+	    CODE="${CODE//$'\n'/\\n}"
+	    CODE="\\\`\\\`\\\`c_cpp\\n\/\/$filename\\n$CODE\\n\\\`\\\`\\\`"
+	    ##echo -e "** CODE ** \n$CODE"
+        if grep -Fq "[CODE]" "course/en/${filename}/${filename}.md"
+        then
+            ## This is a hack to respect the square brackets in the template file
+            sed -i "s/\[CODE\]/INSERTCODEHERE/" "course/en/${filename}/${filename}.md"
+
+        else
+            echo "Overwritting old code in course/en/${filename}/${filename}.md"
+             SEARCH='```c_cpp\n\/\/'$filename'\(.*\)```'
+	        echo -e "** SEARCH ** \n${SEARCH}"
+            sed -z -i 's/```c_cpp\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "course/en/${filename}/${filename}.md"
+        fi
+        ## And now, do the substitution in a very elegant way
+        awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CODE" '{gsub(cuv1,cuv2); print;}' "course/en/${filename}/${filename}.md"
     else
-        echo "Overwritting old code in course/en/${filename}/${filename}.md"
-         SEARCH='```c_cpp\n\/\/'$filename'\(.*\)```'
-	    echo -e "** SEARCH ** \n${SEARCH}"
-        sed -z -i 's/```c_cpp\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "course/en/${filename}/${filename}.md"
+        echo -e "No code in this example, removing it from template"
+        sed -i "s/\[CODE\]//" "course/en/${filename}/${filename}.md"
+        sed -i "s/## Code//" "course/en/${filename}/${filename}.md"
+
     fi
-    ## And now, do the substitution in a very elegant way
-    awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CODE" '{gsub(cuv1,cuv2); print;}' "course/en/${filename}/${filename}.md"
 
 done < $DATA_FILE
 
@@ -133,7 +150,7 @@ echo "# Course Index" > $INDEX_FILE
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
 ## Add links to all articles
-while read -r number file video objectives parts; do
+while read -r number hasCode file video objectives parts; do
     ## set the filename
     filename="$number-$file"
 
@@ -156,7 +173,7 @@ CURRENT_FILE=""
 FOLLOWING_FILE=""
 
 ## Iterate through the content
-while read -r number file video objectives parts; do
+while read -r number hasCode file video objectives parts; do
     ## set the filename
     filename="$number-$file"
 

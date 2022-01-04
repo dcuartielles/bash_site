@@ -27,6 +27,7 @@ The content's scaffolding is created by running the build process. Check:
 * Modified the separator in the *CSV* file to support text with commas
 * Added parts to the exercises and the substitution in the creation script
 * Separated exercise number from the filename, which will  allow ordering the articles in different ways by changing the number, sorting the dataset, and rendering the content
+* Added a field to determine whether exercises have - or not - Arduino code. If not, removes it from the template
 
 ### 20220103: get an objective
 

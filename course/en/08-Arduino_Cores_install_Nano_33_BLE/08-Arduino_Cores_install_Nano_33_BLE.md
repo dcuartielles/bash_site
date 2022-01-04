@@ -8,7 +8,7 @@
 
 [INTRODUCTION]
 
-## Parts
+
 
 
 
@@ -24,30 +24,9 @@
 
 [CIRCUIT]
 
-## Code
 
-```c_cpp
-//08-Arduino_Cores_install_Nano_33_BLE
-/*
 
-   Exercise 08: Arduino Cores install Nano 33 BLE
 
-   GPL-3.0-or-later
-
-   2021, 2022 D. Cuartielles for Malmo University, Sweden
-
- */
-
-void setup() {
-  // Whatever code you put in here will be executed only 
-  // when the board has just been reseted
-}
-
-void loop() {
-  // The code here will be executed line by line until the 
-  // end. After it will restart from the beginning
-}
-```
 
 ## What to learn next
 
