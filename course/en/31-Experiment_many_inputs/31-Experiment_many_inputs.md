@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![31-Experiment_many_inputs]()
 
 ## Code
 

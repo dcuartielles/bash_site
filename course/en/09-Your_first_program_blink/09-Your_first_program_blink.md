@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![09-Your_first_program_blink]()
 
 ## Code
 

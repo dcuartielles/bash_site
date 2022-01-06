@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![48-BLE_bidirectional]()
 
 ## Code
 

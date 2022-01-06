@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![35-Non_blocking_time_counter_with_reset_and_color_control]()
 
 ## Code
 

@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![25-Addressable_LEDs_LEDring]()
 
 ## Code
 

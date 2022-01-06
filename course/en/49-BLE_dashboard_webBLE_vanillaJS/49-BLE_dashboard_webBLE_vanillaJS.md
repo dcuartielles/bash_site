@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![49-BLE_dashboard_webBLE_vanillaJS]()
 
 ## Code
 

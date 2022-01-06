@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![26-Experiment_with_actuators]()
 
 ## Code
 

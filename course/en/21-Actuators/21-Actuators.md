@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![21-Actuators]()
 
 ## Code
 

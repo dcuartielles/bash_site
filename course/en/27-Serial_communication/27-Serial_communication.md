@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![27-Serial_communication]()
 
 ## Code
 

@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![34-Non_blocking_button_potentiometer_LEDring]()
 
 ## Code
 

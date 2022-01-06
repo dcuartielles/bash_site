@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![51-Serial_dashboard_Processing]()
 
 ## Code
 

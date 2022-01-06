@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![28-HackerNight_rubber_ducky]()
 
 ## Code
 

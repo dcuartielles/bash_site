@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![18-Resistors]()
 
 ## Code
 

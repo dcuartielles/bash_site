@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![11-Multicolored_LEDs]()
 
 ## Code
 

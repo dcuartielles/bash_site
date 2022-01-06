@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![32-Non_blocking_button_serial]()
 
 ## Code
 

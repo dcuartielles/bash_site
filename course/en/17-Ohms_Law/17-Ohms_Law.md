@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![17-Ohms_Law]()
 
 
 

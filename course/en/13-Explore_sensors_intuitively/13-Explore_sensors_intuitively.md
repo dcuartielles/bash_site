@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![13-Explore_sensors_intuitively]()
 
 ## Code
 

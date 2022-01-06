@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![37-State_machine]()
 
 ## Code
 

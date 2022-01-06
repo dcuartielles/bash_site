@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![14-What_are_components]()
 
 
 

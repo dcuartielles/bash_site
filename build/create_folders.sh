@@ -25,7 +25,7 @@ mkdir course
 mkdir course/en
 
 ## Create files, add titles, add video if it exists
-while read -r number hasCode file video objectives parts; do
+while read -r number hasCode hasCircuit file video objectives parts circuit; do
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"
@@ -113,6 +113,25 @@ while read -r number hasCode file video objectives parts; do
 
     fi
 	
+	## Fix circuit ...
+	## This will be an image stored in the folders names /img/filename/name.extention
+	if [[ $hasCircuit == "Y" ]]
+    then
+    	CIRCUIT="${circuit//$'\"'/\\\"}"
+    	CIRCUIT="${CIRCUIT//\//\\\/}" 
+        echo -e "** CIRCUIT ** \n$CIRCUIT"
+        if grep -Fq "[CIRCUIT]" "course/en/${filename}/${filename}.md"
+        then
+	        sed -i "s/\[CIRCUIT\]/\!\[$filename\]\($CIRCUIT\)/" "course/en/${filename}/${filename}.md"
+        else
+            echo "Code [CIRCUIT] not found in course/en/${filename}/${filename}.md"
+        fi
+    else
+        echo -e "No circuit link, removing it from template"
+        sed -i "s/\[CIRCUIT\]//" "course/en/${filename}/${filename}.md"
+        sed -i "s/## Circuit//" "course/en/${filename}/${filename}.md"
+    fi
+    
 	## Fix code ...
 	if [[ $hasCode == "Y" ]]
     then
@@ -150,7 +169,7 @@ echo "# Course Index" > $INDEX_FILE
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
 ## Add links to all articles
-while read -r number hasCode file video objectives parts; do
+while read -r number hasCode hasCircuit file video objectives parts circuit; do
     ## set the filename
     filename="$number-$file"
 
@@ -173,7 +192,7 @@ CURRENT_FILE=""
 FOLLOWING_FILE=""
 
 ## Iterate through the content
-while read -r number hasCode file video objectives parts; do
+while read -r number hasCode hasCircuit file video objectives parts circuit; do
     ## set the filename
     filename="$number-$file"
 

@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![50-BLE_dashboard_webBLE_p5js]()
 
 ## Code
 

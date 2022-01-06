@@ -22,7 +22,7 @@
 
 ## Circuit
 
-[CIRCUIT]
+![19-Potentiometers]()
 
 ## Code
 
