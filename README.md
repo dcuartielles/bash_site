@@ -22,6 +22,12 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220105: circuit bending
+
+* Remove the circuit component if there is no circuit to show
+* Updated the dataset to include the hasCircuit field
+* Added an image to test in the breadboard exercise
+
 ### 20220104: the big separation
 
 * Modified the separator in the *CSV* file to support text with commas
