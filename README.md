@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220106: remove repetition
+
+* Remove video prefix and suffix from the *CSV* file and put it into the script as variables. This reduces the dataset's size by 30%
+* Tested (successfully) the usage of Libreoffice for editing the *CSV* file, exporting and bringing it back into the workflow
+
 ### 20220105: circuit bending
 
 * Remove the circuit component if there is no circuit to show

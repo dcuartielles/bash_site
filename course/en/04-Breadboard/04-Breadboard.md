@@ -34,9 +34,9 @@
 
 
 
-## What to learn next
+## Where to learn more
 
-[NEXT]
+[MORE]
 
 ## Index
 

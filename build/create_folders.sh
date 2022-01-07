@@ -9,6 +9,9 @@ DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
 INDEX_FILE="course/en/course_index.md"
 INDEX_LINK="..\/course_index.md"
 
+VIDEO_EMBED_PREFIX='<iframe src="'
+VIDEO_EMBED_SUFFIX='" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>'
+
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 
 OFS=$IFS
@@ -97,7 +100,8 @@ while read -r number hasCode hasCircuit file video objectives parts circuit; do
     ## Fix video
     if [[ $video != "" ]]
     then
-    	VIDEO="${video//$'\"'/\\\"}"
+        VIDEO=${VIDEO_EMBED_PREFIX}${video}${VIDEO_EMBED_SUFFIX}
+    	VIDEO="${VIDEO//$'\"'/\\\"}"
     	VIDEO="${VIDEO//\//\\\/}" 
         echo -e "** VIDEO ** \n$VIDEO"
         if grep -Fq "[VIDEO]" "course/en/${filename}/${filename}.md"

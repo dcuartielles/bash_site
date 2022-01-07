@@ -43,9 +43,9 @@ In this course we suggest using a kit which will allow you to experiment with ma
 
 
 
-## What to learn next
+## Where to learn more
 
-[NEXT]
+[MORE]
 
 ## Index
 
