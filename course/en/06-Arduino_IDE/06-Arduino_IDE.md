@@ -1,40 +1,17 @@
 # Exercise 06: Arduino IDE
-
 ## Objectives
 
 * Discover programming environments
 * Learn the basics of Arduino's code editor
 * Identify the different parts of the editor
 
-
-## Introduction
-
-[INTRODUCTION]
-
 ## Parts
 
 * Your computer
 * The Arduino IDE
-
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525798753?h=f748b8ef74" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

@@ -1,24 +1,7 @@
 # Exercise 18: Resistors
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/527697379?h=11ee1e7f3e" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-## Description
-
-[DESCRIPTION]
 
 ## Circuit
 
@@ -42,16 +25,11 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
-
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning
 }
 ```
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

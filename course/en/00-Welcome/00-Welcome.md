@@ -1,43 +1,7 @@
 # Exercise 00: Welcome
-
-## Objectives
-
-* Get to know the structure of this course
-* Learn about the reasons for this book
-* Get to know the tools
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
-
 ## Index
 
- [Index](../course_index.md) |  [Next](../01-The_kit/01-The_kit.md)
+[Prev](../00-file/00-file.md) |  [Index](../course_index.md) |  [Next](../01-The_kit/01-The_kit.md)
 
 ## License
 

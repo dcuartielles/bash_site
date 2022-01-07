@@ -1,40 +1,13 @@
 # Exercise 03: Introduction to prototyping
-
 ## Objectives
 
 * Learn why prototyping is important for designers (and others)
 * Get to know projects made within different contexts
 * Find out interesting tools and techniques
 
-
-## Introduction
-
-[INTRODUCTION]
-
 ## Parts
 
 * Your computer
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

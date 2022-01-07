@@ -1,36 +1,7 @@
 # Exercise 08: Arduino Cores install Nano 33 BLE
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525820169?h=3ad3328261" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

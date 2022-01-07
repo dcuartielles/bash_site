@@ -1,42 +1,17 @@
 # Exercise 04: Breadboard
-
 ## Objectives
 
 * Learn about breadboard types
 * Try you own connection of components on the breadboad
-
-
-## Introduction
-
-[INTRODUCTION]
-
 ## Parts
 
 * Arduino board
 * Breadboard
 * Jumperwires
 * 1 x LED
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
 ## Circuit
 
 ![04-Breadboard](https://upload.wikimedia.org/wikipedia/commons/1/19/Electronics-White-Breadboard.jpg)
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

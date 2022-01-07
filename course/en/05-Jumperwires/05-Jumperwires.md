@@ -1,41 +1,13 @@
 # Exercise 05: Jumperwires
-
 ## Objectives
 
 * Learn about jumperwires and cables
 * Practice color coding to simplify your work
-
-
-## Introduction
-
-[INTRODUCTION]
-
 ## Parts
 
 * Arduino board
 * Breadboard
 * Jumperwires
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

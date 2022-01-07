@@ -1,36 +1,11 @@
 # Exercise 14: What are components
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/527692409?h=d1fbec5bbe" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
-## Description
-
-[DESCRIPTION]
-
 ## Circuit
 
 ![14-What_are_components]()
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

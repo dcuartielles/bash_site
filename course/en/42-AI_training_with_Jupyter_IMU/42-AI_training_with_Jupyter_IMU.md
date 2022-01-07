@@ -1,25 +1,4 @@
 # Exercise 42: AI training with Jupyter IMU
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
 ## Circuit
 
 ![42-AI_training_with_Jupyter_IMU]()
@@ -42,16 +21,11 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
-
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning
 }
 ```
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

@@ -22,6 +22,22 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220108: patching the folders
+
+* Fixed the folder structure from hard-coded to variables to better support portability
+* Removed any kind of content being empty from being rendered, this will allow for content to slowly show in the pages as it is being added to the spreadsheet (cool-to-have feature when slowly releasing courses
+* Added extra fields to the dataset to support all remaining information to fill in the templates
+* Added code to render the new fields into the template
+* Clean up multiple EOLs in the exercises appearing upon removal of unused fields
+
+### 20220107: edit from Libreoffice
+
+* Added headers to the data columns, added ability to jump over the header line in the dataset when iterating through the content
+* Editing in Libreoffice implies converting numbers with leading zeroes into pure **ints**, this requires adding a leading zero addition to the numbering string when the index is below 10
+* Added folder for local images, illustration of circuits, etc
+* Added subfolder for images to specific exercises. Just to keep'm tidy
+
+
 ### 20220106: remove repetition
 
 * Remove video prefix and suffix from the *CSV* file and put it into the script as variables. This reduces the dataset's size by 30%

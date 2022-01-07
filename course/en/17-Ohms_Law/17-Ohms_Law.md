@@ -1,36 +1,7 @@
 # Exercise 17: Ohms Law
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
 ## Circuit
 
 ![17-Ohms_Law]()
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 

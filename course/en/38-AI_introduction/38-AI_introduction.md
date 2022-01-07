@@ -1,37 +1,4 @@
 # Exercise 38: AI introduction
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
-
 ## Index
 
 [Prev](../37-State_machine/37-State_machine.md) |  [Index](../course_index.md) |  [Next](../39-AI_neural_networks_basics/39-AI_neural_networks_basics.md)

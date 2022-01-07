@@ -1,37 +1,4 @@
 # Exercise 39: AI neural networks basics
-
-## Objectives
-
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
-
-
-
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
-
 ## Index
 
 [Prev](../38-AI_introduction/38-AI_introduction.md) |  [Index](../course_index.md) |  [Next](../40-AI_technologies_available/40-AI_technologies_available.md)

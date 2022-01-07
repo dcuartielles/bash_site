@@ -1,39 +1,7 @@
 # Exercise 02: Communication
-
-## Objectives
-
-* Discover other people interested in prototyping
-* Tools to communicate with classmates
-* How to report issues and get help
-
-
-## Introduction
-
-[INTRODUCTION]
-
-
-
-
-
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-## Description
-
-[DESCRIPTION]
-
-
-
-
-
-
-
-
-
-## Where to learn more
-
-[MORE]
 
 ## Index
 
