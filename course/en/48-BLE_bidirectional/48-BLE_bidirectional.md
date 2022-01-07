@@ -1,4 +1,5 @@
 # Exercise 48: BLE bidirectional
+
 ## Circuit
 
 ![48-BLE_bidirectional]()
@@ -21,6 +22,7 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
+
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning

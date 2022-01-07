@@ -1,4 +1,5 @@
 # Exercise 06: Arduino IDE
+
 ## Objectives
 
 * Discover programming environments
@@ -9,6 +10,7 @@
 
 * Your computer
 * The Arduino IDE
+
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525798753?h=f748b8ef74" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

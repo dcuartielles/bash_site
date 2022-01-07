@@ -1,4 +1,5 @@
 # Exercise 22: Servomotors
+
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/527937284?h=e93dc4a1eb" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -25,6 +26,7 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
+
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning

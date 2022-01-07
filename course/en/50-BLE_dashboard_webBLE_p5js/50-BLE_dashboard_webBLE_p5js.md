@@ -1,4 +1,5 @@
 # Exercise 50: BLE dashboard webBLE p5js
+
 ## Circuit
 
 ![50-BLE_dashboard_webBLE_p5js]()
@@ -21,6 +22,7 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
+
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning

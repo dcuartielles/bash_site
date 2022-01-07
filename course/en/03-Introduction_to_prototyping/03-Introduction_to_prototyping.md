@@ -1,4 +1,5 @@
 # Exercise 03: Introduction to prototyping
+
 ## Objectives
 
 * Learn why prototyping is important for designers (and others)

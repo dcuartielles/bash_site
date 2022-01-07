@@ -251,7 +251,7 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
     fi
     
     ## Clean double EOLs created by removing fields from the template
-    sed -i '/./b' -e :n -e 'N;s/\n$//;tn' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+    sed -i '$!N; /^\(.*\)\n\1$/!P; D' "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
 done < $DATA_FILE
 

@@ -1,4 +1,5 @@
 # Exercise 41: AI training with Jupyter microphone
+
 ## Circuit
 
 ![41-AI_training_with_Jupyter_microphone]()
@@ -21,6 +22,7 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
+
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning

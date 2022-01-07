@@ -1,4 +1,5 @@
 # Exercise 02: Communication
+
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>

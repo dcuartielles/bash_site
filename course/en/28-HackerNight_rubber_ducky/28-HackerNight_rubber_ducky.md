@@ -1,4 +1,5 @@
 # Exercise 28: HackerNight rubber ducky
+
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/528555129?h=f045b7f6c3" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
@@ -25,6 +26,7 @@ void setup() {
   // Whatever code you put in here will be executed only 
   // when the board has just been reseted
 }
+
 void loop() {
   // The code here will be executed line by line until the 
   // end. After it will restart from the beginning

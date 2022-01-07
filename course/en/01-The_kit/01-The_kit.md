@@ -1,4 +1,5 @@
 # Exercise 01: The kit
+
 ## Objectives
 
 * Learn about the parts of the kit needed
@@ -19,6 +20,7 @@ In this course we suggest using a kit which will allow you to experiment with ma
 * 1 x [micro USB cable](https://www.amazon.se/gp/product/B00BBPZCNI/ref=ox_sc_act_title_5?smid=ANU9KP01APNAG[PARTS]psc=1)
 * 1 x [piezo speaker](https://www.amazon.se/gp/product/B08CZCTCMY/ref=ox_sc_act_title_6?smid=A2Z9I2LI17Q0KS[PARTS]psc=1)
 * LEDs: 3 blue and 1 yellow
+
 ## Video tutorial
 
 <iframe src="https://player.vimeo.com/video/525788797?h=281d358be6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
