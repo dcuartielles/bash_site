@@ -4,6 +4,10 @@
 
 <iframe src="https://player.vimeo.com/video/525794655?h=fff4e18602" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
+## Circuit
+
+[CIRCUIT]
+
 ## Index
 
 [Prev](../01-The_kit/01-The_kit.md) |  [Index](../course_index.md) |  [Next](../03-Introduction_to_prototyping/03-Introduction_to_prototyping.md)

@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![33-Non_blocking_button_potentiometer]()
+[CIRCUIT]
 
 ## Code
 

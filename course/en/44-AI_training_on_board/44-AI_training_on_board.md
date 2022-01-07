@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![44-AI_training_on_board]()
+[CIRCUIT]
 
 ## Code
 

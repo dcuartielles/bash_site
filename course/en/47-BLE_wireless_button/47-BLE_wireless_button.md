@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![47-BLE_wireless_button]()
+[CIRCUIT]
 
 ## Code
 

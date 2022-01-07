@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![19-Potentiometers]()
+[CIRCUIT]
 
 ## Code
 

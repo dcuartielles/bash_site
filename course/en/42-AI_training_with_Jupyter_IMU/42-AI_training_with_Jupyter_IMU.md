@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![42-AI_training_with_Jupyter_IMU]()
+[CIRCUIT]
 
 ## Code
 

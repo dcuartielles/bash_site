@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![30-Non_blocking_code_LEDring_and_button]()
+[CIRCUIT]
 
 ## Code
 

@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![29-Non_blocking_code_single_LED]()
+[CIRCUIT]
 
 ## Code
 

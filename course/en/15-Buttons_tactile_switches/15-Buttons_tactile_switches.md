@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![15-Buttons_tactile_switches]()
+[CIRCUIT]
 
 ## Code
 

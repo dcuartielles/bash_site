@@ -1,5 +1,9 @@
 # Exercise 40: AI technologies available
 
+## Circuit
+
+[CIRCUIT]
+
 ## Index
 
 [Prev](../39-AI_neural_networks_basics/39-AI_neural_networks_basics.md) |  [Index](../course_index.md) |  [Next](../41-AI_training_with_Jupyter_microphone/41-AI_training_with_Jupyter_microphone.md)

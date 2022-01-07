@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![41-AI_training_with_Jupyter_microphone]()
+[CIRCUIT]
 
 ## Code
 

@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![43-AI_training_in_your_PC]()
+[CIRCUIT]
 
 ## Code
 

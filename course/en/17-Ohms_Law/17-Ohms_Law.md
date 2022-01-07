@@ -2,7 +2,7 @@
 
 ## Circuit
 
-![17-Ohms_Law]()
+[CIRCUIT]
 
 ## Index
 

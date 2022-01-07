@@ -25,6 +25,10 @@ In this course we suggest using a kit which will allow you to experiment with ma
 
 <iframe src="https://player.vimeo.com/video/525788797?h=281d358be6" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
+## Circuit
+
+[CIRCUIT]
+
 ## Index
 
 [Prev](../00-Welcome/00-Welcome.md) |  [Index](../course_index.md) |  [Next](../02-Communication/02-Communication.md)

@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![28-HackerNight_rubber_ducky]()
+[CIRCUIT]
 
 ## Code
 

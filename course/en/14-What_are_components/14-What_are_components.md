@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![14-What_are_components]()
+[CIRCUIT]
 
 ## Index
 

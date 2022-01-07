@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![32-Non_blocking_button_serial]()
+[CIRCUIT]
 
 ## Code
 

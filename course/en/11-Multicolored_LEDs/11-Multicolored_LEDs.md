@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![11-Multicolored_LEDs]()
+[CIRCUIT]
 
 ## Code
 

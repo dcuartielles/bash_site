@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![31-Experiment_many_inputs]()
+[CIRCUIT]
 
 ## Code
 

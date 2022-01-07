@@ -205,23 +205,26 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
 	
 	## Fix circuit ...
 	## This will be an image stored in the folders names /img/filename/name.extention
-	if [[ $hasCircuit == "Y" ]]
+    if [[ $circuit != "" ]]
     then
-    	CIRCUIT="${circuit//$'\"'/\\\"}"
-    	CIRCUIT="${CIRCUIT//\//\\\/}" 
-        echo -e "** CIRCUIT ** \n$CIRCUIT"
-        if grep -Fq "[CIRCUIT]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+	    if [[ $hasCircuit == "Y" ]]
         then
-	        sed -i "s/\[CIRCUIT\]/\!\[$filename\]\($CIRCUIT\)/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        	CIRCUIT="${circuit//$'\"'/\\\"}"
+        	CIRCUIT="${CIRCUIT//\//\\\/}" 
+            echo -e "** CIRCUIT ** \n$CIRCUIT"
+            if grep -Fq "[CIRCUIT]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+            then
+	            sed -i "s/\[CIRCUIT\]/\!\[$filename\]\($CIRCUIT\)/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+            else
+                echo "Code [CIRCUIT] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+            fi
         else
-            echo "Code [CIRCUIT] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+            echo -e "No circuit link, removing it from template"
+            sed -i "s/\[CIRCUIT\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+            sed -i "s/## Circuit//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
-    else
-        echo -e "No circuit link, removing it from template"
-        sed -i "s/\[CIRCUIT\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
-        sed -i "s/## Circuit//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
     fi
-    
+        
 	## Fix code ...
 	if [[ $hasCode == "Y" ]]
     then

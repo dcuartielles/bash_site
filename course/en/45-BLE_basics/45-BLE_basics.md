@@ -1,5 +1,9 @@
 # Exercise 45: BLE basics
 
+## Circuit
+
+[CIRCUIT]
+
 ## Index
 
 [Prev](../44-AI_training_on_board/44-AI_training_on_board.md) |  [Index](../course_index.md) |  [Next](../46-BLE_wireless_LED/46-BLE_wireless_LED.md)

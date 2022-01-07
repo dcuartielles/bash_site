@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![22-Servomotors]()
+[CIRCUIT]
 
 ## Code
 

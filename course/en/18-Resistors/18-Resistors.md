@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![18-Resistors]()
+[CIRCUIT]
 
 ## Code
 

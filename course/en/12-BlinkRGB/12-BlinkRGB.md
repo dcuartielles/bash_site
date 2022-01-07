@@ -6,7 +6,7 @@
 
 ## Circuit
 
-![12-BlinkRGB]()
+[CIRCUIT]
 
 ## Code
 
