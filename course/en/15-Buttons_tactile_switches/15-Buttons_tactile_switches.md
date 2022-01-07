@@ -4,10 +4,6 @@
 
 <iframe src="https://player.vimeo.com/video/527290564?h=2a7b2e5b39" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

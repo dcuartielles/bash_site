@@ -1,9 +1,5 @@
 # Exercise 46: BLE wireless LED
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

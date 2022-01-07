@@ -1,9 +1,5 @@
 # Exercise 50: BLE dashboard webBLE p5js
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

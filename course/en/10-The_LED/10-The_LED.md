@@ -1,9 +1,5 @@
 # Exercise 10: The LED
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

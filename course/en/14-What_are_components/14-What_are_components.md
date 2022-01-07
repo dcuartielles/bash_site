@@ -4,10 +4,6 @@
 
 <iframe src="https://player.vimeo.com/video/527692409?h=d1fbec5bbe" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
-## Circuit
-
-[CIRCUIT]
-
 ## Index
 
 [Prev](../13-Explore_sensors_intuitively/13-Explore_sensors_intuitively.md) |  [Index](../course_index.md) |  [Next](../15-Buttons_tactile_switches/15-Buttons_tactile_switches.md)

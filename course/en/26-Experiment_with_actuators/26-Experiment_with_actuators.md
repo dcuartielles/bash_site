@@ -1,9 +1,5 @@
 # Exercise 26: Experiment with actuators
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

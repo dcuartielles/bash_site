@@ -1,9 +1,5 @@
 # Exercise 47: BLE wireless button
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

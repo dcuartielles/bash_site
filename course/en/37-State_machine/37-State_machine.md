@@ -1,9 +1,5 @@
 # Exercise 37: State machine
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

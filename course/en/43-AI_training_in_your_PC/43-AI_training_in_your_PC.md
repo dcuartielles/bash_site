@@ -1,9 +1,5 @@
 # Exercise 43: AI training in your PC
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

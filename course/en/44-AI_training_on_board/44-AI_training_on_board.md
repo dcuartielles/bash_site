@@ -1,9 +1,5 @@
 # Exercise 44: AI training on board
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

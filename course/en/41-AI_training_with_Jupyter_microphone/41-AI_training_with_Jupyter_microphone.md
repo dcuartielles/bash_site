@@ -1,9 +1,5 @@
 # Exercise 41: AI training with Jupyter microphone
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

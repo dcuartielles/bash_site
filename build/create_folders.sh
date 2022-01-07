@@ -218,11 +218,11 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
             else
                 echo "Code [CIRCUIT] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
             fi
-        else
-            echo -e "No circuit link, removing it from template"
-            sed -i "s/\[CIRCUIT\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
-            sed -i "s/## Circuit//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
+    else
+        echo -e "No circuit link, removing it from template"
+        sed -i "s/\[CIRCUIT\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Circuit//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
     fi
         
 	## Fix code ...

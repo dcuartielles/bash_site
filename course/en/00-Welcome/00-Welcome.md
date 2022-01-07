@@ -1,9 +1,5 @@
 # Exercise 00: Welcome
 
-## Circuit
-
-[CIRCUIT]
-
 ## Index
 
 [Prev](../00-file/00-file.md) |  [Index](../course_index.md) |  [Next](../01-The_kit/01-The_kit.md)

@@ -1,9 +1,5 @@
 # Exercise 17: Ohms Law
 
-## Circuit
-
-[CIRCUIT]
-
 ## Index
 
 [Prev](../16-Buttons_library/16-Buttons_library.md) |  [Index](../course_index.md) |  [Next](../18-Resistors/18-Resistors.md)

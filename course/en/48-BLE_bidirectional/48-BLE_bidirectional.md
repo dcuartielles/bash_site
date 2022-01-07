@@ -1,9 +1,5 @@
 # Exercise 48: BLE bidirectional
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

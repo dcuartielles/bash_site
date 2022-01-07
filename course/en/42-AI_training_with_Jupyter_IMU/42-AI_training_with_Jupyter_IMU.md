@@ -1,9 +1,5 @@
 # Exercise 42: AI training with Jupyter IMU
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

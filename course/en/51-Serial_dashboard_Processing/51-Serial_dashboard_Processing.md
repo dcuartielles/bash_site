@@ -1,9 +1,5 @@
 # Exercise 51: Serial dashboard Processing
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp

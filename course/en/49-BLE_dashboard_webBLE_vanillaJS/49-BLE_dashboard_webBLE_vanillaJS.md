@@ -1,9 +1,5 @@
 # Exercise 49: BLE dashboard webBLE vanillaJS
 
-## Circuit
-
-[CIRCUIT]
-
 ## Code
 
 ```c_cpp
