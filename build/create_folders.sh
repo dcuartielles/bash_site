@@ -6,7 +6,13 @@ SETUP_FILE=$3
 
 DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
 
-INDEX_FILE="course/en/course_index.md"
+COURSE_FOLDER="course"
+LOCALE_FOLDER="en"
+CURRENT_FOLDER="${COURSE_FOLDER}/${LOCALE_FOLDER}"
+SRC_FOLDER="src"
+IMG_FOLDER="img"
+
+INDEX_FILE="${CURRENT_FOLDER}/course_index.md"
 INDEX_LINK="..\/course_index.md"
 
 VIDEO_EMBED_PREFIX='<iframe src="'
@@ -23,77 +29,157 @@ cp -R ${SETUP_FOLDER} ${DEST_FOLDER}
 
 cd ${DEST_FOLDER}
 
-mkdir src
-mkdir course
-mkdir course/en
+mkdir ${SRC_FOLDER}
+mkdir ${COURSE_FOLDER}
+mkdir ${CURRENT_FOLDER}
+mkdir ${IMG_FOLDER}
 
 ## Create files, add titles, add video if it exists
-while read -r number hasCode hasCircuit file video objectives parts circuit; do
+while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
+
+    ## Remove the first line (containing headers) 
+    if [ -z "$HEADER_DONE" ]; then
+        HEADER_DONE=1
+        continue
+    fi
+
+    ## fix the leading zeros in the number variable
+    number=$(printf "%02d" $number)
+
     ## Notify what is going on
     echo -e "\n****************************************"
     echo -e   " Working out example $file"
     echo -e   "****************************************\n"
-    
+ 
+    ## Fix the filename
+	filename="$number-$file"
+   
+    ## Work out the local folder for images
+	mkdir "${IMG_FOLDER}/$filename";
     
     ## Work out the code for the example
-	filename="$number-$file"
-	mkdir "src/$filename";
-	if [ -f "src/${filename}/${filename}.ino" ]; then
-        echo "src/${filename}/${filename}.ino exists. Changing properties."
+	mkdir "${SRC_FOLDER}/$filename";
+	if [ -f "${SRC_FOLDER}/${filename}/${filename}.ino" ]; then
+        echo "${SRC_FOLDER}/${filename}/${filename}.ino exists. Changing properties."
     else 
-        echo "src/${filename}/${filename}.ino does not exist. Creating it."
+        echo "${SRC_FOLDER}/${filename}/${filename}.ino does not exist. Creating it."
 
-    	cp "${SETUP_FOLDER}/templates/template.ino" "src/${filename}/${filename}.ino";
+    	cp "${SETUP_FOLDER}/templates/template.ino" "${SRC_FOLDER}/${filename}/${filename}.ino";
     fi
 	TITLE_TEMP="${filename//-/: }"
 	TITLE="${TITLE_TEMP//_/ }"
-	sed -i "s/\[NAME\]/Exercise $TITLE/" "src/${filename}/${filename}.ino"
+	sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${filename}/${filename}.ino"
 
     ## Work out the text for the example
-	mkdir "course/en/$filename";
-	if [ -f "course/en/${filename}/${filename}.md" ]; then
-        echo "course/en/${filename}/${filename}.md exists. Changing properties."
+	mkdir "${CURRENT_FOLDER}/$filename";
+	if [ -f "${CURRENT_FOLDER}/${filename}/${filename}.md" ]; then
+        echo "${CURRENT_FOLDER}/${filename}/${filename}.md exists. Changing properties."
     else 
-        echo "course/en/${filename}/${filename}.md does not exist. Creating it."
+        echo "${CURRENT_FOLDER}/${filename}/${filename}.md does not exist. Creating it."
 
-    	cp "${SETUP_FOLDER}/templates/template.md" "course/en/${filename}/${filename}.md";
+    	cp "${SETUP_FOLDER}/templates/template.md" "${CURRENT_FOLDER}/${filename}/${filename}.md";
     fi
 
     ## Fix title
-    if grep -Fq "[NAME]" "course/en/${filename}/${filename}.md"
+    if grep -Fq "[NAME]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
     then
 	    TITLE_TEMP="${filename//-/: }"
 	    TITLE="${TITLE_TEMP//_/ }"
-	    sed -i "s/\[NAME\]/Exercise $TITLE/" "course/en/${filename}/${filename}.md"
+	    sed -i "s/\[NAME\]/Exercise $TITLE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
     else
-        echo "Code [NAME] not found in course/en/${filename}/${filename}.md"
+        echo "Code [NAME] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
     fi
     
     ## Fix objectives
-    if grep -Fq "[OBJECTIVES]" "course/en/${filename}/${filename}.md"
+    if [[ $parts != "" ]]
     then
-	    OBJECTIVES="${objectives//\/\\}"
-	    sed -i "s/\[OBJECTIVES\]/$OBJECTIVES/" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[OBJECTIVES]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        then
+	        OBJECTIVES="${objectives//\/\\}"
+	        sed -i "s/\[OBJECTIVES\]/$OBJECTIVES/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        else
+            echo "Code [OBJECTIVES] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+        fi
     else
-        echo "Code [OBJECTIVES] not found in course/en/${filename}/${filename}.md"
+        echo -e "No objectives in this record, removing it from template"
+        sed -i "s/\[OBJECTIVES\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Objectives//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
     fi
     
     ## Fix parts
     if [[ $parts != "" ]]
     then
-        if grep -Fq "[PARTS]" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[PARTS]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
 	        ##PARTS="${parts//\/\\}"
         	PARTS="${parts//$'\/'/\\\/}"
         	PARTS="${PARTS//\//\\\/}" 
-	        sed -i "s/\[PARTS\]/$PARTS/" "course/en/${filename}/${filename}.md"
+	        sed -i "s/\[PARTS\]/$PARTS/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         else
-            echo "Code [PARTS] not found in course/en/${filename}/${filename}.md"
+            echo "Code [PARTS] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
     else
         echo -e "No parts in this record, removing it from template"
-        sed -i "s/\[PARTS\]//" "course/en/${filename}/${filename}.md"
-        sed -i "s/## Parts//" "course/en/${filename}/${filename}.md"
+        sed -i "s/\[PARTS\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Parts//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+    fi
+
+    ## Fix introduction
+    if [[ $introduction != "" ]]
+    then
+        if grep -Fq "[INTRODUCTION]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        then
+	        ##PARTS="${parts//\/\\}"
+        	INTRODUCTION="${introduction//$'\/'/\\\/}"
+        	INTRODUCTION="${INTRODUCTION//\//\\\/}" 
+	        sed -i "s/\[INTRODUCTION\]/$INTRODUCTION/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        else
+            echo "Code [INTRODUCTION] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+        fi
+    else
+        echo -e "No introduction in this record, removing it from template"
+        sed -i "s/\[INTRODUCTION\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Introduction//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+    fi
+
+    ## Fix description
+    if [[ $description != "" ]]
+    then
+        if grep -Fq "[DESCRIPTION]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        then
+	        ##PARTS="${parts//\/\\}"
+        	DESCRIPTION="${description//$'\/'/\\\/}"
+        	DESCRIPTION="${DESCRIPTION//\//\\\/}" 
+	        sed -i "s/\[DESCRIPTION\]/$DESCRIPTION/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        else
+            echo "Code [DESCRIPTION] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+        fi
+    else
+        echo -e "No description in this record, removing it from template"
+        sed -i "s/\[DESCRIPTION\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Description//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+    fi
+
+    ## Fix more
+    if [[ $more != "" ]]
+    then
+        if grep -Fq "[MORE]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        then
+	        ##PARTS="${parts//\/\\}"
+        	MORE="${more//$'\/'/\\\/}"
+        	MORE="${MORE//\//\\\/}" 
+	        sed -i "s/\[MORE\]/$MORE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        else
+            echo "Code [MORE] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+        fi
+    else
+        echo -e "No 'Where to learn more' information in this record, removing it from template"
+        sed -i "s/\[MORE\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Where to learn more//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
     fi
 
@@ -104,16 +190,16 @@ while read -r number hasCode hasCircuit file video objectives parts circuit; do
     	VIDEO="${VIDEO//$'\"'/\\\"}"
     	VIDEO="${VIDEO//\//\\\/}" 
         echo -e "** VIDEO ** \n$VIDEO"
-        if grep -Fq "[VIDEO]" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[VIDEO]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
-	        sed -i "s/\[VIDEO\]/$VIDEO/" "course/en/${filename}/${filename}.md"
+	        sed -i "s/\[VIDEO\]/$VIDEO/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         else
-            echo "Code [VIDEO] not found in course/en/${filename}/${filename}.md"
+            echo "Code [VIDEO] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
     else
         echo -e "No video link, removing it from template"
-        sed -i "s/\[VIDEO\]//" "course/en/${filename}/${filename}.md"
-        sed -i "s/## Video tutorial//" "course/en/${filename}/${filename}.md"
+        sed -i "s/\[VIDEO\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Video tutorial//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
     fi
 	
@@ -124,45 +210,48 @@ while read -r number hasCode hasCircuit file video objectives parts circuit; do
     	CIRCUIT="${circuit//$'\"'/\\\"}"
     	CIRCUIT="${CIRCUIT//\//\\\/}" 
         echo -e "** CIRCUIT ** \n$CIRCUIT"
-        if grep -Fq "[CIRCUIT]" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[CIRCUIT]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
-	        sed -i "s/\[CIRCUIT\]/\!\[$filename\]\($CIRCUIT\)/" "course/en/${filename}/${filename}.md"
+	        sed -i "s/\[CIRCUIT\]/\!\[$filename\]\($CIRCUIT\)/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         else
-            echo "Code [CIRCUIT] not found in course/en/${filename}/${filename}.md"
+            echo "Code [CIRCUIT] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
     else
         echo -e "No circuit link, removing it from template"
-        sed -i "s/\[CIRCUIT\]//" "course/en/${filename}/${filename}.md"
-        sed -i "s/## Circuit//" "course/en/${filename}/${filename}.md"
+        sed -i "s/\[CIRCUIT\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Circuit//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
     fi
     
 	## Fix code ...
 	if [[ $hasCode == "Y" ]]
     then
 
-	    CODE=`cat src/${filename}/${filename}.ino`
+	    CODE=`cat ${SRC_FOLDER}/${filename}/${filename}.ino`
 	    CODE="${CODE//$'\n'/\\n}"
 	    CODE="\\\`\\\`\\\`c_cpp\\n\/\/$filename\\n$CODE\\n\\\`\\\`\\\`"
 	    ##echo -e "** CODE ** \n$CODE"
-        if grep -Fq "[CODE]" "course/en/${filename}/${filename}.md"
+        if grep -Fq "[CODE]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
             ## This is a hack to respect the square brackets in the template file
-            sed -i "s/\[CODE\]/INSERTCODEHERE/" "course/en/${filename}/${filename}.md"
+            sed -i "s/\[CODE\]/INSERTCODEHERE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
         else
-            echo "Overwritting old code in course/en/${filename}/${filename}.md"
+            echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
              SEARCH='```c_cpp\n\/\/'$filename'\(.*\)```'
 	        echo -e "** SEARCH ** \n${SEARCH}"
-            sed -z -i 's/```c_cpp\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "course/en/${filename}/${filename}.md"
+            sed -z -i 's/```c_cpp\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
         ## And now, do the substitution in a very elegant way
-        awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CODE" '{gsub(cuv1,cuv2); print;}' "course/en/${filename}/${filename}.md"
+        awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CODE" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
     else
         echo -e "No code in this example, removing it from template"
-        sed -i "s/\[CODE\]//" "course/en/${filename}/${filename}.md"
-        sed -i "s/## Code//" "course/en/${filename}/${filename}.md"
+        sed -i "s/\[CODE\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## Code//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
     fi
+    
+    ## Clean double EOLs created by removing fields from the template
+    sed -i '/./b' -e :n -e 'N;s/\n$//;tn' "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
 done < $DATA_FILE
 
@@ -173,7 +262,17 @@ echo "# Course Index" > $INDEX_FILE
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
 ## Add links to all articles
-while read -r number hasCode hasCircuit file video objectives parts circuit; do
+while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
+
+    ## Remove the first line (containing headers) 
+    if [ -z "$HEADER_DONE" ]; then
+        HEADER_DONE=1
+        continue
+    fi
+
+    ## fix the leading zeros in the number variable
+    number=$(printf "%02d" $number)
+
     ## set the filename
     filename="$number-$file"
 
@@ -196,7 +295,17 @@ CURRENT_FILE=""
 FOLLOWING_FILE=""
 
 ## Iterate through the content
-while read -r number hasCode hasCircuit file video objectives parts circuit; do
+while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
+
+    ## Remove the first line (containing headers) 
+    if [ -z "$HEADER_DONE" ]; then
+        HEADER_DONE=1
+        continue
+    fi
+
+    ## fix the leading zeros in the number variable
+    number=$(printf "%02d" $number)
+
     ## set the filename
     filename="$number-$file"
 
@@ -207,7 +316,7 @@ while read -r number hasCode hasCircuit file video objectives parts circuit; do
 
     ## Set following file
     FOLLOWING_LINK="..\/${filename}\/${filename}.md"
-    FOLLOWING_FILE="course/en/${filename}/${filename}.md"
+    FOLLOWING_FILE="${CURRENT_FOLDER}/${filename}/${filename}.md"
 
     ## Usual case: we have current and following links not empty
     if [[ $CURRENT_LINK != "" ]]
