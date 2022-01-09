@@ -1,13 +1,14 @@
 #!/bin/bash
 
-DEST_FOLDER=$1
-SETUP_FOLDER=$2
-SETUP_FILE=$3
+LOCALE=$1
+DEST_FOLDER=$2
+SETUP_FOLDER=$3
+SETUP_FILE=$4
 
 DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
 
 COURSE_FOLDER="course"
-LOCALE_FOLDER="en"
+LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${COURSE_FOLDER}/${LOCALE_FOLDER}"
 SRC_FOLDER="src"
 IMG_FOLDER="img"
@@ -17,6 +18,10 @@ INDEX_LINK="..\/course_index.md"
 
 VIDEO_EMBED_PREFIX='<iframe src="'
 VIDEO_EMBED_SUFFIX='" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>'
+
+HEADER_DONE=0
+
+LICENSE_EMBED='<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.\n\n*2021, 2022 D. Cuartielles for Malmo University, Sweden*'
 
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 
@@ -38,7 +43,7 @@ mkdir ${IMG_FOLDER}
 while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
 
     ## Remove the first line (containing headers) 
-    if [ -z "$HEADER_DONE" ]; then
+    if [ $HEADER_DONE == 0 ]; then
         HEADER_DONE=1
         continue
     fi
@@ -58,13 +63,14 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
 	mkdir "${IMG_FOLDER}/$filename";
     
     ## Work out the code for the example
+    ## So far, code has no localisation features, thus no use of the locale folder here
 	mkdir "${SRC_FOLDER}/$filename";
 	if [ -f "${SRC_FOLDER}/${filename}/${filename}.ino" ]; then
         echo "${SRC_FOLDER}/${filename}/${filename}.ino exists. Changing properties."
     else 
         echo "${SRC_FOLDER}/${filename}/${filename}.ino does not exist. Creating it."
 
-    	cp "${SETUP_FOLDER}/templates/template.ino" "${SRC_FOLDER}/${filename}/${filename}.ino";
+    	cp "${SETUP_FOLDER}/templates/code/template.ino" "${SRC_FOLDER}/${filename}/${filename}.ino";
     fi
 	TITLE_TEMP="${filename//-/: }"
 	TITLE="${TITLE_TEMP//_/ }"
@@ -77,7 +83,7 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
     else 
         echo "${CURRENT_FOLDER}/${filename}/${filename}.md does not exist. Creating it."
 
-    	cp "${SETUP_FOLDER}/templates/template.md" "${CURRENT_FOLDER}/${filename}/${filename}.md";
+    	cp "${SETUP_FOLDER}/templates/exercises/${LOCALE_FOLDER}/template.md" "${CURRENT_FOLDER}/${filename}/${filename}.md";
     fi
 
     ## Fix title
@@ -91,7 +97,7 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
     fi
     
     ## Fix objectives
-    if [[ $parts != "" ]]
+    if [[ $objectives != "" ]]
     then
         if grep -Fq "[OBJECTIVES]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
@@ -252,6 +258,25 @@ while read -r number hasCode hasCircuit file video objectives parts circuit intr
         sed -i "s/## Code//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
     fi
+
+    ## Fix license
+    if [[ $LICENSE_EMBED != "" ]]
+    then
+        if grep -Fq "[LICENSE]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        then
+	        ##LICENSE_EMBED="${LICENSE_EMBED//\/\\}"
+        	LICENSE_EMBED_HERE="${LICENSE_EMBED//$'\"'/\\\"}"
+        	LICENSE_EMBED_HERE="${LICENSE_EMBED_HERE//\//\\\/}" 
+	        sed -i "s/\[LICENSE\]/$LICENSE_EMBED_HERE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        else
+            echo "Code [LICENSE] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+        fi
+    else
+        echo -e "No license in this record, removing it from template"
+        sed -i "s/\[LICENSE\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+        sed -i "s/## License//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+    fi
     
     ## Clean double EOLs created by removing fields from the template
     sed -i '$!N; /^\(.*\)\n\1$/!P; D' "${CURRENT_FOLDER}/${filename}/${filename}.md"
@@ -261,6 +286,9 @@ done < $DATA_FILE
 ## Create index file
 echo "# Course Index" > $INDEX_FILE 
 
+## Reset the header check
+HEADER_DONE=0
+
 ## Use index file 
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
@@ -268,7 +296,7 @@ echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
 
     ## Remove the first line (containing headers) 
-    if [ -z "$HEADER_DONE" ]; then
+    if [ $HEADER_DONE == 0 ]; then
         HEADER_DONE=1
         continue
     fi
@@ -297,11 +325,14 @@ PREVIOUS_FILE=""
 CURRENT_FILE=""
 FOLLOWING_FILE=""
 
+## Reset the header check
+HEADER_DONE=0
+
 ## Iterate through the content
 while read -r number hasCode hasCircuit file video objectives parts circuit introduction description more; do
 
     ## Remove the first line (containing headers) 
-    if [ -z "$HEADER_DONE" ]; then
+    if [ $HEADER_DONE == 0 ]; then
         HEADER_DONE=1
         continue
     fi

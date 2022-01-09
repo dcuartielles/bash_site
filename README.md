@@ -22,13 +22,22 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220109: template generator
+
+* De:bug the objectives were not checked, but the parts when rendering objectives. FIXED
+* De:bug the header detection was only working the first time, now works also the other two times it shows up in the code. FIXED
+* License removed from template as text and made into a variable. In the future it will be taken from a config file (like, most likely, all of the other variables like folder names and the like)
+* Add *locale* folder for templates, opening the work towards courses with multiple translations
+* Revised the *BUILD* file to reflect the addition of locales in the render
+* NEW: added a template generator from a *CSV* file. This will allow for super simple localisation of the course structure, you will still need to translate the content, though ;-)
+
 ### 20220108: patching the folders
 
 * Fixed the folder structure from hard-coded to variables to better support portability
-* Removed any kind of content being empty from being rendered, this will allow for content to slowly show in the pages as it is being added to the spreadsheet (cool-to-have feature when slowly releasing courses
+* Removed any kind of content being empty from being rendered, this will allow for content to slowly show in the pages as it is being added to the spreadsheet (cool-to-have feature when slowly releasing courses)
 * Added extra fields to the dataset to support all remaining information to fill in the templates
 * Added code to render the new fields into the template
-* Clean up multiple EOLs in the exercises appearing upon removal of unused fields
+* Cleaned up multiple EOLs in the exercises appearing upon removal of unused fields
 
 ### 20220107: edit from Libreoffice
 

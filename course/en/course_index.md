@@ -1,5 +1,4 @@
 # Course Index
-* [00-file](00-file/00-file.md)
 * [00-Welcome](00-Welcome/00-Welcome.md)
 * [01-The_kit](01-The_kit/01-The_kit.md)
 * [02-Communication](02-Communication/02-Communication.md)
