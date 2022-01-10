@@ -22,6 +22,18 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220110: exercises file generator
+
+* Moved the location of the *index* section in the template generator to facilitate the creation of the exercise generator. The first 4 fields are reserved and thus not used for the exercise generator
+* TODO: place the *index* section in a floating *DIV* to allow moving it around via *CSS*
+* Created the exercise generator aka *create_exercises.sh* to automatically create exercise *CSV* files for each locale (filling them up with content is YOUR thing)
+* New format for exercise files including *VARIABLE* and *hasVARIABLE* to allow for both a general inclusion of a field and a more granular one exercise to exercise
+* The new format can be as long as you want
+* TODO: test these exercise files with the previous rendering script
+* TODO: simplify the rendering script to include just three different parts: title addition, index addition (and index file creation), and general content field handling
+* This opens the possibility of adding multiple images per project, multiple code inserts, multiple programming languages, etc
+
+
 ### 20220109: template generator
 
 * De:bug the objectives were not checked, but the parts when rendering objectives. FIXED
