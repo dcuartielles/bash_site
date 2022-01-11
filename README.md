@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220111: back to the roots
+
+* Reworked the original script, now called *render_course.sh* to get it to work with endlessly long records (IOW, with as many fields as wanted)
+* TODO: properties, currently called *hasWHATEVER* should be comma separated arrays containing whether something should be rendered, and some other aspects like type of data (code, image, etc), subtype (e.g. programming language codes for github)
+* Tested with the template rendering script and populated with the Arduino Nano 33 BLE Sense course
+* **Important**: the *CSV* files now have a format including two header rows with field names, and whether data should be used or not, need to make sure the first two fields in the second row get filled with zeros
+
+
 ### 20220110: exercises file generator
 
 * Moved the location of the *index* section in the template generator to facilitate the creation of the exercise generator. The first 4 fields are reserved and thus not used for the exercise generator
