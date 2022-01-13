@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220112: baked a cake
+
+* Learned how to make frosting for a cake for my kid's birthday, not really programming related, but fun
+* Extended the rendering script with the missing features of index generation 
+* Added navigation menu in all examples
+* Added code section to clean blanks from the final exercise markdon files
+
+
 ### 20220111: back to the roots
 
 * Reworked the original script, now called *render_course.sh* to get it to work with endlessly long records (IOW, with as many fields as wanted)

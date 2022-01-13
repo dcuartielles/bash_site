@@ -189,15 +189,154 @@ while read -ra array; do
             fi
  
         done
+
+        ## Clean double EOLs created by removing fields from the template
+        sed -i '$!N; /^\(.*\)\n\1$/!P; D' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                 
         ## Exit the while here
         continue
     fi
     
-
 done < $DATA_FILE
 
 ## TODO: lacks the whole index generation work in here
+## Create index file
+echo "# Course Index" > $INDEX_FILE 
+
+## Reset the header check
+HEADER_DONE=0
+
+## Use index file 
+echo -e "** CREATE INDEX ** \n$INDEX_FILE"
+
+## Add links to all articles
+while read -ra array; do
+
+    ## Remove headers 
+    if [[ "$HEADER_DONE" -lt 2 ]]; then
+        HEADER_DONE=$HEADER_DONE+1
+        continue
+    fi
+
+    ## fix the leading zeros in the number variable
+    number=$(printf "%02d" ${array[0]})
+
+    ## set the filename
+    filename="$number-${array[1]}"
+
+    ## Notify what is going on
+    echo -e "\n****************************************"
+    echo -e   " Working out example $filename"
+    echo -e   "****************************************\n"
+
+    ## Append text at the end of the file
+    echo "* [${filename}](${filename}/${filename}.md)" >> $INDEX_FILE
+    
+done < $DATA_FILE
+
+## Generate bottom links in content files
+PREVIOUS_LINK=""
+CURRENT_LINK=""
+FOLLOWING_LINK=""
+PREVIOUS_FILE=""
+CURRENT_FILE=""
+FOLLOWING_FILE=""
+
+## Reset the header check
+HEADER_DONE=0
+
+## Read all fields in a record as an array
+while read -ra array; do
+
+    ## Remove headers 
+    if [[ "$HEADER_DONE" -lt 2 ]]; then
+        HEADER_DONE=$HEADER_DONE+1
+        continue
+    fi
+
+    ## fix the leading zeros in the number variable
+    number=$(printf "%02d" ${array[0]})
+
+    ## set the filename
+    filename="$number-${array[1]}"
+
+    ## Notify what is going on
+    echo -e "\n****************************************"
+    echo -e   " Working out example $filename"
+    echo -e   "****************************************\n"
+
+    ## Set following file
+    FOLLOWING_LINK="..\/${filename}\/${filename}.md"
+    FOLLOWING_FILE="${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+    ## Usual case: we have current and following links not empty
+    if [[ $CURRENT_LINK != "" ]]
+    then
+        if grep -Fq "[FOLLOWINGARTICLE]" "${CURRENT_FILE}"
+        then
+            echo -e "processing following link"
+            sed -i "s/\[FOLLOWINGARTICLE\]/\[Next\]\(${FOLLOWING_LINK}\)/" "${CURRENT_FILE}"
+        else
+            echo "Code [FOLLOWINGARTICLE] not found in ${CURRENT_FILE}"
+        fi
+        
+        if grep -Fq "[PREVIOUSARTICLE]" "${CURRENT_FILE}"
+        then
+            echo -e "processing previous link"
+            if [[ $PREVIOUS_LINK != "" ]]
+            then
+	            sed -i "s/\[PREVIOUSARTICLE\]/\[Prev\]\(${PREVIOUS_LINK}\) \| /" "${CURRENT_FILE}"
+	        else
+	            sed -i "s/\[PREVIOUSARTICLE\]//" "${CURRENT_FILE}"
+	        fi
+        else
+            echo "Code [PREVIOUSARTICLE] not found in ${CURRENT_FILE}"
+        fi
+        
+        if grep -Fq "[INDEX]" "${CURRENT_FILE}"
+        then
+            echo -e "processing index link"
+            sed -i "s/\[INDEX\]/\[Index\]\(${INDEX_LINK}\) \| /" "${CURRENT_FILE}"
+        else
+            echo "Code [INDEX] not found in ${CURRENT_FILE}"
+        fi
+         
+    fi
+ 
+    ## Move the links to the next batch   
+    PREVIOUS_LINK=$CURRENT_LINK
+    CURRENT_LINK=$FOLLOWING_LINK
+    PREVIOUS_FILE=$CURRENT_FILE
+    CURRENT_FILE=$FOLLOWING_FILE
+
+done < $DATA_FILE
+
+## Closing edge case: If the links are the same, and not
+## empty, we are at the end of the list of files, therefore 
+## issue no following link
+if [[ $CURRENT_LINK != "" ]]
+then
+    if grep -Fq "[FOLLOWINGARTICLE]" "${CURRENT_FILE}"
+    then
+        sed -i "s/\[FOLLOWINGARTICLE\]//" "${CURRENT_FILE}"
+    else
+        echo "Code [FOLLOWINGARTICLE] not found in ${CURRENT_FILE}"
+    fi
+
+    if grep -Fq "[PREVIOUSARTICLE]" "${CURRENT_FILE}"
+    then
+        sed -i "s/\[PREVIOUSARTICLE\]/\[Prev\]\(${PREVIOUS_LINK}\) \| /" "${CURRENT_FILE}"
+    else
+        echo "Code [PREVIOUSARTICLE] not found in ${CURRENT_FILE}"
+    fi
+    
+    if grep -Fq "[INDEX]" "${CURRENT_FILE}"
+    then
+        sed -i "s/\[INDEX\]/\[Index\]\(${INDEX_LINK}\)/" "${CURRENT_FILE}"
+    else
+        echo "Code [INDEX] not found in ${CURRENT_FILE}"
+    fi    
+fi
 
 ## Delete the config folder
 rm -fR ${SETUP_FOLDER}
