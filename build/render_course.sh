@@ -116,26 +116,6 @@ while read -ra array; do
                 ## Fix the filename
 	            filename="$number-$name"
                
-                ## Work out the local folder for images
-	            [ ! -d "${IMG_FOLDER}/$filename" ] && mkdir "${IMG_FOLDER}/$filename";
-
-                ## Work out the code for the example
-                ## So far, code has no localisation features, thus no use of the locale folder here
-                ## TODO: enhance this to allow multiple types of code
-	            [ ! -d "${SRC_FOLDER}/$filename" ] && mkdir "${SRC_FOLDER}/$filename";
-	            if [ -f "${SRC_FOLDER}/${filename}/${filename}.ino" ]; then
-                    echo "${SRC_FOLDER}/${filename}/${filename}.ino exists. Changing properties."
-                else 
-                    echo "${SRC_FOLDER}/${filename}/${filename}.ino does not exist. Creating it."
-
-                	cp "${SETUP_FOLDER}/templates/code/template.ino" "${SRC_FOLDER}/${filename}/${filename}.ino";
-                fi
-                
-                ## Fix the code's title
-	            TITLE_TEMP="${filename//-/: }"
-	            TITLE="${TITLE_TEMP//_/ }"
-	            sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${filename}/${filename}.ino"
-
                 ## Work out the text for the example
 	            [ ! -d "${CURRENT_FOLDER}/$filename" ] && mkdir "${CURRENT_FOLDER}/$filename";
 	            if [ -f "${CURRENT_FOLDER}/${filename}/${filename}.md" ]; then
@@ -190,9 +170,33 @@ while read -ra array; do
                             fi
                             if [[ "${PROPERTIES[1]}" == "image" ]]; then  
                                 CONTENT="![$filename](${CONTENT})"                      
+
+                                ## Create the local folder for images, only if there is 
+                                ## going to be an image and doesn't exist, yet
+	                            [ ! -d "${IMG_FOLDER}/$filename" ] && mkdir "${IMG_FOLDER}/$filename";
                             fi
                             if [[ "${PROPERTIES[1]}" == "code" ]]; then       
-	                            CONTENT=`cat ${SRC_FOLDER}/${filename}/${filename}.${PROPERTIES[3]}`
+                                ## Create the code for the example only if there is such a
+                                ## block in the exercise and it doesn't exist, yet. You will
+                                ## have to change it by hand
+                                ## So far, code has no localisation, thus no use of the locale folder 
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[3]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[3]}";
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[3]}/$filename" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[3]}/$filename";
+	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}" ]; then
+                                    echo "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]} exists. Changing properties."
+                                else 
+                                    echo "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]} does not exist. Creating it."
+
+                                	cp "${SETUP_FOLDER}/templates/code/template.${PROPERTIES[3]}" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}";
+                                    ## Fix the code's title
+	                                TITLE="${filename//-/: }"
+	                                TITLE="${TITLE//_/ }"
+	                                sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+                                fi
+                
+
+                                ## Include the code file in the exercise 
+	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}`
 	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any
 	                            if [[ ${FIELD_CONTENT} != "" ]]; then 

@@ -22,6 +22,12 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220114: do the do only when needed
+
+* Create the empty code blocks using templates, but make sure you only create those which are going to be used, do not even create a folder, otherwise
+* Code will now be under the folder structure: *src/[extension]/[exercise_name]*
+* Create folders for images when detected in code --> TODO: add property indicating whether it is a local image to avoid creating empty folders
+
 ### 20220113: adding properties instead of booleans
 
 * Decided to go for properties fields for the repetitive fields
