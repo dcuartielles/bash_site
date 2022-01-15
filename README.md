@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220113: adding properties instead of booleans
+
+* Decided to go for properties fields for the repetitive fields
+* Stored properties into an array containing: "visibility,type,typeProperty1,typeProperty2"
+* Example of property array for a piece of Arduino code (*c_cpp*), which has extension (*ino*): "true,code,c_cpp,ino"
+* Example of property array for an image: "true,image"
+* Added the possibility of having textual introduction to code blocks
+
 ### 20220112: baked a cake
 
 * Learned how to make frosting for a cake for my kid's birthday, not really programming related, but fun
