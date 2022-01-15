@@ -24,6 +24,8 @@ SEPARATOR='¤'
 INDEX_FILE="${CURRENT_FOLDER}/course_index.md"
 INDEX_LINK="..\/course_index.md"
 
+DATA_TYPES=("text","html","image","code","video","license")
+
 VIDEO_EMBED_PREFIX='<iframe src="'
 VIDEO_EMBED_SUFFIX='" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>'
 
@@ -166,17 +168,72 @@ while read -ra array; do
                 ## TODO: evaluate properties, if it is code, video, images, etc it requires
                 ##       specific rendering tricks. Therefore, there is still a lot to do here
                 if [ $((i % 2)) == 0 ]; then
-                    if [[ $FIELD_CONTENT != "" ]]; then
-                        echo -e "* Working with: ${CONFIG_KEYS[$i-1]}, value: ${CONFIG_VALUES[$i-1]}, content: ${FIELD_CONTENT}, properties: ${FIELD_PROPERTIES}"
-                        if [[ $FIELD_PROPERTIES == true ]]; then
-                            if grep -Fq "[${CONFIG_KEYS[$i-1]}]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
-                            then
-                            	CONTENT="${FIELD_CONTENT//$'\/'/\\\/}"
-                            	CONTENT="${CONTENT//\//\\\/}" 
-	                            sed -i "s/\[${CONFIG_KEYS[$i-1]}\]/$CONTENT/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
-                            else
-                                echo "Code [${CONFIG_KEYS[$i-1]}] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+                    echo -e "* Working with: ${CONFIG_KEYS[$i-1]}, value: ${CONFIG_VALUES[$i-1]}, content: ${FIELD_CONTENT}, properties: ${FIELD_PROPERTIES}"
+                        
+                    ## Extract the properties array
+                    ## readarray -td '' PROPERTIES < <(awk '{ gsub(/, /,"\0"); print; }' <<<"$FIELD_PROPERTIES, "); unset 'PROPERTIES[-1]'; declare -p PROPERTIES;
+                    ## readarray -td, PROPERTIES <<<"$PROPERTIES"; declare -p PROPERTIES;
+                    readarray -td, PROPERTIES < <(printf '%s' "$FIELD_PROPERTIES"); declare -p PROPERTIES;
+                    
+                    if [[ $FIELD_CONTENT != "" ||  "${PROPERTIES[0]}" == "true" ]]; then
+                        ## echo -e ${PROPERTIES[0]}
+                        if [[ "${PROPERTIES[0]}" == "true" ]]; then
+                        
+                            ## Prepare content to be rendered (note, order matters!!)
+                            ## Read the data by default, we'll modify it later
+                            CONTENT=${FIELD_CONTENT}
+                            if [[ "${PROPERTIES[1]}" == "video" ]]; then  
+                                CONTENT=${VIDEO_EMBED_PREFIX}${CONTENT}${VIDEO_EMBED_SUFFIX}                      
                             fi
+                            if [[ "${PROPERTIES[1]}" == "license" ]]; then  
+                                CONTENT=${LICENSE_EMBED}                      
+                            fi
+                            if [[ "${PROPERTIES[1]}" == "image" ]]; then  
+                                CONTENT="![$filename](${CONTENT})"                      
+                            fi
+                            if [[ "${PROPERTIES[1]}" == "code" ]]; then       
+	                            CONTENT=`cat ${SRC_FOLDER}/${filename}/${filename}.${PROPERTIES[3]}`
+	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            ## Add code description if any
+	                            if [[ ${FIELD_CONTENT} != "" ]]; then 
+	                                CONTENT="${FIELD_CONTENT}\n\n${CONTENT}"
+	                            fi
+	                            CONTENT="${CONTENT//$'\n'/\\n}"
+                                if grep -Fq "[${CONFIG_KEYS[$i-1]}]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                then
+                                    ## This is a hack to respect the square brackets in the template file
+                                    sed -i "s/\[${CONFIG_KEYS[$i-1]}\]/INSERTCODEHERE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+                                else
+                                    echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                    ## DEL: SEARCH='```'$PROPERTIES[2]'\n\/\/'$filename'\(.*\)```'
+	                                ## DEL: echo -e "** SEARCH ** \n${SEARCH}"
+                                    sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                fi
+                                ## And now, do the substitution in a very elegant way
+                                awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CONTENT" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+
+                            fi
+                            if [[ "${PROPERTIES[1]}" != "code" ]]; then                        
+                            	CONTENT="${CONTENT//$'\/'/\\\/}"
+                            	CONTENT="${CONTENT//\//\\\/}" 
+                            	CONTENT="${CONTENT//$'\"'/\\\"}"
+                            	CONTENT="${CONTENT//$'\!'/\\\!}"
+                            	CONTENT="${CONTENT//$'\['/\\\[}"
+                            	CONTENT="${CONTENT//$'\]'/\\\]}"
+                            	CONTENT="${CONTENT//$'\('/\\\(}"
+                            	CONTENT="${CONTENT//$'\)'/\\\)}"
+                            	CONTENT="${CONTENT//$'\`'/\\\`}"
+
+                                if grep -Fq "[${CONFIG_KEYS[$i-1]}]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                then
+	                                sed -i "s/\[${CONFIG_KEYS[$i-1]}\]/$CONTENT/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                else
+                                    echo "Code [${CONFIG_KEYS[$i-1]}] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                fi
+
+                            fi    
+                            
                         fi
                     else
                         echo -e "No ${CONFIG_KEYS[$i-1]} in this record, removing it from template"
