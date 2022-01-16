@@ -14,11 +14,13 @@ The different templates can be defined in the *CSV* file *templates.csv*. Creati
 
 Once the templates have been created, build the basic structure of the course by simply calling:
 
-./create_folders.sh en .. config exercises.csv
+./render_course.sh en .. config exercises.csv
 
 inside the *build* folder. It will create all of the folders, *MD*, and *INO* files based on templates. From there you will have to add your own content. Use the editor of your choice.
 
-The parameters for the *create_folders.sh* script are:
+*(Note: the rendering script has been completely reworked as of 20210115, it used to be ./create_folders.sh en .. config exercises.csv)*
+
+The parameters for the *render_course.sh* script are:
 
 * locale: en, es, etc.
 * name of the folder with templates and the like, typically *config*

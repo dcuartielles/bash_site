@@ -22,6 +22,13 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220115: tiny things make a difference
+
+* Removed the exercise from code examples, what will allow to easily rearranging examples without having to renumber the code blocks BY HAND :-O
+* FIXME: Adding already existing code including the special character **&** (as in a logical *AND* operation) will insert the *INSERTCODEHERE* tag undesirely in the code
+* Added property to images to determine whether they are local or not. When local it will create a folder to host them for that specific exercise. If there are no local images, they will be banned from the content. Examples of parameters are: "true,image,local" or "true,image,remote"
+* Made *render_course.sh* the official rendering script for the course
+
 ### 20220114: do the do only when needed
 
 * Create the empty code blocks using templates, but make sure you only create those which are going to be used, do not even create a folder, otherwise
@@ -131,3 +138,8 @@ The content's scaffolding is created by running the build process. Check:
 * Fills in title of all code example files
 * Fills in title and video information of all lecture materials
 
+## Things I would like to add
+
+### Image thumbnails of articles
+
+If people want to share specific articles from their course / site, they need to add a bit of HTML love to their headers. More [information here](https://nickcarmont8.medium.com/how-to-add-a-website-thumbnail-for-sharing-your-html-site-on-social-media-facebook-linkedin-12813f8d2618)

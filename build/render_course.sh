@@ -173,7 +173,7 @@ while read -ra array; do
 
                                 ## Create the local folder for images, only if there is 
                                 ## going to be an image and doesn't exist, yet
-	                            [ ! -d "${IMG_FOLDER}/$filename" ] && mkdir "${IMG_FOLDER}/$filename";
+	                            [[ "${PROPERTIES[2]}" == "local" ]] && [ ! -d "${IMG_FOLDER}/$filename" ] && mkdir "${IMG_FOLDER}/$filename";
                             fi
                             if [[ "${PROPERTIES[1]}" == "code" ]]; then       
                                 ## Create the code for the example only if there is such a
@@ -189,15 +189,19 @@ while read -ra array; do
 
                                 	cp "${SETUP_FOLDER}/templates/code/template.${PROPERTIES[3]}" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}";
                                     ## Fix the code's title
-	                                TITLE="${filename//-/: }"
-	                                TITLE="${TITLE//_/ }"
-	                                sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+                                    ## It does NOT include the exercise number
+	                                ## Was: TITLE="${filename//-/: }"
+	                                ##      TITLE="${TITLE//_/ }"
+	                                ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+	                                TITLE="${name//_/ }"
+	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
                                 fi
                 
 
                                 ## Include the code file in the exercise 
 	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}`
-	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            ## Was: CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any
 	                            if [[ ${FIELD_CONTENT} != "" ]]; then 
 	                                CONTENT="${FIELD_CONTENT}\n\n${CONTENT}"
@@ -212,7 +216,8 @@ while read -ra array; do
                                     echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
                                     ## DEL: SEARCH='```'$PROPERTIES[2]'\n\/\/'$filename'\(.*\)```'
 	                                ## DEL: echo -e "** SEARCH ** \n${SEARCH}"
-                                    sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                    ## Was: sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                    sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 fi
                                 ## And now, do the substitution in a very elegant way
                                 awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CONTENT" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
