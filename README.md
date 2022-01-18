@@ -22,6 +22,10 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220116: fixed the code issue
+
+* Fixed the issue with the code having && or & in it. It turnd out to be an issue with the way *awk* handles this reserve character, and it cannot be escaped properly
+
 ### 20220115: tiny things make a difference
 
 * Removed the exercise from code examples, what will allow to easily rearranging examples without having to renumber the code blocks BY HAND :-O

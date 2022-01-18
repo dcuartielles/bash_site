@@ -200,6 +200,9 @@ while read -ra array; do
 
                                 ## Include the code file in the exercise 
 	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}`
+	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
+	                            ## Test: CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
+	                            CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
 	                            ## Was: CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any
@@ -219,8 +222,11 @@ while read -ra array; do
                                     ## Was: sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                     sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 fi
+                                
                                 ## And now, do the substitution in a very elegant way
-                                awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CONTENT" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                ## Was: awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CONTENT" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                ## Issue with && is fixed according to https://stackoverflow.com/questions/43172002/awk-gsub-ampersands-and-unexpected-expansion
+                                awk -i inplace -v old="INSERTCODEHERE" -v new="$CONTENT" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
                             fi
                             if [[ "${PROPERTIES[1]}" != "code" ]]; then                        
