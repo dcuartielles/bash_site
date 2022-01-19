@@ -22,6 +22,18 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220118: analytics are fun
+
+* Based on yesterday's work, implemented the analytics script. Decided to develop it as a separate script called *analyse_course.sh* to keep the code clean, for now
+* Silenced the properties array declaration in the *render_course.sh* script for a better output
+* TODO: figure out a way to use *analyse_course.sh* for an early error detection (so far only detects the lack of code templates)
+* TODO: add detection of template for current locale
+
+### 20220117: transitional day
+
+* Cleaned up all of the TODOs in the *render_course.sh* script
+* Drafted an analysis tool to check on an exercise file to extract some basic information from it, such as: number of blocks of code, local images, etc.
+
 ### 20220116: fixed the code issue
 
 * Fixed the issue with the code having && or & in it. It turnd out to be an issue with the way *awk* handles this reserve character, and it cannot be escaped properly

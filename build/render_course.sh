@@ -38,6 +38,15 @@ LICENSE_EMBED='<a rel="license" href="http://creativecommons.org/licenses/by-sa/
 OFS=$IFS
 IFS=$SEPARATOR
 
+## XXX: Run a check on the data file: how many exercises, how many fields, total images,
+## total code blocks, types of code detected, etc
+
+## Read all fields in a record as an array, count the total amount of records
+
+## Iterate through the records and count fields and types of fields
+
+## Report back to CLI
+
 ## Create the folder for the destination if it doesn't exist
 [ ! -d "${DEST_FOLDER}" ] && mkdir ${DEST_FOLDER}
 
@@ -104,7 +113,7 @@ while read -ra array; do
                 number=$(printf "%02d" ${array[$i]})
             fi
             
-            ## Extract the name (in the original file was "file"
+            ## Extract the name (in the original file was "file")
             if [ "$i" -eq 1 ]; then
                 name=${array[$i]}
 
@@ -145,15 +154,13 @@ while read -ra array; do
                 (( i % 2 )) && FIELD_CONTENT="${array[$i]}"
                 (( (i % 2) - 1 )) && FIELD_PROPERTIES="${array[$i]}"
                 
-                ## TODO: evaluate properties, if it is code, video, images, etc it requires
-                ##       specific rendering tricks. Therefore, there is still a lot to do here
+                ## Evaluate properties, if it is code, video, images, etc it requires
+                ## specific rendering tricks. Therefore, there is still a lot to do here
                 if [ $((i % 2)) == 0 ]; then
                     echo -e "* Working with: ${CONFIG_KEYS[$i-1]}, value: ${CONFIG_VALUES[$i-1]}, content: ${FIELD_CONTENT}, properties: ${FIELD_PROPERTIES}"
                         
-                    ## Extract the properties array
-                    ## readarray -td '' PROPERTIES < <(awk '{ gsub(/, /,"\0"); print; }' <<<"$FIELD_PROPERTIES, "); unset 'PROPERTIES[-1]'; declare -p PROPERTIES;
-                    ## readarray -td, PROPERTIES <<<"$PROPERTIES"; declare -p PROPERTIES;
-                    readarray -td, PROPERTIES < <(printf '%s' "$FIELD_PROPERTIES"); declare -p PROPERTIES;
+                    ## Extract the properties array in a silent fashion
+                    readarray -td, PROPERTIES < <(printf '%s' "$FIELD_PROPERTIES"); declare -p PROPERTIES &>/dev/null;
                     
                     if [[ $FIELD_CONTENT != "" ||  "${PROPERTIES[0]}" == "true" ]]; then
                         ## echo -e ${PROPERTIES[0]}
@@ -201,9 +208,8 @@ while read -ra array; do
                                 ## Include the code file in the exercise 
 	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}`
 	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
-	                            ## Test: CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
 	                            CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
-	                            ## Was: CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$filename\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            ## Add prefix and suffix to the code block, this is the official markdown formatting
 	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any
 	                            if [[ ${FIELD_CONTENT} != "" ]]; then 
@@ -217,14 +223,10 @@ while read -ra array; do
 
                                 else
                                     echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
-                                    ## DEL: SEARCH='```'$PROPERTIES[2]'\n\/\/'$filename'\(.*\)```'
-	                                ## DEL: echo -e "** SEARCH ** \n${SEARCH}"
-                                    ## Was: sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$filename"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                     sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 fi
                                 
                                 ## And now, do the substitution in a very elegant way
-                                ## Was: awk -i inplace  -v cuv1="INSERTCODEHERE" -v cuv2="$CONTENT" '{gsub(cuv1,cuv2); print;}' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 ## Issue with && is fixed according to https://stackoverflow.com/questions/43172002/awk-gsub-ampersands-and-unexpected-expansion
                                 awk -i inplace -v old="INSERTCODEHERE" -v new="$CONTENT" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
@@ -271,7 +273,6 @@ while read -ra array; do
     
 done < $DATA_FILE
 
-## TODO: lacks the whole index generation work in here
 ## Create index file
 echo "# Course Index" > $INDEX_FILE 
 
