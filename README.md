@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220119: DeOldify
+
+* Spent the coding evening trying out DeOldify in my computer to rescue some old pix from the family, did I ever tell you my grandfather was a hair-dresser? Check the pic:
+![Joaquin Cuartielles I](docs/img/20220120_jc_in_the_50s.jpg)
+
 ### 20220118: analytics are fun
 
 * Based on yesterday's work, implemented the analytics script. Decided to develop it as a separate script called *analyse_course.sh* to keep the code clean, for now

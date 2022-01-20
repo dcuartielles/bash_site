@@ -3,6 +3,13 @@
 ## 20220118 This analysis script will take a dataset as long as desired, and
 ## render the amount of fields, records, and other relevant data to be found in it
 
+## Run a check on the data file: how many exercises, how many fields, total images,
+## total code blocks, types of code detected, etc
+## Read all fields in a record as an array, count the total amount of records
+## Iterate through the records and count fields and types of fields
+## Report back to CLI
+
+
 LOCALE=$1
 DEST_FOLDER=$2
 SETUP_FOLDER=$3
@@ -35,15 +42,6 @@ LICENSE_BLOCKS=0
 
 OFS=$IFS
 IFS=$SEPARATOR
-
-## XXX: Run a check on the data file: how many exercises, how many fields, total images,
-## total code blocks, types of code detected, etc
-
-## Read all fields in a record as an array, count the total amount of records
-
-## Iterate through the records and count fields and types of fields
-
-## Report back to CLI
 
 ## Init arrays
 declare -a CONFIG_KEYS=()
