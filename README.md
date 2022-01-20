@@ -26,7 +26,7 @@ The content's scaffolding is created by running the build process. Check:
 
 * Spent the coding evening trying out DeOldify in my computer to rescue some old pix from the family, did I ever tell you my grandfather was a hair-dresser? Check the pic, he's the guy on the left:
 
-![Joaquin Cuartielles I](https://github.com/dcuartielles/Intro-Arduino-Nano-BLE-33-Sense/raw/main/docs/img/20221220_jc_in_the_50s.jpg){ width=50% }
+<img src="https://github.com/dcuartielles/Intro-Arduino-Nano-BLE-33-Sense/raw/main/docs/img/20221220_jc_in_the_50s.jpg" width=50%>
 
 ### 20220118: analytics are fun
 
