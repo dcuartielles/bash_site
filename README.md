@@ -22,6 +22,13 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220120: code templates 
+
+* Created a series of code templates for the different types of code blocks that could be part of the tutorials and hosted them in the *config/templates/code*, these will be called by the tutorial generation system when needed
+* New templates for: C (.c), C++ (.cpp), Processing (.pde), p5js (.js), Python (.py), HTML (.html)
+* Moved the templates into their own subfolders, changed the rendering code to support them
+* TODO: check whether the HTML block needs to be encoded to avoid errors upon rendering 
+
 ### 20220119: DeOldify
 
 * Spent the coding evening trying out DeOldify in my computer to rescue some old pix from the family, did I ever tell you my grandfather was a hair-dresser? Check the pic, he's the guy on the left:
@@ -161,6 +168,23 @@ The content's scaffolding is created by running the build process. Check:
 * Fills in title and video information of all lecture materials
 
 ## Things I would like to add
+
+### A full test run
+
+Create a script to run a whole creation of a course: 
+
+1. asks about the fields to add to a template, 
+2. creates the template *CSV*, 
+3. continues with the template generation, 
+4. checks whether there are basic templates for the types of code to be included,
+5. copies the different files in the proper location,
+6. asks how many exercises should be included in the course,
+7. creates the course *CSV*, asking for some basic information like exercises names and the like,
+8. calls the course rendering script
+
+### Support different amounts of fields per record
+
+What if people do want to create more dynamic sets of exercises where the articles strongly deviate form a basic template? How would code have to look like in this case?
 
 ### Image thumbnails of articles
 

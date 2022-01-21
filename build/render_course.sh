@@ -24,7 +24,12 @@ SEPARATOR='¤'
 INDEX_FILE="${CURRENT_FOLDER}/course_index.md"
 INDEX_LINK="..\/course_index.md"
 
-DATA_TYPES=("text","html","image","code","video","license")
+DATA_TYPES=("text" "html" "image" "code" "video" "license") # Not used
+CODE_SUFFIX=("c" "cpp" "ino" "pde" "js" "py" "html")
+CODE_TYPES=("C" "C++" "Arduino" "Processing" "p5js" "Python" "HTML")
+CODE_STYLE=("c_cpp" "c_cpp" "c_cpp" "java" "javascript" "python" "html")
+## Get code styles from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
 
 VIDEO_EMBED_PREFIX='<iframe src="'
 VIDEO_EMBED_SUFFIX='" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>'
@@ -38,14 +43,10 @@ LICENSE_EMBED='<a rel="license" href="http://creativecommons.org/licenses/by-sa/
 OFS=$IFS
 IFS=$SEPARATOR
 
-## XXX: Run a check on the data file: how many exercises, how many fields, total images,
+## XXX: Eventually, run a check on the data file: how many exercises, how many fields, total images,
 ## total code blocks, types of code detected, etc
 
-## Read all fields in a record as an array, count the total amount of records
-
-## Iterate through the records and count fields and types of fields
-
-## Report back to CLI
+## START
 
 ## Create the folder for the destination if it doesn't exist
 [ ! -d "${DEST_FOLDER}" ] && mkdir ${DEST_FOLDER}
@@ -187,30 +188,52 @@ while read -ra array; do
                                 ## block in the exercise and it doesn't exist, yet. You will
                                 ## have to change it by hand
                                 ## So far, code has no localisation, thus no use of the locale folder 
-	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[3]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[3]}";
-	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[3]}/$filename" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[3]}/$filename";
-	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}" ]; then
-                                    echo "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]} exists. Changing properties."
+                                
+                                ## Step 1: where in the index can I find the type of code?
+                                index=-1
+ 
+                                for j in "${!CODE_TYPES[@]}"
+                                do :
+                                    echo -e "+ Checking ${PROPERTIES[2]} against ${CODE_TYPES[$j]}"
+                                    if [[ "${CODE_TYPES[$j]}" = "${PROPERTIES[2]}" ]];
+                                    then
+                                        index=$j
+                                        break
+                                    fi
+                                done
+                                 
+                                if [ $index -gt -1 ]; then
+                                    echo -e "Index of the code type: ${PROPERTIES[2]}, in Array is : $index"
+                                    echo -e "Code suffix is: ${CODE_SUFFIX[$index]}"
+                                    echo -e "Code style is: ${CODE_STYLE[$index]}"
+                                else
+                                    echo "Code type ${PROPERTIES[2]} is not declared as a type of code."; exit 99;
+                                fi
+                                
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}";
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$filename" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$filename";
+	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}" ]; then
+                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]} exists. Changing properties."
                                 else 
-                                    echo "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]} does not exist. Creating it."
+                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]} does not exist. Creating it."
 
-                                	cp "${SETUP_FOLDER}/templates/code/template.${PROPERTIES[3]}" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}";
+                                	cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}";
                                     ## Fix the code's title
                                     ## It does NOT include the exercise number
 	                                ## Was: TITLE="${filename//-/: }"
 	                                ##      TITLE="${TITLE//_/ }"
 	                                ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
 	                                TITLE="${name//_/ }"
-	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}"
                                 fi
                 
 
                                 ## Include the code file in the exercise 
-	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}`
+	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}`
 	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
 	                            CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
 	                            ## Add prefix and suffix to the code block, this is the official markdown formatting
-	                            CONTENT="\\\`\\\`\\\`${PROPERTIES[2]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            CONTENT="\\\`\\\`\\\`${CODE_STYLE[$index]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any
 	                            if [[ ${FIELD_CONTENT} != "" ]]; then 
 	                                CONTENT="${FIELD_CONTENT}\n\n${CONTENT}"
@@ -223,7 +246,7 @@ while read -ra array; do
 
                                 else
                                     echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
-                                    sed -z -i 's/```'"$PROPERTIES[2]"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                    sed -z -i 's/```'"${CODE_STYLE[$index]}"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 fi
                                 
                                 ## And now, do the substitution in a very elegant way
