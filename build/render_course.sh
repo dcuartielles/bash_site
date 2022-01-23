@@ -181,7 +181,7 @@ while read -ra array; do
 
                                 ## Create the local folder for images, only if there is 
                                 ## going to be an image and doesn't exist, yet
-	                            [[ "${PROPERTIES[2]}" == "local" ]] && [ ! -d "${IMG_FOLDER}/$filename" ] && mkdir "${IMG_FOLDER}/$filename";
+	                            [[ "${PROPERTIES[2]}" == "local" ]] && [ ! -d "${IMG_FOLDER}/$name" ] && mkdir "${IMG_FOLDER}/$name";
                             fi
                             if [[ "${PROPERTIES[1]}" == "code" ]]; then       
                                 ## Create the code for the example only if there is such a
@@ -213,25 +213,25 @@ while read -ra array; do
                                 
                                 ## Step 3: create folders and such
 	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}";
-	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$filename" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$filename";
-	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}" ]; then
-                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]} exists. Changing properties."
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$name" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$name";
+	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}" ]; then
+                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]} exists. Changing properties."
                                 else 
-                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]} does not exist. Creating it."
+                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]} does not exist. Creating it."
 
-                                	cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}";
+                                	cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}";
                                     ## Fix the code's title
                                     ## It does NOT include the exercise number
 	                                ## Was: TITLE="${filename//-/: }"
 	                                ##      TITLE="${TITLE//_/ }"
 	                                ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
 	                                TITLE="${name//_/ }"
-	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}"
+	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}"
                                 fi
                 
 
                                 ## Include the code file in the exercise 
-	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}`
+	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}`
 	                            ## Do the magic HTML encoding needed to show this type of code
 	                            [[ "${PROPERTIES[2]}" == "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
