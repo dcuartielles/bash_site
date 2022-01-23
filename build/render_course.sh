@@ -43,8 +43,8 @@ LICENSE_EMBED='<a rel="license" href="http://creativecommons.org/licenses/by-sa/
 OFS=$IFS
 IFS=$SEPARATOR
 
-## XXX: Eventually, run a check on the data file: how many exercises, how many fields, total images,
-## total code blocks, types of code detected, etc
+## XXX: Run a check on the data file: how many exercises, how many fields, total images,
+## total code blocks, types of code detected, etc. There is script for that
 
 ## START
 
@@ -202,6 +202,7 @@ while read -ra array; do
                                     fi
                                 done
                                  
+                                ## Step 2: report about the code type 
                                 if [ $index -gt -1 ]; then
                                     echo -e "Index of the code type: ${PROPERTIES[2]}, in Array is : $index"
                                     echo -e "Code suffix is: ${CODE_SUFFIX[$index]}"
@@ -210,6 +211,7 @@ while read -ra array; do
                                     echo "Code type ${PROPERTIES[2]} is not declared as a type of code."; exit 99;
                                 fi
                                 
+                                ## Step 3: create folders and such
 	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}";
 	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$filename" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$filename";
 	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}" ]; then

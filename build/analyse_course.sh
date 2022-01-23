@@ -25,7 +25,11 @@ DATA_FILE="${SETUP_FOLDER}/${COURSE_FOLDER}/exercises/${LOCALE_FOLDER}/${SETUP_F
 
 SEPARATOR='¤'
 
-DATA_TYPES=("text","html","image","code","video","license")
+DATA_TYPES=("text","html","image","code","video","license") ## Not used
+CODE_SUFFIX=("c" "cpp" "ino" "pde" "js" "py" "html")
+CODE_TYPES=("C" "C++" "Arduino" "Processing" "p5js" "Python" "HTML")
+CODE_STYLE=("c_cpp" "c_cpp" "c_cpp" "java" "javascript" "python" "html")
+## Get code styles from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
 HEADER_DONE=0
 FIELDS=0
@@ -48,6 +52,14 @@ declare -a CONFIG_KEYS=()
 declare -a CONFIG_VALUES=()
 declare -a REPORT_FOLDERS=()
 declare -a CODE_BLOCKS_TYPES=()
+
+## Functions
+elementIn () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 1; done
+  return 0
+}
 
 ## Check the different folders to be used
 [ ! -d "${DEST_FOLDER}" ] && REPORT_FOLDERS+=("The destination folder ${DEST_FOLDER} doesn't exist")
@@ -163,16 +175,28 @@ while read -ra array; do
                                 let CODE_BLOCKS++
                                    
                                 ## Add the value to the array only if it doesn't exist yet
-                                if [[ ! " ${CODE_BLOCKS_TYPES[*]} " =~ " ${PROPERTIES[3]} " ]]; then
-                                    CODE_BLOCKS_TYPES+=(${PROPERTIES[3]})
+                                ## Was: if [[ ! " ${CODE_BLOCKS_TYPES[*]} " =~ " ${PROPERTIES[2]} " ]]; then
+                                if elementIn "${PROPERTIES[2]}" "${CODE_BLOCKS_TYPES[@]}"; then
+                                    CODE_BLOCKS_TYPES+=(${PROPERTIES[2]})
 
-                                    ## Check if there is a template for this type of code
-	                                [ ! -d "${SRC_FOLDER}/${PROPERTIES[3]}" ] && REPORT_FOLDERS+=("The source folder ${SRC_FOLDER}/${PROPERTIES[3]} doesn't exist");
-	                                if [ ! -f "${SETUP_FOLDER}/templates/code/template.${PROPERTIES[3]}" ]; then
-                                        REPORT_FOLDERS+=("** Error** There is no template for the ${PROPERTIES[3]} code type.")
+                                    ## Check if there is a template for this type of code, first get the
+                                    ## file extension given the type of code
+                                    index=-1 
+                                    for j in "${!CODE_TYPES[@]}"
+                                    do :
+                                        ## echo -e "+ Checking ${PROPERTIES[2]} against ${CODE_TYPES[$j]}"
+                                        if [[ "${CODE_TYPES[$j]}" = "${PROPERTIES[2]}" ]];
+                                        then
+                                            index=$j
+                                            break
+                                        fi
+                                    done
+                   
+                                    [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}" ] && REPORT_FOLDERS+=("The source folder ${SRC_FOLDER}/${PROPERTIES[2]} doesn't exist");
+                                    if [ ! -f "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" ]; then
+                                        REPORT_FOLDERS+=("** Error** There is no template for the ${PROPERTIES[2]} code type.")
                                     fi
-                                fi
-                                                            
+                                fi                                                            
                             fi                            
                         fi
                     fi                    

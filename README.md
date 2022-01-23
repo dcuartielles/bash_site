@@ -22,9 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220122: fix analytics script
+
+* The changes to the properties of code, affected the script *analyse_course.sh*, added a bunch of code to be able of checking the code types and checking whether templates are available
+* Fixed an issue with the way different types of code were calculated
+
 ### 20220121: encoding HTML in bash
 
-* OMG Stackoverflow to the rescue, how to use a singe *sed* to easily encode *HTML* files so that they can be added as code examples, now this is rocking the house (full credit to: )
+* OMG Stackoverflow to the rescue, how to use a singe *sed* to easily encode *HTML* files so that they can be added as code examples, now this is rocking the house ([full credit here](https://stackoverflow.com/questions/12873682/short-way-to-escape-html-in-bash))
 * Tested the rendering with an HTML example to see that it works (Note: I am still only checking things locally, not pushing to Github pages)
 * TODO: when code files are generated, they include the exercise number. That has to be removed or it will not allow for sorting things differently and code will get lost  
 
