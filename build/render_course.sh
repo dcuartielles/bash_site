@@ -230,8 +230,10 @@ while read -ra array; do
 
                                 ## Include the code file in the exercise 
 	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${filename}/${filename}.${CODE_SUFFIX[$index]}`
+	                            ## Do the magic HTML encoding needed to show this type of code
+	                            [[ "${PROPERTIES[2]}" == "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
-	                            CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
+	                            [[ "${PROPERTIES[2]}" != "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
 	                            ## Add prefix and suffix to the code block, this is the official markdown formatting
 	                            CONTENT="\\\`\\\`\\\`${CODE_STYLE[$index]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
 	                            ## Add code description if any

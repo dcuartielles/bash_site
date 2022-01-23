@@ -22,6 +22,12 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220121: encoding HTML in bash
+
+* OMG Stackoverflow to the rescue, how to use a singe *sed* to easily encode *HTML* files so that they can be added as code examples, now this is rocking the house (full credit to: )
+* Tested the rendering with an HTML example to see that it works (Note: I am still only checking things locally, not pushing to Github pages)
+* TODO: when code files are generated, they include the exercise number. That has to be removed or it will not allow for sorting things differently and code will get lost  
+
 ### 20220120: code templates 
 
 * Created a series of code templates for the different types of code blocks that could be part of the tutorials and hosted them in the *config/templates/code*, these will be called by the tutorial generation system when needed
