@@ -22,6 +22,13 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220123: remove exercise numbers from the code files
+
+* Revised the file generation of code for not to include numbers, this was forgotten in a previous iteration of code. Remember that having file numbers in the code, while desireable, makes it hard for things to be sorted out in case the exercise numbers change
+* Revised folders for local images as well
+* TODO: add a property to avoid code generation upon course creation, to help those making their own code and not needing this service
+* TODO: code is starting to get big, I should plan for a day dedicated to cleaning and considering options
+
 ### 20220122: fix analytics script
 
 * The changes to the properties of code, affected the script *analyse_course.sh*, added a bunch of code to be able of checking the code types and checking whether templates are available
