@@ -70,35 +70,35 @@ declare -a CONFIG_VALUES=()
 ## Read all fields in a record as an array
 while read -ra array; do
 
-    ## Collect the data from the header records 
+    ## Collect the data from the header records
     ## Extract the keys from the header
     if [[ "$HEADER_DONE" -eq 0 ]]; then
-        
+
         echo -e "Collect keys"
-        
+
         for i in "${!array[@]}"
-        do :         
+        do :
             CONFIG_KEYS+=(${array[$i]})
         done
-        
+
         HEADER_DONE=$HEADER_DONE+1
-        
+
         ## Exit the while here
         continue
     fi
 
     ## Extract the values from the header
     if [[ "$HEADER_DONE" -eq 1 ]]; then
-        
+
         echo -e "Collect values"
-        
+
         for i in "${!array[@]}"
-        do :         
+        do :
             CONFIG_VALUES+=(${array[$i]})
         done
-        
+
         HEADER_DONE=$HEADER_DONE+1
-        
+
         ## Exit the while here
         continue
     fi
@@ -106,14 +106,14 @@ while read -ra array; do
     ## Work out the actual contents
     ## Fixed positions are NUMBER | NAME | INDEX with locations 0 | 1 | 2
     if [[ "$HEADER_DONE" -gt 1 ]]; then
-        
+
         for i in "${!array[@]}"
-        do :         
+        do :
             ## Fix the leading zeros in the number variable
             if [ "$i" -eq 0 ]; then
                 number=$(printf "%02d" ${array[$i]})
             fi
-            
+
             ## Extract the name (in the original file was "file")
             if [ "$i" -eq 1 ]; then
                 name=${array[$i]}
@@ -125,12 +125,12 @@ while read -ra array; do
 
                 ## Fix the filename
 	            filename="$number-$name"
-               
+
                 ## Work out the text for the example
 	            [ ! -d "${CURRENT_FOLDER}/$filename" ] && mkdir "${CURRENT_FOLDER}/$filename";
 	            if [ -f "${CURRENT_FOLDER}/${filename}/${filename}.md" ]; then
                     echo "${CURRENT_FOLDER}/${filename}/${filename}.md exists. Changing properties."
-                else 
+                else
                     echo "${CURRENT_FOLDER}/${filename}/${filename}.md does not exist. Creating it."
 
                 	cp "${SETUP_FOLDER}/templates/exercises/${LOCALE_FOLDER}/template.md" "${CURRENT_FOLDER}/${filename}/${filename}.md";
@@ -150,48 +150,48 @@ while read -ra array; do
             ## Go for the whole rest of the fields, which are always structured as:
             ## FIELD_CONTENT | FIELD_PROPERTIES
             if [ "$i" -gt 3 ]; then
-            
+
                 ## Collect the data in pairs, operate only when $i is even
                 (( i % 2 )) && FIELD_CONTENT="${array[$i]}"
                 (( (i % 2) - 1 )) && FIELD_PROPERTIES="${array[$i]}"
-                
+
                 ## Evaluate properties, if it is code, video, images, etc it requires
                 ## specific rendering tricks. Therefore, there is still a lot to do here
                 if [ $((i % 2)) == 0 ]; then
                     echo -e "* Working with: ${CONFIG_KEYS[$i-1]}, value: ${CONFIG_VALUES[$i-1]}, content: ${FIELD_CONTENT}, properties: ${FIELD_PROPERTIES}"
-                        
+
                     ## Extract the properties array in a silent fashion
                     readarray -td, PROPERTIES < <(printf '%s' "$FIELD_PROPERTIES"); declare -p PROPERTIES &>/dev/null;
-                    
+
                     if [[ $FIELD_CONTENT != "" ||  "${PROPERTIES[0]}" == "true" ]]; then
                         ## echo -e ${PROPERTIES[0]}
                         if [[ "${PROPERTIES[0]}" == "true" ]]; then
-                        
+
                             ## Prepare content to be rendered (note, order matters!!)
                             ## Read the data by default, we'll modify it later
                             CONTENT=${FIELD_CONTENT}
-                            if [[ "${PROPERTIES[1]}" == "video" ]]; then  
-                                CONTENT=${VIDEO_EMBED_PREFIX}${CONTENT}${VIDEO_EMBED_SUFFIX}                      
+                            if [[ "${PROPERTIES[1]}" == "video" ]]; then
+                                CONTENT=${VIDEO_EMBED_PREFIX}${CONTENT}${VIDEO_EMBED_SUFFIX}
                             fi
-                            if [[ "${PROPERTIES[1]}" == "license" ]]; then  
-                                CONTENT=${LICENSE_EMBED}                      
+                            if [[ "${PROPERTIES[1]}" == "license" ]]; then
+                                CONTENT=${LICENSE_EMBED}
                             fi
-                            if [[ "${PROPERTIES[1]}" == "image" ]]; then  
-                                CONTENT="![$filename](${CONTENT})"                      
+                            if [[ "${PROPERTIES[1]}" == "image" ]]; then
+                                CONTENT="![$filename](${CONTENT})"
 
-                                ## Create the local folder for images, only if there is 
+                                ## Create the local folder for images, only if there is
                                 ## going to be an image and doesn't exist, yet
 	                            [[ "${PROPERTIES[2]}" == "local" ]] && [ ! -d "${IMG_FOLDER}/$name" ] && mkdir "${IMG_FOLDER}/$name";
                             fi
-                            if [[ "${PROPERTIES[1]}" == "code" ]]; then       
+                            if [[ "${PROPERTIES[1]}" == "code" ]]; then
                                 ## Create the code for the example only if there is such a
                                 ## block in the exercise and it doesn't exist, yet. You will
                                 ## have to change it by hand
-                                ## So far, code has no localisation, thus no use of the locale folder 
-                                
+                                ## So far, code has no localisation, thus no use of the locale folder
+
                                 ## Step 1: where in the index can I find the type of code?
                                 index=-1
- 
+
                                 for j in "${!CODE_TYPES[@]}"
                                 do :
                                     echo -e "+ Checking ${PROPERTIES[2]} against ${CODE_TYPES[$j]}"
@@ -201,66 +201,74 @@ while read -ra array; do
                                         break
                                     fi
                                 done
-                                 
-                                ## Step 2: report about the code type 
+
+                                ## Step 2: report about the code type
                                 if [ $index -gt -1 ]; then
                                     echo -e "Index of the code type: ${PROPERTIES[2]}, in Array is : $index"
                                     echo -e "Code suffix is: ${CODE_SUFFIX[$index]}"
                                     echo -e "Code style is: ${CODE_STYLE[$index]}"
+                                    echo -e "The code should have the same name as the exercise: ${PROPERTIES[3]}"
                                 else
                                     echo "Code type ${PROPERTIES[2]} is not declared as a type of code."; exit 99;
                                 fi
-                                
+
+                                ## Step 2.5: decide which will be the name of the piece of code
+                                ## Copy the code from the template only if requested
+                                if [[ "${PROPERTIES[3]}" == "true" ]]; then
+                                  codeName=${name}
+                                else
+                                  codeName=${FIELD_CONTENT}
+                                fi
+
                                 ## Step 3: create folders and such
 	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}";
-	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$name" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$name";
-	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}" ]; then
-                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]} exists. Changing properties."
-                                else 
-                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]} does not exist. Creating it."
+	                            [ ! -d "${SRC_FOLDER}/${PROPERTIES[2]}/$codeName" ] && mkdir "${SRC_FOLDER}/${PROPERTIES[2]}/$codeName";
+	                            if [ -f "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}" ]; then
+                                    echo "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]} exists. Changing properties."
+                              else
+                                echo "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]} does not exist. Creating it."
 
-                                	cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}";
-                                    ## Fix the code's title
-                                    ## It does NOT include the exercise number
-	                                ## Was: TITLE="${filename//-/: }"
-	                                ##      TITLE="${TITLE//_/ }"
-	                                ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
-	                                TITLE="${name//_/ }"
-	                                sed -i "s/\[NAME\]/Exercise: $TITLE/" "${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}"
-                                fi
-                
+                              	cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}";
+                                ## Fix the code's title
+                                ## It does NOT include the exercise number
+                                ## Was: TITLE="${filename//-/: }"
+                                ##      TITLE="${TITLE//_/ }"
+                                ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+                                TITLE="${name//_/ }"
+                                CODE_LISTING="${codeName//_/ }"
+                                sed -i "s/\[NAME\]/Exercise: $TITLE\\n   Listing:  $CODE_LISTING/" "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}"
+                              fi
 
-                                ## Include the code file in the exercise 
-	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${name}/${name}.${CODE_SUFFIX[$index]}`
+
+                              ## Step 4: Include the code file in the exercise
+	                            CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}`
 	                            ## Do the magic HTML encoding needed to show this type of code
 	                            [[ "${PROPERTIES[2]}" == "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
 	                            ## Avoid problems with the && logical operation in sed by escaping each & into \&
 	                            [[ "${PROPERTIES[2]}" != "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed -e 's.&.\\\&.g' )
 	                            ## Add prefix and suffix to the code block, this is the official markdown formatting
-	                            CONTENT="\\\`\\\`\\\`${CODE_STYLE[$index]}\\n\/\/$name\\n$CONTENT\\n\\\`\\\`\\\`"
-	                            ## Add code description if any
-	                            if [[ ${FIELD_CONTENT} != "" ]]; then 
-	                                CONTENT="${FIELD_CONTENT}\n\n${CONTENT}"
-	                            fi
+	                            CONTENT="\\\`\\\`\\\`${CODE_STYLE[$index]}\\n\/\/$codeName\\n$CONTENT\\n\\\`\\\`\\\`"
+	                            ## Add code description if any --> 20220124: THIS SHOULD NOW BE A DEDICATED TEXT FIELD
+	                            ##if [[ ${FIELD_CONTENT} != "" ]]; then
+	                            ##    CONTENT="${FIELD_CONTENT}\n\n${CONTENT}"
+	                            ##fi
 	                            CONTENT="${CONTENT//$'\n'/\\n}"
-                                if grep -Fq "[${CONFIG_KEYS[$i-1]}]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
-                                then
-                                    ## This is a hack to respect the square brackets in the template file
-                                    sed -i "s/\[${CONFIG_KEYS[$i-1]}\]/INSERTCODEHERE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                              if grep -Fq "[${CONFIG_KEYS[$i-1]}]" "${CURRENT_FOLDER}/${filename}/${filename}.md"; then
+                                  ## This is a hack to respect the square brackets in the template file
+                                  sed -i "s/\[${CONFIG_KEYS[$i-1]}\]/INSERTCODEHERE/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                              else
+                                  echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
+                                  sed -z -i 's/```'"${CODE_STYLE[$index]}"'\n\/\/'"$codeName"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                              fi
 
-                                else
-                                    echo "Overwritting old code in ${CURRENT_FOLDER}/${filename}/${filename}.md"
-                                    sed -z -i 's/```'"${CODE_STYLE[$index]}"'\n\/\/'"$name"'\(.*\)```/INSERTCODEHERE/g' "${CURRENT_FOLDER}/${filename}/${filename}.md"
-                                fi
-                                
-                                ## And now, do the substitution in a very elegant way
-                                ## Issue with && is fixed according to https://stackoverflow.com/questions/43172002/awk-gsub-ampersands-and-unexpected-expansion
-                                awk -i inplace -v old="INSERTCODEHERE" -v new="$CONTENT" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' "${CURRENT_FOLDER}/${filename}/${filename}.md"
+                              ## And now, do the substitution in a very elegant way
+                              ## Issue with && is fixed according to https://stackoverflow.com/questions/43172002/awk-gsub-ampersands-and-unexpected-expansion
+                              awk -i inplace -v old="INSERTCODEHERE" -v new="$CONTENT" 's=index($0,old){$0=substr($0,1,s-1) new substr($0,s+length(old))} 1' "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
                             fi
-                            if [[ "${PROPERTIES[1]}" != "code" ]]; then                        
+                            if [[ "${PROPERTIES[1]}" != "code" ]]; then
                             	CONTENT="${CONTENT//$'\/'/\\\/}"
-                            	CONTENT="${CONTENT//\//\\\/}" 
+                            	CONTENT="${CONTENT//\//\\\/}"
                             	CONTENT="${CONTENT//$'\"'/\\\"}"
                             	CONTENT="${CONTENT//$'\!'/\\\!}"
                             	CONTENT="${CONTENT//$'\['/\\\[}"
@@ -276,43 +284,43 @@ while read -ra array; do
                                     echo "Code [${CONFIG_KEYS[$i-1]}] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
                                 fi
 
-                            fi    
-                            
+                            fi
+
                         fi
                     else
                         echo -e "No ${CONFIG_KEYS[$i-1]} in this record, removing it from template"
                         sed -i "s/\[${CONFIG_KEYS[$i-1]}\]//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
                         sed -i "s/${CONFIG_VALUES[$i-1]}//" "${CURRENT_FOLDER}/${filename}/${filename}.md"
 
-                    fi                    
+                    fi
                 fi
-                
+
             fi
- 
+
         done
 
         ## Clean double EOLs created by removing fields from the template
         sed -i '$!N; /^\(.*\)\n\1$/!P; D' "${CURRENT_FOLDER}/${filename}/${filename}.md"
-                
+
         ## Exit the while here
         continue
     fi
-    
+
 done < $DATA_FILE
 
 ## Create index file
-echo "# Course Index" > $INDEX_FILE 
+echo "# Course Index" > $INDEX_FILE
 
 ## Reset the header check
 HEADER_DONE=0
 
-## Use index file 
+## Use index file
 echo -e "** CREATE INDEX ** \n$INDEX_FILE"
 
 ## Add links to all articles
 while read -ra array; do
 
-    ## Remove headers 
+    ## Remove headers
     if [[ "$HEADER_DONE" -lt 2 ]]; then
         HEADER_DONE=$HEADER_DONE+1
         continue
@@ -331,7 +339,7 @@ while read -ra array; do
 
     ## Append text at the end of the file
     echo "* [${filename}](${filename}/${filename}.md)" >> $INDEX_FILE
-    
+
 done < $DATA_FILE
 
 ## Generate bottom links in content files
@@ -348,7 +356,7 @@ HEADER_DONE=0
 ## Read all fields in a record as an array
 while read -ra array; do
 
-    ## Remove headers 
+    ## Remove headers
     if [[ "$HEADER_DONE" -lt 2 ]]; then
         HEADER_DONE=$HEADER_DONE+1
         continue
@@ -379,7 +387,7 @@ while read -ra array; do
         else
             echo "Code [FOLLOWINGARTICLE] not found in ${CURRENT_FILE}"
         fi
-        
+
         if grep -Fq "[PREVIOUSARTICLE]" "${CURRENT_FILE}"
         then
             echo -e "processing previous link"
@@ -392,7 +400,7 @@ while read -ra array; do
         else
             echo "Code [PREVIOUSARTICLE] not found in ${CURRENT_FILE}"
         fi
-        
+
         if grep -Fq "[INDEX]" "${CURRENT_FILE}"
         then
             echo -e "processing index link"
@@ -400,10 +408,10 @@ while read -ra array; do
         else
             echo "Code [INDEX] not found in ${CURRENT_FILE}"
         fi
-         
+
     fi
- 
-    ## Move the links to the next batch   
+
+    ## Move the links to the next batch
     PREVIOUS_LINK=$CURRENT_LINK
     CURRENT_LINK=$FOLLOWING_LINK
     PREVIOUS_FILE=$CURRENT_FILE
@@ -412,7 +420,7 @@ while read -ra array; do
 done < $DATA_FILE
 
 ## Closing edge case: If the links are the same, and not
-## empty, we are at the end of the list of files, therefore 
+## empty, we are at the end of the list of files, therefore
 ## issue no following link
 if [[ $CURRENT_LINK != "" ]]
 then
@@ -429,13 +437,13 @@ then
     else
         echo "Code [PREVIOUSARTICLE] not found in ${CURRENT_FILE}"
     fi
-    
+
     if grep -Fq "[INDEX]" "${CURRENT_FILE}"
     then
         sed -i "s/\[INDEX\]/\[Index\]\(${INDEX_LINK}\)/" "${CURRENT_FILE}"
     else
         echo "Code [INDEX] not found in ${CURRENT_FILE}"
-    fi    
+    fi
 fi
 
 ## Delete the config folder

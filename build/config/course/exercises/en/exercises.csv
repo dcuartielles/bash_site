@@ -9,20 +9,20 @@ NUMBER¤NAME¤INDEX¤OBJECTIVES¤hasOBJECTIVES¤INTRODUCTION¤hasINTRODUCTION¤P
 6¤Arduino_IDE¤¤* Discover programming environments\n* Learn the basics of Arduino's code editor\n* Identify the different parts of the editor\n¤true,text¤¤false¤* Your computer\n* The Arduino IDE¤true,text¤https://player.vimeo.com/video/525798753?h=f748b8ef74¤true,video¤¤false¤¤false¤¤false¤¤false¤¤true,license
 7¤Programming_Arduino¤¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤true,license
 8¤Arduino_Cores_install_Nano_33_BLE¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/525820169?h=3ad3328261¤true,video¤¤false¤¤false¤¤false¤¤false¤¤true,license
-9¤Your_first_program_blink¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526673724?h=6bbdb9cd17¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-10¤The_LED¤¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-11¤Multicolored_LEDs¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526678031?h=70752ae7ba¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-12¤BlinkRGB¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526681657?h=2012290d9f¤true,video¤¤false¤¤false¤¤true,code,Processing¤¤false¤¤true,license
-13¤Explore_sensors_intuitively¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526697799?h=8249067253¤true,video¤¤false¤¤false¤¤true,code,HTML¤¤false¤¤true,license
-14¤What_are_components¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527692409?h=d1fbec5bbe¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-15¤Buttons_tactile_switches¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527290564?h=2a7b2e5b39¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-16¤Buttons_library¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527406260?h=017ea47364¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-17¤Ohms_Law¤¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-18¤Resistors¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527697379?h=11ee1e7f3e¤true,video¤¤false¤¤false¤¤true,code,Python¤¤false¤¤true,license
-19¤Potentiometers¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527713993?h=b942914a3a¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-20¤Experiment_ButtonsRGB¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527429303?h=18cc00558b¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-21¤Actuators¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527960318?h=4ef324d152¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-22¤Servomotors¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527937284?h=e93dc4a1eb¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-23¤Variables¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527938676?h=a331466dd6¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-24¤Arrays¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527945252?h=fdbe9863a2¤true,video¤¤false¤¤false¤¤true,code,Arduino¤¤false¤¤true,license
-25¤Addressable_LEDs_LEDring¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527960956?h=151fee0ae7¤true,video¤¤false¤¤false¤Introduction to code, amigos.¤true,code,Arduino¤¤false¤¤true,license
+9¤Your_first_program_blink¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526673724?h=6bbdb9cd17¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+10¤The_LED¤¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+11¤Multicolored_LEDs¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526678031?h=70752ae7ba¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+12¤BlinkRGB¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526681657?h=2012290d9f¤true,video¤¤false¤¤false¤¤true,code,Processing,true¤¤false¤¤true,license
+13¤Explore_sensors_intuitively¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/526697799?h=8249067253¤true,video¤¤false¤¤false¤¤true,code,HTML,true¤¤false¤¤true,license
+14¤What_are_components¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527692409?h=d1fbec5bbe¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+15¤Buttons_tactile_switches¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527290564?h=2a7b2e5b39¤true,video¤¤false¤¤false¤perico¤true,code,Arduino,false¤¤false¤¤true,license
+16¤Buttons_library¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527406260?h=017ea47364¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+17¤Ohms_Law¤¤¤false¤¤false¤¤false¤¤false¤¤false¤¤false¤juanola¤true,code,Arduino,false¤¤false¤¤true,license
+18¤Resistors¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527697379?h=11ee1e7f3e¤true,video¤¤false¤¤false¤¤true,code,Python,true¤¤false¤¤true,license
+19¤Potentiometers¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527713993?h=b942914a3a¤true,video¤¤false¤¤false¤antuan¤true,code,Arduino,false¤¤false¤¤true,license
+20¤Experiment_ButtonsRGB¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527429303?h=18cc00558b¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+21¤Actuators¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527960318?h=4ef324d152¤true,video¤¤false¤¤false¤rebajo¤true,code,Arduino,false¤¤false¤¤true,license
+22¤Servomotors¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527937284?h=e93dc4a1eb¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+23¤Variables¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527938676?h=a331466dd6¤true,video¤¤false¤¤false¤Macario¤true,code,Arduino,false¤¤false¤¤true,license
+24¤Arrays¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527945252?h=fdbe9863a2¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license
+25¤Addressable_LEDs_LEDring¤¤¤false¤¤false¤¤false¤https://player.vimeo.com/video/527960956?h=151fee0ae7¤true,video¤¤false¤¤false¤¤true,code,Arduino,true¤¤false¤¤true,license

@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220124: make code creation optional
+
+* You made your own code and want multiple listings with different names for a single exercise? There is now a property for that
+* Properties for code now look like *true,code,Arduino,true*, where the last property indicates whether the creation system should generate the code or not using the exercise name
+* If this new property happns to be *false* the rendering script will instead use the *CODE* field as the name of the program to be created. This will allow to potentially have an endless amount of different pieces of code in a single example
+* The example folder will also be created using this same name
+* The field that was used for code description will now have to be substituted in the templates by a dedicate textfield
+
 ### 20220123: remove exercise numbers from the code files
 
 * Revised the file generation of code for not to include numbers, this was forgotten in a previous iteration of code. Remember that having file numbers in the code, while desireable, makes it hard for things to be sorted out in case the exercise numbers change
@@ -40,12 +48,12 @@ The content's scaffolding is created by running the build process. Check:
 * Tested the rendering with an HTML example to see that it works (Note: I am still only checking things locally, not pushing to Github pages)
 * TODO: when code files are generated, they include the exercise number. That has to be removed or it will not allow for sorting things differently and code will get lost  
 
-### 20220120: code templates 
+### 20220120: code templates
 
 * Created a series of code templates for the different types of code blocks that could be part of the tutorials and hosted them in the *config/templates/code*, these will be called by the tutorial generation system when needed
 * New templates for: C (.c), C++ (.cpp), Processing (.pde), p5js (.js), Python (.py), HTML (.html)
 * Moved the templates into their own subfolders, changed the rendering code to support them
-* TODO: check whether the HTML block needs to be encoded to avoid errors upon rendering 
+* TODO: check whether the HTML block needs to be encoded to avoid errors upon rendering
 
 ### 20220119: DeOldify
 
@@ -93,7 +101,7 @@ The content's scaffolding is created by running the build process. Check:
 ### 20220112: baked a cake
 
 * Learned how to make frosting for a cake for my kid's birthday, not really programming related, but fun
-* Extended the rendering script with the missing features of index generation 
+* Extended the rendering script with the missing features of index generation
 * Added navigation menu in all examples
 * Added code section to clean blanks from the final exercise markdon files
 
@@ -189,11 +197,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ### A full test run
 
-Create a script to run a whole creation of a course: 
+Create a script to run a whole creation of a course:
 
-1. asks about the fields to add to a template, 
-2. creates the template *CSV*, 
-3. continues with the template generation, 
+1. asks about the fields to add to a template,
+2. creates the template *CSV*,
+3. continues with the template generation,
 4. checks whether there are basic templates for the types of code to be included,
 5. copies the different files in the proper location,
 6. asks how many exercises should be included in the course,
