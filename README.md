@@ -22,11 +22,18 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
-### 20220124: make code creation optional
+### 20220125: flexible page templates
+
+* From now on I will call pages ... pages. Before I was referring only to exercises, but by taking this step -calling them pages- I am broadening the scenario of use of this tool
+* Intial step towards flexible templates: created different template types, have named them in the templates CSV to be able of calling them when generating the exercises *CSV*
+* Modified *create_templates.sh* to now create templates using the template type in its file name
+* TODO: in order to modify the course generation to support multiple templates, I will have to go through an inbetween step since I will need to declare the course's length, and the type of template to use with each exercise
+
+### 20220124: multiple listings for code
 
 * You made your own code and want multiple listings with different names for a single exercise? There is now a property for that
 * Properties for code now look like *true,code,Arduino,true*, where the last property indicates whether the creation system should generate the code or not using the exercise name
-* If this new property happns to be *false* the rendering script will instead use the *CODE* field as the name of the program to be created. This will allow to potentially have an endless amount of different pieces of code in a single example
+* If this new property happens to be *false* the rendering script will instead use the *CODE* field as the name of the program to be created. This will allow to potentially have an endless amount of different pieces of code in a single example
 * The example folder will also be created using this same name
 * The field that was used for code description will now have to be substituted in the templates by a dedicate textfield
 

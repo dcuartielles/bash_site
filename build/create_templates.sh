@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## 20220109 creates the templates for a course
-## uses a CSV file as the point of departure and creates a set of 
+## uses a CSV file as the point of departure and creates a set of
 ## template files in as many languages as records in the file
 
 ## Parameters
@@ -26,15 +26,15 @@ while read -ra array; do
 
     ## Create the folder for the locale, which is the first field
     mkdir "${DEST_FOLDER}/templates/exercises/${array[0]}"
-    
+
     ## Create the template file
     echo -e "** CREATE TEMPLATE FOR LOCALE: ${array[0]} ** \n"
-    TEMPLATE_FILE="${DEST_FOLDER}/templates/exercises/${array[0]}/template.md"
-    ##echo "" > $TEMPLATE_FILE 
-    
+    TEMPLATE_FILE="${DEST_FOLDER}/templates/exercises/${array[0]}/template_${array[1]}.md"
+    ##echo "" > $TEMPLATE_FILE
+
     for i in "${!array[@]}"
-    do :         
-        if [ "$i" -gt 0 ]; then
+    do :
+        if [ "$i" -gt 1 ]; then
             echo "${array[$i]}" >> $TEMPLATE_FILE
             echo "" >> $TEMPLATE_FILE
         else
