@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220126: empty course script
+
+* Based on yesterday's work, I created a script called *empty_site.sh* which takes the amount of pages as a parameter to generate a *CSV*
+* Note how this is an entirely different approach to the one I used with *create_exercises.sh* that was built around the idea of having a single template for all pages
+* It will also require a different structure for the header rows in the *exercises.csv* files (which, BTW, I will start calling *pages.csv*) since I now have to declare a non-determined amount of templates as well as fields. There are two ways around it: including the templates on top of the *CSV* file one after the next, or to have them as comma-separated fields at the beginning of every page. The second solution will make the file larger, but will also be easier to handle programmatically, so I go for that
+* TODO: need to add the right parameters for each type of the blocks. It could be done by hand, but it would be so much better to do so programmatically
+* TODO: revise the *analyse_course.sh* script to support this new form of data storage
+
 ### 20220125: flexible page templates
 
 * From now on I will call pages ... pages. Before I was referring only to exercises, but by taking this step -calling them pages- I am broadening the scenario of use of this tool
