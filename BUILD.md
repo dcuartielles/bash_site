@@ -4,23 +4,35 @@
 
 Prior to creating a course, you need to define the templates you will be using. The call for the template generation goes as follows:
 
-./create_templates.sh config config templates.csv
+`./create_templates.sh config config templates.csv`
 
-and you have to call it inside the *build* folder. It will create a series of subfolders inside the *config* folder. First it will try to create *config* folder itself; this is done to allow testing the script. Next it will create a subfolder called *templates*. Inside that one, it will create a folder called *exercises*, and inside that one, it will create one subfolder for each locale such as *en*, *es*, etc.
+and you have to call it inside the *build* folder. It will create a series of subfolders inside the *config* folder. First it will try to create *config* folder itself; this is done to allow testing the script. Next it will create a subfolder called *templates*. Inside that one, it will create a folder called *pages*, and inside that one, it will create one subfolder for each locale such as *en*, *es*, etc.
 
-The different templates can be defined in the *CSV* file *templates.csv*. Creating a new template structure and thus a new course for a new translation is as easy as adding a new record to the file.
+The different templates can be defined in the *CSV* file *templates.csv*. Creating a new template structure and thus a new site for a new translation is as easy as adding a new record to the file for each template design.
 
-## Build the course
+## Create the site's scaffolding
 
-Once the templates have been created, build the basic structure of the course by simply calling:
+You will create a site by calling the *empty_site.sh* script as follows:
 
-./render_course.sh en .. config exercises.csv
+`./empty_site.sh . config templates.csv en`
 
-inside the *build* folder. It will create all of the folders, *MD*, and *INO* files based on templates. From there you will have to add your own content. Use the editor of your choice.
+which will create a series of subfolders inside the *config* folder. It will create a folder called *site*, with subfolder *pages*. Inside *pages* the system will create a folder for the locale, in the example *en*. That final folder will contain the *pages.csv* file which is the output of this script.
 
-*(Note: the rendering script has been completely reworked as of 20210115, it used to be ./create_folders.sh en .. config exercises.csv)*
+This file will contain the information about the default templates used in the header. The *header* is contained in the first three rows of the *CSV* file.
 
-The parameters for the *render_course.sh* script are:
+## Edit the pages file
+
+You need to add your content to the *en/pages.csv* file. Make sure you include the properties needed for each type of content.
+
+## Build the site
+
+Once the templates have been created, render the markdown of the site by simply calling:
+
+`./render_site.sh en .. config pages.csv`
+
+inside the *build* folder. It will create all of the folders, *MD*, and code files based on templates. From there you will have the opportunity of modifying the content once more. Use the editor of your choice.
+
+The parameters for the *render_site.sh* script are:
 
 * locale: en, es, etc.
 * name of the folder with templates and the like, typically *config*

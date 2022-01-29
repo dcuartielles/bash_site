@@ -22,6 +22,13 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220128: the Dogma
+
+* got the booster shot against covid-19, the dude who push the vaccine into my arm told me not to go to gym in 24h (haha), coding requires moving fingers, so I will go light on bash today
+* created a [Dogma file](DOGMA.md) to let you know, dear reader, about the limitiations of this software
+* revised the *BUILD.md* file to reflect the new workflow
+* TODO: in the notes I write about *render_site.sh* a script which does not exist, yet. I need to redo the old *render_course.sh* to support the modifications made to the scaffolding files
+
 ### 20220127: multiple small things
 
 * modified *create_templates.sh* to support different types of sites, this allows using *pages* or *exercises* by simply changing a variable
