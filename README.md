@@ -22,6 +22,14 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220127: multiple small things
+
+* modified *create_templates.sh* to support different types of sites, this allows using *pages* or *exercises* by simply changing a variable
+* corrected *emtpy_site.sh* for it not to start with and empty line, that would create undesired behaviours in subsequent scripts
+* even if it is legacy by now, corrected *create_templates.sh* from the same empty line bug
+* created *analyse_site.sh* as a way to revise the previous script dedicated to check on the contents of a site. It is made to support the latest dataset structure
+* TODO: the site analysis script has not been tested against a real dataset, so for now works, but who knows once there is data in it
+
 ### 20220126: empty course script
 
 * Based on yesterday's work, I created a script called *empty_site.sh* which takes the amount of pages as a parameter to generate a *CSV*
@@ -230,3 +238,27 @@ What if people do want to create more dynamic sets of exercises where the articl
 ### Image thumbnails of articles
 
 If people want to share specific articles from their course / site, they need to add a bit of HTML love to their headers. More [information here](https://nickcarmont8.medium.com/how-to-add-a-website-thumbnail-for-sharing-your-html-site-on-social-media-facebook-linkedin-12813f8d2618)
+
+### PDF renderer for the whole course
+
+Render the whole course as a book of sorts
+
+### PDF renderer for exercises
+
+Render an exercise as a PDF
+
+### HTML renderer for exercises
+
+Render an exercise as an HTML file
+
+### Download full course
+
+Puts the whole course into a single compressed file and adds it as a download at the bottom of the index site
+
+### Download compressed exercise block
+
+New block that compresses the markdown version of an exercise, its images and code and puts them into a zip file, adding it inside the article
+
+### Empty course generation script
+
+Add the amount of exercises, the default template, a string with template names for some exercises, and see how the scaffolding of a course grows in front of your eyes

@@ -91,7 +91,7 @@ done < $DATA_FILE
 ## Take the chance to create the file when reading a new locale
 ## if the file doesn't exist, yet
 if [ "$total_fields" -gt 0 ]; then
-    [ ! -f "${PAGES_FILE}" ] && echo "" > $PAGES_FILE || { echo -e "** Error: $PAGES_FILE exists, exiting"; exit 99; }
+    [ ! -f "${PAGES_FILE}" ] && >$PAGES_FILE || { echo -e "** Error: $PAGES_FILE exists, exiting"; exit 99; }
     echo "${TEMPLATE_NAME}" >> $PAGES_FILE
     echo "${TEXT_LINE}" >> $PAGES_FILE
     echo "${VALUE_LINE}" >> $PAGES_FILE

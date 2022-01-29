@@ -10,26 +10,28 @@ SETUP_FOLDER=$2
 SETUP_FILE=$3
 
 DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
+SEPARATOR='¤'
+PAGES_FOLDER="pages"    ## was "exercises"
 
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 
 OFS=$IFS
-IFS='¤'
+IFS=SEPARATOR
 
 ## Create the folder for the templates if it doesn't exist
 [ ! -d "${DEST_FOLDER}" ] && mkdir ${DEST_FOLDER}
 [ ! -d "${DEST_FOLDER}/templates" ] && mkdir "${DEST_FOLDER}/templates"
-[ ! -d "${DEST_FOLDER}/templates/exercises" ] && mkdir "${DEST_FOLDER}/templates/exercises"
+[ ! -d "${DEST_FOLDER}/templates/${PAGES_FOLDER}" ] && mkdir "${DEST_FOLDER}/templates/${PAGES_FOLDER}"
 
 ## Read all fields in a record as an array
 while read -ra array; do
 
     ## Create the folder for the locale, which is the first field
-    mkdir "${DEST_FOLDER}/templates/exercises/${array[0]}"
+    [ ! -d "${DEST_FOLDER}/templates/${PAGES_FOLDER}/${array[0]}" ] && mkdir "${DEST_FOLDER}/templates/${PAGES_FOLDER}/${array[0]}"
 
     ## Create the template file
     echo -e "** CREATE TEMPLATE FOR LOCALE: ${array[0]} ** \n"
-    TEMPLATE_FILE="${DEST_FOLDER}/templates/exercises/${array[0]}/template_${array[1]}.md"
+    TEMPLATE_FILE="${DEST_FOLDER}/templates/${PAGES_FOLDER}/${array[0]}/template_${array[1]}.md"
     ##echo "" > $TEMPLATE_FILE
 
     for i in "${!array[@]}"
@@ -38,7 +40,7 @@ while read -ra array; do
             echo "${array[$i]}" >> $TEMPLATE_FILE
             echo "" >> $TEMPLATE_FILE
         else
-            echo "" > $TEMPLATE_FILE
+            >$TEMPLATE_FILE
         fi
     done
 
