@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220129: clean the house
+
+* having two versions of the software is starting to be an issue. I created a folder with the old stuff and separated the new stuff
+* to make things easy, I renamed build into *build_legacy* and created a new *build* folder where to store things
+
 ### 20220128: the Dogma
 
 * got the booster shot against covid-19, the dude who push the vaccine into my arm told me not to go to gym in 24h (haha), coding requires moving fingers, so I will go light on bash today
