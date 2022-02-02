@@ -22,6 +22,13 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220131: fill up the dataset II
+
+* worked with *populate_site.sh* for it to detect templates, types of fields, types of code, types of images, etc
+* it is now a full interactive script that can help you create a CSV file with all the content needed to render a site
+* WARNING: I have changed the order of the properties back and forth, this may or not affect the new version of *render_site.sh* I am currently working with
+* TODO: do the final merging of the new data generated with the original *pages.csv* in order to have a full working output file
+
 ### 20220130: fill up the dataset
 
 * fixed an issue with the *create_template.sh* script, it was somehow creating weird filenames out of the records in *templates.csv*
