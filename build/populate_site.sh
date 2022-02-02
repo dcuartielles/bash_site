@@ -14,6 +14,12 @@ LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${SITE_FOLDER}/${LOCALE_FOLDER}"
 TEMP_OUTPUT_FILE="pages.tmp"
 
+DATA_TYPES=("text" "html" "image" "code" "video" "license")
+DEFAULT_PROPERTIES=("true" "true" "true" "true" "true" "true")
+CODE_TYPES=("C" "C++" "Arduino" "Processing" "p5js" "Python" "HTML")
+IMAGE_TYPES=("local" "remote")
+
+## Variables
 HEADER_DONE=0
 
 DATA_FILE="${SETUP_FOLDER}/${SITE_FOLDER}/${PAGES_FOLDER}/${LOCALE_FOLDER}/${SETUP_FILE}"
@@ -135,6 +141,13 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
 
   TEMP_IFS=$IFS
   IFS=","
+
+  ## Global variables needed for field processing
+  fieldType=""
+  pageField=""
+  dataTypeIndex=0
+
+  ## The iterator
   for k in "${!THE_TEMPLATE[@]}"
   do
     ## Jump over the first three fields (NUMBER,NAME,INDEX)
@@ -160,19 +173,62 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
 
     ## Render the different fields asking for some input
     if [[ "$k" -gt 2 ]]; then
-      pageField="Left empty"
 
       ## Work the data in pairs
       if (( k % 2 )); then
-        read -e -p "Text for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
+        ##pageField="Left empty"
+        echo -e "\n** Working with field ${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} **"
+        dataTypes=""
+        for l in "${!DATA_TYPES[@]}"
+        do
+          dataTypes="$dataTypes(${l}) ${DATA_TYPES[$l]} "
+        done
+        echo -e "Available data types:\n$dataTypes"
+        read -e -p "Choose data type: " -i "0" dataTypeIndex
+        fieldType="${DATA_TYPES[$dataTypeIndex]}"
+
+        echo -e "Chosen type: ${fieldType}"
+
+        read -e -p "Content for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
       fi
       if (( (k % 2) - 1 )); then
         ## TODO: change this to ask which type of content it is and use
         ## templates for different types of content to populate it
-        read -e -p "Parameters for field: ${THE_TEMPLATE[$k]} -> " -i "true" pageField
-      fi
+        blockProperties="${DEFAULT_PROPERTIES[$dataTypeIndex]}${PARAMETER_SEPARATOR}"
 
-      pageRecord="${pageRecord}${pageField}${SEPARATOR}"
+        ## Handle code blocks
+        codeType=""
+        if [[ "${fieldType}" == "code" ]]; then
+          codeTypes=""
+          for l in "${!CODE_TYPES[@]}"
+          do
+            codeTypes="$codeTypes(${l}) ${CODE_TYPES[$l]} "
+          done
+          echo -e "Available code types:\n$codeTypes"
+          read -e -p "Choose code type: " -i "0" codeTypeIndex
+          codeType="${PARAMETER_SEPARATOR}${CODE_TYPES[$codeTypeIndex]}"
+        fi
+
+        ## Handle image blocks
+        imageType=""
+        if [[ "${fieldType}" == "image" ]]; then
+          imageTypes=""
+          for l in "${!IMAGE_TYPES[@]}"
+          do
+            imageTypes="$imageTypes(${l}) ${IMAGE_TYPES[$l]} "
+          done
+          echo -e "Available image types:\n$imageTypes"
+          read -e -p "Choose image type: " -i "0" imageTypeIndex
+          imageType="${PARAMETER_SEPARATOR}${IMAGE_TYPES[$imageTypeIndex]}"
+        fi
+
+        ## Read the actual properties
+        read -e -p "Parameters for ${fieldType} field: ${THE_TEMPLATE[$k]} -> " -i "${blockProperties}${fieldType}${codeType}${imageType}" propertiesField
+
+        ## At the end of the properties of the last field, add everything to the CSV
+        pageRecord="${pageRecord}${pageField}${SEPARATOR}${propertiesField}${SEPARATOR}"
+
+      fi
     fi
 
 
