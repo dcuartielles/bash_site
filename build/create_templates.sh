@@ -16,7 +16,7 @@ PAGES_FOLDER="pages"    ## was "exercises"
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 
 OFS=$IFS
-IFS=SEPARATOR
+IFS=$SEPARATOR
 
 ## Create the folder for the templates if it doesn't exist
 [ ! -d "${DEST_FOLDER}" ] && mkdir ${DEST_FOLDER}

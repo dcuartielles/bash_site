@@ -14,7 +14,7 @@ The different templates can be defined in the *CSV* file *templates.csv*. Creati
 
 You will create a site by calling the *empty_site.sh* script as follows:
 
-`./empty_site.sh . config templates.csv en`
+`./empty_site.sh config config templates.csv en`
 
 which will create a series of subfolders inside the *config* folder. It will create a folder called *site*, with subfolder *pages*. Inside *pages* the system will create a folder for the locale, in the example *en*. That final folder will contain the *pages.csv* file which is the output of this script.
 
