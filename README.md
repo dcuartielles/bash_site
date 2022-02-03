@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220201: fill up the dataset III
+
+* merged the original header file *pages.csv* and the generated dataset *pages.tmp* and deleted temporary files
+* TODO (aha moment): what if I made a mod of *populate_site.sh* that would be slightly more clever and would open a file and let you add fields, edit existing ones, etc?
+
 ### 20220131: fill up the dataset II
 
 * worked with *populate_site.sh* for it to detect templates, types of fields, types of code, types of images, etc

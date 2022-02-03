@@ -12,6 +12,7 @@ SITE_FOLDER="site"      ## was "course"
 PAGES_FOLDER="pages"    ## was "exercises"
 LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${SITE_FOLDER}/${LOCALE_FOLDER}"
+TEMP_FOLDER="tmp"
 TEMP_OUTPUT_FILE="pages.tmp"
 
 DATA_TYPES=("text" "html" "image" "code" "video" "license")
@@ -29,10 +30,10 @@ SEPARATOR='¤'
 PARAMETER_SEPARATOR=','
 
 ## 1. Create a temporary folder
-[ ! -d "tmp" ] && mkdir tmp
+[ ! -d "${TEMP_FOLDER}" ] && mkdir "${TEMP_FOLDER}"
 
 ## 2. Create a temporary file in the temporary folder
-touch "tmp/${TEMP_OUTPUT_FILE}"
+touch "${TEMP_FOLDER}/${TEMP_OUTPUT_FILE}"
 
 ## 3. Open the temporary file, load the types of templates into an array
 OFS=$IFS
@@ -238,15 +239,18 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
   ## 5.4. Eventually fill in the license (TBD)
 
   ## 5.5. Append the record at the end of the temporary file
-  echo "${pageRecord}" >> "tmp/$TEMP_OUTPUT_FILE"
+  echo "${pageRecord}" >> "${TEMP_FOLDER}/$TEMP_OUTPUT_FILE"
 done
 
-## 6. Close the original file
+## 6. Concatenate the records file at the end of the headers one
+cat "${DATA_FILE}" "${TEMP_FOLDER}/${TEMP_OUTPUT_FILE}" > "${TEMP_FOLDER}/${TEMP_OUTPUT_FILE}.out"
 
-## 7. Copy the file to overwrite the original
+## 7. Move the file to overwrite the original but first make a backup
+mv "${DATA_FILE}" "${DATA_FILE}.bak"
+mv "${TEMP_FOLDER}/${TEMP_OUTPUT_FILE}.out" "${DATA_FILE}"
 
 ## 8. Delete the temporary folder
-## rm -fR tmp
+rm -fR tmp
 
 ## 9. Done
 echo -e "** Done"
