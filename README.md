@@ -22,6 +22,12 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220202: a magical day
+
+* in the second day with most 2s I will ever witness in my life, I went back to work with *populate_site.sh* adding an `automatic` mode that will allow to quickly fill up everything instead of going through every single field like until now
+* added also the `semiautomatic` mode for the script to request just the template for each page and automatically filled up everything else (recommended)
+* added information about *populate_site.sh* to *BUILD.md* 
+
 ### 20220201: fill up the dataset III
 
 * merged the original header file *pages.csv* and the generated dataset *pages.tmp* and deleted temporary files

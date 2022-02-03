@@ -4,9 +4,17 @@
 ## about the type of data you want to add to each record
 
 LOCALE=$1
-DEST_FOLDER=$2
-SETUP_FOLDER=$3
-SETUP_FILE=$4
+SETUP_FOLDER=$2
+SETUP_FILE=$3
+MODE=$4   ## can be "automatic" (default), "semiautomatic" or "manual"
+
+## Set the default mode
+## Note: semiautomatic will only ask for the template for each page
+[[ ${MODE} == "" ]] && MODE="automatic"
+[[ ! ${MODE} == "automatic" ]] && [[ ! ${MODE} == "semiautomatic" ]] && [[ ! ${MODE} == "manual" ]] && { echo "$MODE is not a valid mode"; exit 99; }
+
+## Set the timeout for reads to 0 in case of automatic MODE
+
 
 SITE_FOLDER="site"      ## was "course"
 PAGES_FOLDER="pages"    ## was "exercises"
@@ -120,21 +128,29 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
   do
     templates="$templates(${j}) ${TEMPLATE_TYPES[$j]} "
   done
-  echo -e "Available templates:\n$templates"
-  read -e -p "Choose template: " -i "0" pageTemplate
-  echo -e "Chosen the ${TEMPLATE_TYPES[$pageTemplate]} template"
+  if [[ ${MODE} == "manual" || ${MODE} == "semiautomatic" ]]; then
+    echo -e "Available templates:\n$templates"
+    read -e -p "Choose template: " -i "0" pageTemplate
+    echo -e "Chosen the ${TEMPLATE_TYPES[$pageTemplate]} template"
+  else
+    pageTemplate="0"
+  fi
 
   pageRecord="${pageRecord}${TEMPLATE_TYPES[$pageTemplate]}${SEPARATOR}"
 
   ## 5.2. Ask for the name of the page
-  read -e -p "Choose the page's name: " -i "Insert name" pageName
-  echo -e "Given the name: $pageName"
+  if [[ ${MODE} == "manual" ]]; then
+    read -e -p "Choose the page's name: " -i "Insert name" pageName
+    echo -e "Given the name: $pageName"
+  else
+    pageName="Insert name"
+  fi
 
   ## 5.3. Iterate through the different fields and ask for the parameters
 
   ## 5.3.1 Pick up the proper template structure
   currentTemplate="${CONFIG_KEYS[$pageTemplate]}"
-  echo -e "Current template used: $currentTemplate"
+  [[ ${MODE} == "manual" ]] && echo -e "Current template used: $currentTemplate"
 
   ## 5.3.2 Iterate through the template structure
   ## push the template into an array
@@ -178,19 +194,25 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
       ## Work the data in pairs
       if (( k % 2 )); then
         ##pageField="Left empty"
-        echo -e "\n** Working with field ${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} **"
+        [[ ${MODE} == "manual" ]] && echo -e "\n** Working with field ${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} **"
         dataTypes=""
         for l in "${!DATA_TYPES[@]}"
         do
           dataTypes="$dataTypes(${l}) ${DATA_TYPES[$l]} "
         done
-        echo -e "Available data types:\n$dataTypes"
-        read -e -p "Choose data type: " -i "0" dataTypeIndex
-        fieldType="${DATA_TYPES[$dataTypeIndex]}"
-
-        echo -e "Chosen type: ${fieldType}"
-
-        read -e -p "Content for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
+        if [[ ${MODE} == "manual" ]]; then
+          echo -e "Available data types:\n$dataTypes"
+          read -e -p "Choose data type: " -i "0" dataTypeIndex
+          fieldType="${DATA_TYPES[$dataTypeIndex]}"
+          echo -e "Chosen type: ${fieldType}"
+        else
+          fieldType="${DATA_TYPES[0]}"
+        fi
+        if [[ ${MODE} == "manual" ]]; then
+          read -e -p "Content for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
+        else
+          pageField="Fill in by hand"
+        fi
       fi
       if (( (k % 2) - 1 )); then
         ## TODO: change this to ask which type of content it is and use
@@ -205,9 +227,13 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
           do
             codeTypes="$codeTypes(${l}) ${CODE_TYPES[$l]} "
           done
-          echo -e "Available code types:\n$codeTypes"
-          read -e -p "Choose code type: " -i "0" codeTypeIndex
-          codeType="${PARAMETER_SEPARATOR}${CODE_TYPES[$codeTypeIndex]}"
+          if [[ ${MODE} == "manual" ]]; then
+            echo -e "Available code types:\n$codeTypes"
+            read -e -p "Choose code type: " -i "0" codeTypeIndex
+            codeType="${PARAMETER_SEPARATOR}${CODE_TYPES[$codeTypeIndex]}"
+          else
+            codeType="${PARAMETER_SEPARATOR}${CODE_TYPES[0]}"
+          fi
         fi
 
         ## Handle image blocks
@@ -218,13 +244,21 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
           do
             imageTypes="$imageTypes(${l}) ${IMAGE_TYPES[$l]} "
           done
-          echo -e "Available image types:\n$imageTypes"
-          read -e -p "Choose image type: " -i "0" imageTypeIndex
-          imageType="${PARAMETER_SEPARATOR}${IMAGE_TYPES[$imageTypeIndex]}"
+          if [[ ${MODE} == "manual" ]]; then
+            echo -e "Available image types:\n$imageTypes"
+            read -e -p "Choose image type: " -i "0" imageTypeIndex
+            imageType="${PARAMETER_SEPARATOR}${IMAGE_TYPES[$imageTypeIndex]}"
+          else
+            imageType="${PARAMETER_SEPARATOR}${IMAGE_TYPES[0]}"
+          fi
         fi
 
         ## Read the actual properties
-        read -e -p "Parameters for ${fieldType} field: ${THE_TEMPLATE[$k]} -> " -i "${blockProperties}${fieldType}${codeType}${imageType}" propertiesField
+        if [[ ${MODE} == "manual" ]]; then
+          read -e -p "Parameters for ${fieldType} field: ${THE_TEMPLATE[$k]} -> " -i "${blockProperties}${fieldType}${codeType}${imageType}" propertiesField
+        else
+          propertiesField="${blockProperties}${fieldType}${codeType}${imageType}"
+        fi
 
         ## At the end of the properties of the last field, add everything to the CSV
         pageRecord="${pageRecord}${pageField}${SEPARATOR}${propertiesField}${SEPARATOR}"

@@ -20,6 +20,16 @@ which will create a series of subfolders inside the *config* folder. It will cre
 
 This file will contain the information about the default templates used in the header. The *header* is contained in the first three rows of the *CSV* file.
 
+## Build the facade
+
+Use the *populate_site.sh* script to add records to the *pages.csv* file automatically or manually (field by field). I recommend the semiautomatic mode by typing:
+
+`./populate_site.sh en config pages.csv semiautomatic`
+
+You will just get the question of how many records you want to add to the file and which is the template to use for each record.
+
+Possible modes are: `automatic`, `semiautomatic` and `manual`
+
 ## Edit the pages file
 
 You need to add your content to the *en/pages.csv* file. Make sure you include the properties needed for each type of content.
