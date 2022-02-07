@@ -3,10 +3,47 @@
 ## 20220130 The populate_site script is going to interactively ask you
 ## about the type of data you want to add to each record
 
-LOCALE=$1
-SETUP_FOLDER=$2
-SETUP_FILE=$3
-MODE=$4   ## can be "automatic" (default), "semiautomatic" or "manual"
+## LOCALE=$1
+## SETUP_FOLDER=$2
+## SETUP_FILE=$3
+## MODE=$4   ## can be "automatic" (default), "semiautomatic" or "manual"
+
+## Defaults
+LOCALE="en"
+SETUP_FOLDER="config"
+SETUP_FILE="pages.csv"
+MODE="automatic"
+NUM_PAGES=0
+
+## The possible parameters are:
+## ** -l: locale (default en)
+## ** -c: config / setup folder (default config)
+## ** -f: data file (default pages.csv)
+## ** -m: mode (default automatic)
+
+while getopts ":l:c:f:m:n:" opt; do
+  case $opt in
+    l) LOCALE="$OPTARG"
+    ;;
+    c) SETUP_FOLDER="$OPTARG"
+    ;;
+    f) SETUP_FILE="$OPTARG"
+    ;;
+    c) MODE="$OPTARG"
+    ;;
+    n) NUM_PAGES="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    exit 1
+    ;;
+  esac
+
+  case $OPTARG in
+    -*) echo "Option $opt needs a valid argument"
+    exit 1
+    ;;
+  esac
+done
 
 ## Set the default mode
 ## Note: semiautomatic will only ask for the template for each page
@@ -114,8 +151,11 @@ while read -ra array; do
 done < $DATA_FILE
 
 ## 4. Ask for how many pages should be included in the file
-echo -e "How many pages do you want in the site?"
-read NUM_PAGES
+##    only if this has not been defined as a parameter
+if [[ "${NUM_PAGES}" -eq 0 ]]; then
+  echo -e "How many pages do you want in the site?"
+  read NUM_PAGES
+fi
 
 ## 5. Loop the following:
 for (( i=0; i<=NUM_PAGES-1; i++ )); do

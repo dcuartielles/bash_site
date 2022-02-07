@@ -24,11 +24,15 @@ This file will contain the information about the default templates used in the h
 
 Use the *populate_site.sh* script to add records to the *pages.csv* file automatically or manually (field by field). I recommend the semiautomatic mode by typing:
 
-`./populate_site.sh en config pages.csv semiautomatic`
+`./populate_site.sh -l en -c config -f pages.csv -m semiautomatic`
 
 You will just get the question of how many records you want to add to the file and which is the template to use for each record.
 
 Possible modes are: `automatic`, `semiautomatic` and `manual`
+
+The fastest way to create a site with 10 pages would be:
+
+`./populate_site.sh -n 10`
 
 ## Edit the pages file
 

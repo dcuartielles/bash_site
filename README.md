@@ -22,11 +22,32 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220206: arguments should be unsorted
+
+* revised *populate_site.sh* to use unsorted parameters for the win. The possible parameters are:
+** -l: locale
+** -c: config / setup folder
+** -f: data file
+** -n: amount of pages
+** -m: mode
+* added default parameters for the script
+* the fastest way to generate a site with 10 pages is now `./populate_site.sh -n 10`
+* corrected *BUILD.md* to cover this new way of calling the script
+* TODO: will have to make this same work for all of the other scripts
+
+### 20220205: dialog for the win
+
+* I spent some time reading about Linux' command *dialog* which I will try out as a way to beautify the whole installation process. Read more about [dialog here](https://linuxcommand.org/lc3_adv_dialog.php).
+
+### 20220203 - 20220204: covid times
+
+* Ok, I am not a robot, I do not have super powers, after three shots of the vaccine, I got a flu -or so I thought- that ended up being covid and put me down for a couple of days. I caught up with a bunch of TV shows. Now I know, CSI Vegas ends with a kiss
+
 ### 20220202: a magical day
 
 * in the second day with most 2s I will ever witness in my life, I went back to work with *populate_site.sh* adding an `automatic` mode that will allow to quickly fill up everything instead of going through every single field like until now
 * added also the `semiautomatic` mode for the script to request just the template for each page and automatically filled up everything else (recommended)
-* added information about *populate_site.sh* to *BUILD.md* 
+* added information about *populate_site.sh* to *BUILD.md*
 
 ### 20220201: fill up the dataset III
 
