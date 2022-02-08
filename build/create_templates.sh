@@ -5,13 +5,46 @@
 ## template files in as many languages as records in the file
 
 ## Parameters
-DEST_FOLDER=$1
-SETUP_FOLDER=$2
-SETUP_FILE=$3
+## DEST_FOLDER=$1
+## SETUP_FOLDER=$2
+## SETUP_FILE=$3
+
+## Defaults
+DEST_FOLDER="config"
+SETUP_FOLDER="config"
+SETUP_FILE="templates.csv"
+PAGES_FOLDER="pages"    ## was "exercises"
+
+## The possible parameters are:
+## ** -d: destination folder
+## ** -c: config / setup folder
+## ** -f: data file
+## ** -p: pages folder
+
+while getopts ":d:c:f:p:" opt; do
+  case $opt in
+    d) DEST_FOLDER="$OPTARG"
+    ;;
+    c) SETUP_FOLDER="$OPTARG"
+    ;;
+    f) SETUP_FILE="$OPTARG"
+    ;;
+    p) PAGES_FOLDER="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    exit 1
+    ;;
+  esac
+
+  case $OPTARG in
+    -*) echo "Option $opt needs a valid argument"
+    exit 1
+    ;;
+  esac
+done
 
 DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
 SEPARATOR='¤'
-PAGES_FOLDER="pages"    ## was "exercises"
 
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 

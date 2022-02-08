@@ -10,14 +10,54 @@
 ## Supports multiple templates for pages
 ## Report back to CLI
 
+## Parameters
+## LOCALE=$1
+## DEST_FOLDER=$2
+## SETUP_FOLDER=$3
+## SETUP_FILE=$4
 
-LOCALE=$1
-DEST_FOLDER=$2
-SETUP_FOLDER=$3
-SETUP_FILE=$4
-
+## Defaults
+DEST_FOLDER=".."
+SETUP_FOLDER="config"
+SETUP_FILE="pages.csv"
+LOCALE="en"
 SITE_FOLDER="site"
-PAGES_FOLDER="pages"    ## was "exercises"
+PAGES_FOLDER="pages"
+
+## The possible parameters are:
+## ** -l: locale
+## ** -c: config / setup folder
+## ** -f: data file
+## ** -d: destination folder
+## ** -s: site subfolder where to store templates
+## ** -f: pages subfolder
+
+while getopts ":l:c:f:d:s:p:" opt; do
+  case $opt in
+    l) LOCALE="$OPTARG"
+    ;;
+    c) SETUP_FOLDER="$OPTARG"
+    ;;
+    f) SETUP_FILE="$OPTARG"
+    ;;
+    d) DEST_FOLDER="$OPTARG"
+    ;;
+    s) SITE_FOLDER="$OPTARG"
+    ;;
+    p) PAGES_FOLDER="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    exit 1
+    ;;
+  esac
+
+  case $OPTARG in
+    -*) echo "Option $opt needs a valid argument"
+    exit 1
+    ;;
+  esac
+done
+
 LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${SITE_FOLDER}/${LOCALE_FOLDER}"
 SRC_FOLDER="src"

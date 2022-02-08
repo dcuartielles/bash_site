@@ -6,16 +6,59 @@
 ## takes a string as parameter indicating the structure of the site
 
 ## Parameters
-DEST_FOLDER=$1
-SETUP_FOLDER=$2
-SETUP_FILE=$3
-LOCALE=$4
+## DEST_FOLDER=$1
+## SETUP_FOLDER=$2
+## SETUP_FILE=$3
+## LOCALE=$4
+
+## Defaults
+DEST_FOLDER="config"
+SETUP_FOLDER="config"
+SETUP_FILE="templates.csv"
+LOCALE="en"
+SITE_FOLDER="site"
+PAGES_FOLDER="pages"    ## was "exercises"
+OUTPUT_FILE="pages.csv" ## was "exercises.csv"
+
+## The possible parameters are:
+## ** -l: locale (default en)
+## ** -c: config / setup folder (default config)
+## ** -f: data file (default pages.csv)
+## ** -d: destination folder
+## ** -s: site subfolder where to store templates
+## ** -f: pages subfolder
+## ** -o: destination file for each locale
+
+while getopts ":l:c:f:d:s:p:o:" opt; do
+  case $opt in
+    l) LOCALE="$OPTARG"
+    ;;
+    c) SETUP_FOLDER="$OPTARG"
+    ;;
+    f) SETUP_FILE="$OPTARG"
+    ;;
+    d) DEST_FOLDER="$OPTARG"
+    ;;
+    s) SITE_FOLDER="$OPTARG"
+    ;;
+    p) PAGES_FOLDER="$OPTARG"
+    ;;
+    o) OUTPUT_FILE="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    exit 1
+    ;;
+  esac
+
+  case $OPTARG in
+    -*) echo "Option $opt needs a valid argument"
+    exit 1
+    ;;
+  esac
+done
 
 SEPARATOR='¤'
 PARAMETER_SEPARATOR=','
-SITE_FOLDER="site"      ## was "course"
-PAGES_FOLDER="pages"    ## was "exercises"
-OUTPUT_FILE="pages.csv" ## was "exercises.csv"
 
 DATA_FILE="${SETUP_FOLDER}/${SETUP_FILE}"
 

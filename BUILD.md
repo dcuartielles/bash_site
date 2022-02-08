@@ -4,21 +4,25 @@
 
 Prior to creating a course, you need to define the templates you will be using. The call for the template generation goes as follows:
 
-`./create_templates.sh config config templates.csv`
+`./create_templates.sh -d config -c config -f templates.csv`
 
 and you have to call it inside the *build* folder. It will create a series of subfolders inside the *config* folder. First it will try to create *config* folder itself; this is done to allow testing the script. Next it will create a subfolder called *templates*. Inside that one, it will create a folder called *pages*, and inside that one, it will create one subfolder for each locale such as *en*, *es*, etc.
 
 The different templates can be defined in the *CSV* file *templates.csv*. Creating a new template structure and thus a new site for a new translation is as easy as adding a new record to the file for each template design.
 
+It is possible to create templates using all default parameters with `./create_templates.sh`
+
 ## Create the site's scaffolding
 
 You will create a site by calling the *empty_site.sh* script as follows:
 
-`./empty_site.sh config config templates.csv en`
+`./empty_site.sh -d config -c config -f templates.csv -l en`
 
 which will create a series of subfolders inside the *config* folder. It will create a folder called *site*, with subfolder *pages*. Inside *pages* the system will create a folder for the locale, in the example *en*. That final folder will contain the *pages.csv* file which is the output of this script.
 
 This file will contain the information about the default templates used in the header. The *header* is contained in the first three rows of the *CSV* file.
+
+The default configuration considers *config* as default setting for destination and setup folders, *templates.csv* as the file to be generated, and *en* as the default locale. Therefore, calling `./empty_site.sh` with no parameters will have the same effect.
 
 ## Build the facade
 
