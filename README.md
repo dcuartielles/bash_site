@@ -26,34 +26,34 @@ The content's scaffolding is created by running the build process. Check:
 
 * implemented unsorted arguments for the *create_templates.sh*, the *empty_site.sh*, and the *analyse_site.sh* scripts
 * the *empty_site.sh* script includes the following list of parameters now:
-** -l: locale (default en)
-** -c: config / setup folder (default config)
-** -f: data file
-** -d: destination folder
-** -s: site subfolder where to store templates
-** -f: pages subfolder
-** -o: destination file for each locale
+  * -l: locale (default en)
+  * -c: config / setup folder (default config)
+  * -f: data file
+  * -d: destination folder
+  * -s: site subfolder where to store templates
+  * -f: pages subfolder
+  * -o: destination file for each locale
 * the *create_templates.sh* script includes the following list of parameters now:
-** -d: destination folder
-** -c: config / setup folder
-** -f: data file
-** -p: pages folder
+  * -d: destination folder
+  * -c: config / setup folder
+  * -f: data file
+  * -p: pages folder
 * the *analyse_site.sh*, while it has to be revised to accommodate the new configuration of the *pages.csv* file, has also been revamped to use unsorted parameters such as:
-** -l: locale
-** -c: config / setup folder
-** -f: data file
-** -d: destination folder
-** -s: site subfolder where to store templates
-** -f: pages subfolder
+  * -l: locale
+  * -c: config / setup folder
+  * -f: data file
+  * -d: destination folder
+  * -s: site subfolder where to store templates
+  * -f: pages subfolder
 
 ### 20220206: arguments should be unsorted
 
 * revised *populate_site.sh* to use unsorted parameters for the win. The possible parameters are:
-** -l: locale
-** -c: config / setup folder
-** -f: data file
-** -n: amount of pages
-** -m: mode
+  * -l: locale
+  * -c: config / setup folder
+  * -f: data file
+  * -n: amount of pages
+  * -m: mode
 * added default parameters for the script
 * the fastest way to generate a site with 10 pages is now `./populate_site.sh -n 10`
 * corrected *BUILD.md* to cover this new way of calling the script
