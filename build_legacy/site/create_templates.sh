@@ -4,30 +4,23 @@
 ## uses a CSV file as the point of departure and creates a set of
 ## template files in as many languages as records in the file
 
+## Parameters
+## DEST_FOLDER=$1
+## SETUP_FOLDER=$2
+## TEMPLATE_FILE=$3
+
+## Defaults
+DEST_FOLDER="config"
+SETUP_FOLDER="config"
+TEMPLATE_FILE="templates.csv"
+PAGES_FOLDER="pages"    ## was "exercises"
+
 ## The possible parameters are:
-## ** -d: destination folder (default config)
-## ** -c: config / setup folder (default config)
-## ** -f: data file (default templates.csv)
-## ** -p: pages folder (default pages)
+## ** -d: destination folder
+## ** -c: config / setup folder
+## ** -f: data file
+## ** -p: pages folder
 
-## Load config file (https://wiki.bash-hackers.org/howto/conffile#secure_it)
-CONFIG_PATH='./config/config.conf'
-
-## Commented lines, empty lines und lines of the from choose_ANYNAME='any.:Value' are valid
-CONFIG_SYNTAX="^\s*#|^\s*$|^[a-zA-Z_]+='[^']*'$|^[a-zA-Z_]+=([^']*)$"
-
-## Check if the file contains something we don't want
-if egrep -q -v "${CONFIG_SYNTAX}" "$CONFIG_PATH"; then
-  echo "Error parsing config file ${CONFIG_PATH}." >&2
-  echo "The following lines in the configfile do not fit the syntax:" >&2
-  egrep -vn "${CONFIG_SYNTAX}" "$CONFIG_PATH"
-  exit 5
-fi
-
-## Otherwise go on and source it:
-source "${CONFIG_PATH}"
-
-## Read param from CLI
 while getopts ":d:c:f:p:" opt; do
   case $opt in
     d) DEST_FOLDER="$OPTARG"
@@ -50,8 +43,8 @@ while getopts ":d:c:f:p:" opt; do
   esac
 done
 
-## Data file with path
 DATA_FILE="${SETUP_FOLDER}/${TEMPLATE_FILE}"
+SEPARATOR='¤'
 
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
 

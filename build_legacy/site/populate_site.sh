@@ -3,31 +3,24 @@
 ## 20220130 The populate_site script is going to interactively ask you
 ## about the type of data you want to add to each record
 
+## LOCALE=$1
+## SETUP_FOLDER=$2
+## PAGES_FILE=$3
+## MODE=$4   ## can be "automatic" (default), "semiautomatic" or "manual"
+
+## Defaults
+LOCALE="en"
+SETUP_FOLDER="config"
+PAGES_FILE="pages.csv"
+MODE="automatic"
+NUM_PAGES=0
+
 ## The possible parameters are:
 ## ** -l: locale (default en)
 ## ** -c: config / setup folder (default config)
 ## ** -f: data file (default pages.csv)
-## ** -m: mode (default automatic, could also be manual or semiautomatic)
-## ** -n: number of pages (default 0)
+## ** -m: mode (default automatic)
 
-## Load config file (https://wiki.bash-hackers.org/howto/conffile#secure_it)
-CONFIG_PATH='./config/config.conf'
-
-## Commented lines, empty lines und lines of the from choose_ANYNAME='any.:Value' are valid
-CONFIG_SYNTAX="^\s*#|^\s*$|^[a-zA-Z_]+='[^']*'$|^[a-zA-Z_]+=([^']*)$"
-
-## Check if the file contains something we don't want
-if egrep -q -v "${CONFIG_SYNTAX}" "$CONFIG_PATH"; then
-  echo "Error parsing config file ${CONFIG_PATH}." >&2
-  echo "The following lines in the configfile do not fit the syntax:" >&2
-  egrep -vn "${CONFIG_SYNTAX}" "$CONFIG_PATH"
-  exit 5
-fi
-
-## Otherwise go on and source it:
-source "${CONFIG_PATH}"
-
-## Read parameters from CLI
 while getopts ":l:c:f:m:n:" opt; do
   case $opt in
     l) LOCALE="$OPTARG"
@@ -59,15 +52,27 @@ done
 
 ## Set the timeout for reads to 0 in case of automatic MODE
 
-## Folders
+
+SITE_FOLDER="site"      ## was "course"
+PAGES_FOLDER="pages"    ## was "exercises"
 LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${SITE_FOLDER}/${LOCALE_FOLDER}"
+TEMP_FOLDER="tmp"
+TEMP_OUTPUT_FILE="pages.tmp"
+
+DATA_TYPES=("text" "html" "image" "code" "video" "license")
+DEFAULT_PROPERTIES=("true" "true" "true" "true" "true" "true")
+CODE_TYPES=("C" "C++" "Arduino" "Processing" "p5js" "Python" "HTML")
+IMAGE_TYPES=("local" "remote")
 
 ## Variables
 HEADER_DONE=0
 
 DATA_FILE="${SETUP_FOLDER}/${SITE_FOLDER}/${PAGES_FOLDER}/${LOCALE_FOLDER}/${PAGES_FILE}"
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
+
+SEPARATOR='¤'
+PARAMETER_SEPARATOR=','
 
 ## 1. Create a temporary folder
 [ ! -d "${TEMP_FOLDER}" ] && mkdir "${TEMP_FOLDER}"

@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220208: a config file to rule them all
+
+* unify all configuration variables into a single file *config/config.conf*
+* used some basic whitelisting protection to avoid calls in the config file to anything that is not a variable declaration
+
 ### 20220207: arguments always come back
 
 * implemented unsorted arguments for the *create_templates.sh*, the *empty_site.sh*, and the *analyse_site.sh* scripts

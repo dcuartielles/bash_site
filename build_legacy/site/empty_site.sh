@@ -5,33 +5,30 @@
 ## creates a set of page files in different languages, also
 ## takes a string as parameter indicating the structure of the site
 
+## Parameters
+## DEST_FOLDER=$1
+## SETUP_FOLDER=$2
+## TEMPLATE_FILE=$3
+## LOCALE=$4
+
+## Defaults
+DEST_FOLDER="config"
+SETUP_FOLDER="config"
+TEMPLATE_FILE="templates.csv"
+LOCALE="en"
+SITE_FOLDER="site"
+PAGES_FOLDER="pages"    ## was "exercises"
+OUTPUT_FILE="pages.csv" ## was "exercises.csv"
+
 ## The possible parameters are:
 ## ** -l: locale (default en)
 ## ** -c: config / setup folder (default config)
 ## ** -f: data file (default pages.csv)
-## ** -d: destination folder (default config)
-## ** -s: site subfolder where to store templates (default site)
-## ** -f: pages subfolder (default pages)
-## ** -o: destination file for each locale (default pages.csv)
+## ** -d: destination folder
+## ** -s: site subfolder where to store templates
+## ** -f: pages subfolder
+## ** -o: destination file for each locale
 
-## Load config file (https://wiki.bash-hackers.org/howto/conffile#secure_it)
-CONFIG_PATH='./config/config.conf'
-
-## Commented lines, empty lines und lines of the from choose_ANYNAME='any.:Value' are valid
-CONFIG_SYNTAX="^\s*#|^\s*$|^[a-zA-Z_]+='[^']*'$|^[a-zA-Z_]+=([^']*)$"
-
-## Check if the file contains something we don't want
-if egrep -q -v "${CONFIG_SYNTAX}" "$CONFIG_PATH"; then
-  echo "Error parsing config file ${CONFIG_PATH}." >&2
-  echo "The following lines in the configfile do not fit the syntax:" >&2
-  egrep -vn "${CONFIG_SYNTAX}" "$CONFIG_PATH"
-  exit 5
-fi
-
-## Otherwise go on and source it:
-source "${CONFIG_PATH}"
-
-## Read parameters from CLI
 while getopts ":l:c:f:d:s:p:o:" opt; do
   case $opt in
     l) LOCALE="$OPTARG"
@@ -60,7 +57,9 @@ while getopts ":l:c:f:d:s:p:o:" opt; do
   esac
 done
 
-## Data file with path
+SEPARATOR='¤'
+PARAMETER_SEPARATOR=','
+
 DATA_FILE="${SETUP_FOLDER}/${TEMPLATE_FILE}"
 
 [ ! -f $DATA_FILE ] && { echo "$DATA_FILE file not found"; exit 99; }
