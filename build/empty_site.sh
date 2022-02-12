@@ -46,7 +46,7 @@ while getopts ":l:c:f:d:s:p:o:" opt; do
     ;;
     p) PAGES_FOLDER="$OPTARG"
     ;;
-    o) OUTPUT_FILE="$OPTARG"
+    o) PAGES_FILE="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     exit 1
@@ -80,8 +80,8 @@ VALUE_LINE=""
 total_fields=0
 
 ## Create the exercises file
-echo -e "** CREATE PAGES FILE FOR LOCALE: ${array[0]} ** \n"
-PAGES_FILE="${DEST_FOLDER}/${SITE_FOLDER}/${PAGES_FOLDER}/${LOCALE}/${OUTPUT_FILE}"
+echo -e "** CREATE PAGES FILE (${PAGES_FILE}) FOR LOCALE: ${LOCALE} ** \n"
+PAGES_FILE="${DEST_FOLDER}/${SITE_FOLDER}/${PAGES_FOLDER}/${LOCALE}/${PAGES_FILE}"
 
 ## Read all fields in a record as an array
 while read -ra array; do

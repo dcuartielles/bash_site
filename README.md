@@ -22,6 +22,11 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220209: a single creation script
+
+* made a single script to create sites, thus called *create_site.sh* from a single execution avoiding mistakes happening in step-by-step instructions
+* also, corrected a bug in *empty_site.sh* provoked during the migration to a single configuration file 
+
 ### 20220208: a config file to rule them all
 
 * unify all configuration variables into a single file *config/config.conf*

@@ -28,7 +28,8 @@ The default configuration considers *config* as default setting for destination 
 
 Use the *populate_site.sh* script to add records to the *pages.csv* file automatically or manually (field by field). I recommend the semiautomatic mode by typing:
 
-`./populate_site.sh -l en -c config -f pages.csv -m semiautomatic`
+`./populate_site.sh -l e
+n -c config -f pages.csv -m semiautomatic`
 
 You will just get the question of how many records you want to add to the file and which is the template to use for each record.
 
