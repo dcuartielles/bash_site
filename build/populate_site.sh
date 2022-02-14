@@ -36,7 +36,7 @@ while getopts ":l:c:f:m:n:" opt; do
     ;;
     f) PAGES_FILE="$OPTARG"
     ;;
-    c) MODE="$OPTARG"
+    m) MODE="$OPTARG"
     ;;
     n) NUM_PAGES="$OPTARG"
     ;;
@@ -241,11 +241,16 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
           fieldType="${DATA_TYPES[$dataTypeIndex]}"
           echo -e "Chosen type: ${fieldType}"
         else
+          ## TODO: add type of data detection in order to generate the
+          ## right kind of properties, which will simplify automatic generation
+          ## of content
           fieldType="${DATA_TYPES[0]}"
         fi
         if [[ ${MODE} == "manual" ]]; then
           read -e -p "Content for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
         else
+          ## TODO: change the default message based on data type to make
+          ## debugging and manual data entry easier later 
           pageField="Fill in by hand"
         fi
       fi

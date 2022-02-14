@@ -79,7 +79,7 @@ TEXT_LINE=""
 VALUE_LINE=""
 total_fields=0
 
-## Create the exercises file
+## Create the pages file
 echo -e "** CREATE PAGES FILE (${PAGES_FILE}) FOR LOCALE: ${LOCALE} ** \n"
 PAGES_FILE="${DEST_FOLDER}/${SITE_FOLDER}/${PAGES_FOLDER}/${LOCALE}/${PAGES_FILE}"
 

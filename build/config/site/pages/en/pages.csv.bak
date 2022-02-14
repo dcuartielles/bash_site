@@ -1,0 +1,3 @@
+basic1¤intro1¤video1¤
+NUMBER,NAME,INDEX,OBJECTIVES,hasOBJECTIVES,INTRODUCTION,hasINTRODUCTION,PARTS,hasPARTS,VIDEO,hasVIDEO,DESCRIPTION,hasDESCRIPTION,CIRCUIT,hasCIRCUIT,CODE,hasCODE,MORE,hasMORE,LICENSE,hasLICENSE,¤NUMBER,NAME,INDEX,INTRODUCTION,hasINTRODUCTION,LICENSE,hasLICENSE,¤NUMBER,NAME,INDEX,INTRODUCTION,hasINTRODUCTION,VIDEO,hasVIDEO,LICENSE,hasLICENSE,¤
+,,## Index,## Objectives,true,## Introduction,true,## Parts,true,## Video tutorial,true,## Description,true,## Circuit,true,## Code,true,## Where to learn more,true,## License,true,¤,,## Index,## Introduction,true,## License,true,¤,,## Index,## Introduction,true,## Video,true,## License,true,¤

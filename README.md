@@ -22,10 +22,31 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220213: render site reloaded IV
+
+* forth day working with *render_site.sh* dealing with massive bug fixes and addressing the different open TODOs
+* TODO: still need to fix the *populate_site.sh* script 
+
+### 20220212: render site reloaded III
+
+* third day working with *render_site.sh*. This time the general loop is finished. The indexing part seems to work but there are issues with parameter handling.
+* TODO: revise *populate_site.sh* since it fills in all fields in the same way making no distinction for video, images, etc. Thus it produces the wrong parameters
+* TODO: figure out why it is not navigating through the whole list of parameters, half of them are not in there
+
+### 20220211: render site reloaded II
+
+* second day working with the *render_site.sh* revamp. Had to give quite a thought to the file naviation as I noticed how *populate_site.sh* was totally capable of rendering a Markdown file without the intermediate need of having templates to be copied into folders ... but then I remembered that some people just want to go into folders and manually change files, so ... I went for the good old method
+
+### 20220210: render site reloaded
+
+* first attack to the issue of fixing the *render_site.sh* script after having changed the format for all of the content
+* added config file and unsorted parameter handling features
+* TODO: currently I only embed videos from Vimeo, what about inserting Youtube ones?
+
 ### 20220209: a single creation script
 
 * made a single script to create sites, thus called *create_site.sh* from a single execution avoiding mistakes happening in step-by-step instructions
-* also, corrected a bug in *empty_site.sh* provoked during the migration to a single configuration file 
+* also, corrected a bug in *empty_site.sh* provoked during the migration to a single configuration file
 
 ### 20220208: a config file to rule them all
 
