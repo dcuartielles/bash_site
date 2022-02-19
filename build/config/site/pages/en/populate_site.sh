@@ -9,7 +9,6 @@
 ## ** -f: data file (default pages.csv)
 ## ** -m: mode (default automatic, could also be manual or semiautomatic)
 ## ** -n: number of pages (default 0)
-## ** -v: verbose (default 0)
 
 ## Load utils file
 UTILS_PATH='./utils.sh'
@@ -27,7 +26,7 @@ configReturn=(checkConfigFile)
 source "${CONFIG_PATH}"
 
 ## Read parameters from CLI
-while getopts ":l:c:f:m:n:v:" opt; do
+while getopts ":l:c:f:m:n:" opt; do
   case $opt in
     l) LOCALE="$OPTARG"
     ;;
@@ -38,8 +37,6 @@ while getopts ":l:c:f:m:n:v:" opt; do
     m) MODE="$OPTARG"
     ;;
     n) NUM_PAGES="$OPTARG"
-    ;;
-    v) VERBOSE="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     exit 1
@@ -158,9 +155,6 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
 
   pageRecord=""
 
-  let countPages=i+1
-  [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] && echo -e "** Working with page number ${countPages} out of ${NUM_PAGES}"
-
   ## 5.1. Ask for the template to use
   templates=""
   for j in "${!TEMPLATE_TYPES[@]}"
@@ -170,26 +164,27 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
   if [[ ${MODE} == "manual" || ${MODE} == "semiautomatic" ]]; then
     echo -e "Available templates:\n$templates"
     read -e -p "Choose template: " -i "0" pageTemplate
+    echo -e "Chosen the ${TEMPLATE_TYPES[$pageTemplate]} template"
   else
     pageTemplate="0"
   fi
-  [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] &&   echo -e "Chosen the ${TEMPLATE_TYPES[$pageTemplate]} template"
 
   pageRecord="${pageRecord}${TEMPLATE_TYPES[$pageTemplate]}${SEPARATOR}"
 
   ## 5.2. Ask for the name of the page
   if [[ ${MODE} == "manual" ]]; then
     read -e -p "Choose the page's name: " -i "Insert name" pageName
+    echo -e "Given the name: $pageName"
   else
-    pageName="Insert name"
+    ## Add the page number for people to know where they are editing
+    pageName="Insert name ${pageNumber}"
   fi
-  [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] &&   echo -e "Given the name: $pageName"
 
   ## 5.3. Iterate through the different fields and ask for the parameters
 
   ## 5.3.1 Pick up the proper template structure
   currentTemplate="${CONFIG_KEYS[$pageTemplate]}"
-  [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] && echo -e "Current template used: $currentTemplate"
+  [[ ${MODE} == "manual" ]] && echo -e "Current template used: $currentTemplate"
 
   ## 5.3.2 Iterate through the template structure
   ## push the template into an array
@@ -215,12 +210,7 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
 
     ## Render the name of the article
     if [[ "$k" -eq 1 ]]; then
-      ##if [[ ${MODE} == "manual" ]]; then
-        pageRecord="${pageRecord}${pageName}${SEPARATOR}"
-      ##else
-        ## Add the page number for people to know where they are editing
-        ##pageRecord="${pageRecord}${pageName} ${pageNumber}${SEPARATOR}"
-      ##fi
+      pageRecord="${pageRecord}${pageName}${SEPARATOR}"
     fi
 
     ## Render the index of the article
@@ -247,18 +237,16 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
           echo -e "Available data types:\n$dataTypes"
           read -e -p "Choose data type: " -i "0" dataTypeIndex
           fieldType="${DATA_TYPES[$dataTypeIndex]}"
+          echo -e "Chosen type: ${fieldType}"
         else
           ## TODO: add type of data detection in order to generate the
           ## right kind of properties, which will simplify automatic generation
           ## of content
           ## was: fieldType="${DATA_TYPES[0]}"
 
-          currentFieldIndex=$(elementInWhere "${THE_TEMPLATE[$k]}" "${FIELD_NAMES[@]}")
-          [[ ${VERBOSE} == "1" ]] && echo -e "${THE_TEMPLATE[$k]} found at ${currentFieldIndex}"
-          fieldType="${FIELD_TYPES[$currentFieldIndex]}"
+          currentFieldIndex=(elementInWhere "${THE_TEMPLATE[$k]}" "${FIELD_NAMES[@]}")
+          fieldType="${FIELD_NAMES[$currentFieldIndex]}"
         fi
-        [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] && echo -e "${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} is of chosen type: ${fieldType}"
-
         if [[ ${MODE} == "manual" ]]; then
           read -e -p "Content for field: ${THE_TEMPLATE[$k]} -> " -i "Fill in by hand" pageField
         else
@@ -266,12 +254,10 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
           ## debugging and manual data entry easier later
           ## was: pageField="Fill in by hand
 
-          currentFieldIndex=$(elementInWhere "${THE_TEMPLATE[$k]}" "${FIELD_NAMES[@]}")
+          currentFieldIndex=(elementInWhere "${THE_TEMPLATE[$k]}" "${FIELD_NAMES[@]}")
           pageField="${DEFAULT_CONTENT[$currentFieldIndex]}"
         fi
-        [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] && echo -e "${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} has content: ${pageField}"
       fi
-
       if (( (k % 2) - 1 )); then
         ## TODO: change this to ask which type of content it is and use
         ## templates for different types of content to populate it
@@ -317,7 +303,6 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
         else
           propertiesField="${blockProperties}${fieldType}${codeType}${imageType}"
         fi
-        [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] && echo -e "${TEMPLATE_TYPES[$pageTemplate]}->${THE_TEMPLATE[$k]} has properties ${propertiesField}"
 
         ## At the end of the properties of the last field, add everything to the CSV
         pageRecord="${pageRecord}${pageField}${SEPARATOR}${propertiesField}${SEPARATOR}"

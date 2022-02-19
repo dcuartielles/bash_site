@@ -12,7 +12,7 @@ The Arduino Nano 33 BLE Sense comes with embedded sensors, BLE connectivity, and
 
 Content will be populated as time goes by. Check:
 
-[THE INDEX FILE](course/en/course_index.md)
+[THE INDEX FILE](site/en/course_index.md)
 
 ## Build the content
 
@@ -22,10 +22,36 @@ The content's scaffolding is created by running the build process. Check:
 
 ## Updates
 
+### 20220218: verbose is popular
+
+* added verbose to *populate_site.sh* as a way to keep the debug information I added the last days (and remove it at will). This adds a new parameter *-v* which can take values 1 and 0 for on or off
+* TODO: allow *populate_site* to have one new argument to set the default template for an automatic or semiautomatic *pages.csv* generation
+* TODO: still need to fix the index generation for *render_site.sh*
+* TODO: add verbose to *render_site.sh*
+* TODO: fix the URL for local images in *populate_site.sh*
+
+### 20220217: it was about time to have utils
+
+* created *utils.sh* to include functions that are used at all scripts such as the array search and others that might show as the project keeps on growing
+* TODO: fix index generation for *render_site.sh*, found out that the edge case of one single page generates an index with *Prev*, IOW it links to an empty previous page
+
+### 20220216: we need docs
+
+* created a *config/dogs* folder to start pushing some documentation in it. I realised how complex things were becoming when I could not remember the different properties I had created and in which order they had to be placed
+* the obvious consequence was to start documenting things, thus I made a [PROPERTIES](config/docs/PROPERTIES.md) file to list the properties and possible values for each type of field
+
+### 20220215: populate the site resurrections
+
+* after a couple of days fighting the code, I managed to finish *populate_site.sh* it now checks the titles of the descriptions against the *DEFAULT_PROPERTIES* array as well as uses different default content for each type of data, making it easier to fill in the default template by implementing some placeholders of sorts
+
+### 20220214: day of love
+
+* done some work with *populate_site.sh* while eating heart-shaped candy, was good. I am far from done, this script is getting complicated
+
 ### 20220213: render site reloaded IV
 
 * forth day working with *render_site.sh* dealing with massive bug fixes and addressing the different open TODOs
-* TODO: still need to fix the *populate_site.sh* script 
+* TODO: still need to fix the *populate_site.sh* script
 
 ### 20220212: render site reloaded III
 

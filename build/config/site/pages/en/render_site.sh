@@ -156,7 +156,7 @@ while read -ra array; do
       ## Extract the template and see which is its index number
       if [[ "$j" -eq 0 ]]; then
         templateName="${array[$j]}"
-        pageTemplate=$(elementInWhere "${templateName}" "${TEMPLATE_TYPES[@]}")
+        pageTemplate=(elementInWhere "${templateName}" "${TEMPLATE_TYPES[@]}")
 
         ## Extract the structure of the template
         currentTemplate="${CONFIG_KEYS_ARRAY[$pageTemplate]}"
@@ -229,9 +229,9 @@ while read -ra array; do
 
         ## Evaluate properties, if it is code, video, images, etc it requires
         ## specific rendering tricks. Therefore, there is still a lot to do here
-        if [ $((j % 2)) == 1 ]; then
+        if [ $((j % 2)) == 0 ]; then
           ## Experimenting here
-          indexKey=$j-2
+          indexKey=$j-1
 
           ## DEBUG: echo -e "* Working with: ${CONFIG_KEYS[$indexKey]}| value: ${CONFIG_VALUES[$indexKey]}| content: ${FIELD_CONTENT}| properties: ${FIELD_PROPERTIES}"
 
