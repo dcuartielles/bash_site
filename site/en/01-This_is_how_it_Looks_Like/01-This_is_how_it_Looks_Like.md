@@ -2,7 +2,7 @@
 
 ## Index
 
-[Prev](../0-Rendering_a Site/0-Rendering_a Site.md) |  [Index](../site_index.md) 
+[Prev](../00-Rendering_a_Site/00-Rendering_a_Site.md) |  [Index](../site_index.md) 
 
 ## Introduction
 

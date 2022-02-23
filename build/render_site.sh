@@ -170,18 +170,21 @@ while read -ra array; do
 
       ## Extract the page number
       if [[ "$j" -eq 1 ]]; then
-        pageNumber="${array[$j]}"
+        ## was: pageNumber="${array[$j]}"
+        ## that would not work if you edited the pages.csv file by hand
+        ## thus, back to the basics
+        pageNumber=$(printf "%02d" ${array[$j]})
       fi
 
       ## Extract the page name
       if [[ "$j" -eq 2 ]]; then
         pageName="${array[$j]}"
-        imageSubfolder="${pageName/ /_}"
-        codeFileName="${pageName/ /_}"
+        imageSubfolder="${pageName// /_}"
+        codeFileName="${pageName// /_}"
 
         ## Fix the filename
         filename="$pageNumber-$pageName"
-        filename="${filename/ /_}"
+        filename="${filename// /_}"
 
         ## Copy the right template into the destination folder
         ## Notify what is going on
@@ -408,12 +411,15 @@ while read -ra array; do
     fi
 
     ## fix the leading zeros in the number variable
-    pageNumber="${array[1]}"
+    ## was: pageNumber="${array[1]}"
+    ## that would not work if you edited the pages.csv file by hand
+    ## thus, back to the basics
+    pageNumber=$(printf "%02d" ${array[1]})
 
     ## set the filename
     pageName="${array[2]}"
     filename="$pageNumber-$pageName"
-    filename="${filename/ /_}"
+    filename="${filename// /_}"
 
     ## Notify what is going on
     echo -e "\n****************************************"
@@ -446,12 +452,15 @@ while read -ra array; do
     fi
 
     ## fix the leading zeros in the number variable
-    pageNumber="${array[1]}"
+    ## was: pageNumber="${array[1]}"
+    ## that would not work if you edited the pages.csv file by hand
+    ## thus, back to the basics
+    pageNumber=$(printf "%02d" ${array[1]})
 
     ## set the filename
     pageName="${array[2]}"
     filename="$pageNumber-$pageName"
-    filename="${filename/ /_}"
+    filename="${filename// /_}"
 
     ## Notify what is going on
     echo -e "\n****************************************"
