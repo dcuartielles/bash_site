@@ -10,7 +10,7 @@ This is how a site can be rendered using the default site creation script from t
 
 ## Video
 
-<iframe src=""<iframe src=""https://vimeo.com/680660979/2316246896"" width=""640"" height=""564"" frameborder=""0"" allow=""autoplay; fullscreen"" allowfullscreen></iframe>"" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<iframe src="https://vimeo.com/680660979/2316246896" width=""640"" height=""564"" frameborder=""0"" allow=""autoplay; fullscreen"" allowfullscreen></iframe>
 
 ## License
 

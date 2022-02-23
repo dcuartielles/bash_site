@@ -41,7 +41,9 @@ Bash is a very powerful and simple command line scripting mechanism.
 
 The documentation to the Bash Site Generator has been made with the Bash Site Generator. Check:
 
-[THE INDEX FILE](site/en/site_index.md)
+[THE SITE](https://dcuartielles.github.io/bash_site/)
+
+[THE INDEX FILE](https://dcuartielles.github.io/bash_site/site/en/site_index.html)
 
 ## Build your own site
 
