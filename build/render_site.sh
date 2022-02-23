@@ -251,9 +251,9 @@ while read -ra array; do
                   ## Read the data by default, we'll modify it later
                   CONTENT=${FIELD_CONTENT}
                   if [[ "${PROPERTIES[1]}" == "video" ]]; then
-                    ## was: CONTENT=${VIMEO_EMBED_PREFIX}${CONTENT}${VIMEO_EMBED_SUFFIX}
+                    CONTENT=${VIMEO_EMBED_PREFIX}${CONTENT}${VIMEO_EMBED_SUFFIX}
                     ## but that part is now handled by populate_site.sh
-                    CONTENT=${CONTENT}
+                    ## was: CONTENT=${CONTENT}
                   fi
                   if [[ "${PROPERTIES[1]}" == "license" ]]; then
                       CONTENT=${LICENSE_EMBED}
