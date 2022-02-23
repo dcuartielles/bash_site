@@ -43,7 +43,11 @@ The documentation to the Bash Site Generator has been made with the Bash Site Ge
 
 [THE SITE](https://dcuartielles.github.io/bash_site/)
 
+<img src="https://github.com/dcuartielles/bash_site/raw/main/docs/img/04_explore_page_rendered.gif">
+
 [THE INDEX FILE](https://dcuartielles.github.io/bash_site/site/en/site_index.html)
+
+<img src="https://github.com/dcuartielles/bash_site/raw/main/docs/img/05_explore_site_index_rendered.gif">
 
 ## Build your own site
 
