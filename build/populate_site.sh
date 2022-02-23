@@ -10,6 +10,7 @@
 ## ** -m: mode (default automatic, could also be manual or semiautomatic)
 ## ** -n: number of pages (default 0)
 ## ** -v: verbose (default 0)
+## ** -t: template (default basic1)
 
 ## Load utils file
 UTILS_PATH='./utils.sh'
@@ -27,7 +28,7 @@ configReturn=(checkConfigFile)
 source "${CONFIG_PATH}"
 
 ## Read parameters from CLI
-while getopts ":l:c:f:m:n:v:" opt; do
+while getopts ":l:c:f:m:n:v:t:" opt; do
   case $opt in
     l) LOCALE="$OPTARG"
     ;;
@@ -40,6 +41,8 @@ while getopts ":l:c:f:m:n:v:" opt; do
     n) NUM_PAGES="$OPTARG"
     ;;
     v) VERBOSE="$OPTARG"
+    ;;
+    t) DEFAULT_TEMPLATE_ARG="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     exit 1
@@ -57,6 +60,9 @@ done
 ## Note: semiautomatic will only ask for the template for each page
 [[ ${MODE} == "" ]] && MODE="automatic"
 [[ ! ${MODE} == "automatic" ]] && [[ ! ${MODE} == "semiautomatic" ]] && [[ ! ${MODE} == "manual" ]] && { echo "$MODE is not a valid mode"; exit 99; }
+
+## Set the default template
+[[ ${DEFAULT_TEMPLATE_ARG} == "" ]] && DEFAULT_TEMPLATE_ARG=$DEFAULT_TEMPLATE
 
 ## Set the timeout for reads to 0 in case of automatic MODE
 
@@ -171,7 +177,8 @@ for (( i=0; i<=NUM_PAGES-1; i++ )); do
     echo -e "Available templates:\n$templates"
     read -e -p "Choose template: " -i "0" pageTemplate
   else
-    pageTemplate="0"
+    ## was: pageTemplate="0"
+    pageTemplate=$(elementInWhere "${DEFAULT_TEMPLATE_ARG}" "${TEMPLATE_TYPES[@]}")
   fi
   [[ ${MODE} == "manual" || ${VERBOSE} == "1" ]] &&   echo -e "Chosen the ${TEMPLATE_TYPES[$pageTemplate]} template"
 
