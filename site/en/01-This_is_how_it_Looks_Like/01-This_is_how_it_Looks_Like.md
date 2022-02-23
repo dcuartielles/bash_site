@@ -1,4 +1,4 @@
-# Exercise This is how it Looks Like
+# This is how it Looks Like
 
 ## Index
 
@@ -10,7 +10,7 @@ Once the site has been rendered, if you have Github pages enabled for the reposi
 
 ## Video
 
-"<iframe src=""https://vimeo.com/1234567"" width=""640"" height=""564"" frameborder=""0"" allow=""autoplay; fullscreen"" allowfullscreen></iframe>"
+<iframe src="https://vimeo.com/1234567" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 ## License
 

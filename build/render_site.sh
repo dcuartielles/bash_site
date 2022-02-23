@@ -205,7 +205,7 @@ while read -ra array; do
         ## Fix title
         if grep -Fq "[NAME]" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         then
-          sed -i "s/\[NAME\]/Exercise $pageName/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
+          sed -i "s/\[NAME\]/$pageName/" "${CURRENT_FOLDER}/${filename}/${filename}.md"
         else
             echo "Code [NAME] not found in ${CURRENT_FOLDER}/${filename}/${filename}.md"
         fi
@@ -267,7 +267,7 @@ while read -ra array; do
                   fi
                   if [[ "${PROPERTIES[1]}" == "code" ]]; then
                       ## Create the code for the example only if there is such a
-                      ## block in the exercise and it doesn't exist, yet. You will
+                      ## block in the page and it doesn't exist, yet. You will
                       ## have to change it by hand
                       ## So far, code has no localisation, thus no use of the locale folder
 
@@ -290,7 +290,7 @@ while read -ra array; do
                           echo -e "Index of the code type: ${PROPERTIES[2]}, in Array is : $index"
                           echo -e "Code suffix is: ${CODE_SUFFIX[$index]}"
                           echo -e "Code style is: ${CODE_STYLE[$index]}"
-                          echo -e "The code should have the same name as the exercise: ${PROPERTIES[3]}"
+                          echo -e "The code should have the same name as the page: ${PROPERTIES[3]}"
                       else
                           echo "Code type ${PROPERTIES[2]} is not declared as a type of code."; exit 99;
                       fi
@@ -313,17 +313,17 @@ while read -ra array; do
 
                       cp "${SETUP_FOLDER}/templates/code/${PROPERTIES[2]}/template.${CODE_SUFFIX[$index]}" "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}";
                       ## Fix the code's title
-                      ## It does NOT include the exercise number
+                      ## It does NOT include the page number
                       ## Was: TITLE="${filename//-/: }"
                       ##      TITLE="${TITLE//_/ }"
-                      ##      sed -i "s/\[NAME\]/Exercise $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
+                      ##      sed -i "s/\[NAME\]/Page $TITLE/" "${SRC_FOLDER}/${PROPERTIES[3]}/${filename}/${filename}.${PROPERTIES[3]}"
                       TITLE="${pageName//_/ }"
                       CODE_LISTING="${codeName//_/ }"
-                      sed -i "s/\[NAME\]/Exercise: $TITLE\\n   Listing:  $CODE_LISTING/" "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}"
+                      sed -i "s/\[NAME\]/Page: $TITLE\\n   Listing:  $CODE_LISTING/" "${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}"
                     fi
 
 
-                    ## Step 4: Include the code file in the exercise
+                    ## Step 4: Include the code file in the page
                     CONTENT=`cat ${SRC_FOLDER}/${PROPERTIES[2]}/${codeName}/${codeName}.${CODE_SUFFIX[$index]}`
                     ## Do the magic HTML encoding needed to show this type of code
                     [[ "${PROPERTIES[2]}" == "HTML" ]] && CONTENT=$(echo "${CONTENT}" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g')
