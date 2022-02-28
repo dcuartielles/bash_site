@@ -48,8 +48,6 @@ while getopts ":l:r:c:f:" opt; do
   esac
 done
 
-
-
 ## Folders used
 LOCALE_FOLDER=${LOCALE}
 CURRENT_FOLDER="${SITE_FOLDER}/${LOCALE_FOLDER}"

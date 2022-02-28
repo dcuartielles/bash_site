@@ -1,5 +1,11 @@
 # Build the project
 
+## Install dependencies
+
+If you are willing to export your sites to anything that is not Markdown, you will need to use the *pandoc* universal translation tool. It will allow converting the generator's outputs into HTML, PDF, LaTeX, amongst others.
+
+`sudo apt install pandoc`
+
 ## Build the templates
 
 Prior to creating a course, you need to define the templates you will be using. The call for the template generation goes as follows:
@@ -47,17 +53,33 @@ You need to add your content to the *en/pages.csv* file. Make sure you include t
 
 Once the templates have been created, render the markdown of the site by simply calling:
 
-`./render_site.sh en .. config pages.csv`
+`./render_site.sh -l en -r .. -c config -f pages.csv`
 
 inside the *build* folder. It will create all of the folders, *MD*, and code files based on templates. From there you will have the opportunity of modifying the content once more. Use the editor of your choice.
 
 The parameters for the *render_site.sh* script are:
 
-* locale: en, es, etc.
-* name of the folder with templates and the like, typically *config*
-* name of the *CSV* file containing the course
+* l, locale: en, es, etc.
+* r, render: folder where the site will be rendered into
+* c, config: name of the folder with templates and the like, typically *config*
+* f, file: name of the *CSV* file containing the course
 
 You will have to call it once per locale, which also means you should need the actual *CSV* file for the corresponding language.
+
+## Export your site to other formats
+
+The way information is built in the form of Markdown files requires some considerations depending on which kind of outputs you might expect from the generator. For example, if you are looking at having an HTML site, you will have to convert each one of the *\*.md* files separately, index included. On the other hand, if you are looking at making a printing-ready PDF, you might have to download all of the images, compose everything into a single file, and then call the *pandoc* script with the options to generate a *TOC* (table of contents).
+
+The export script is wrapping the call to *pandoc* after making some preparation work with the file. Call it as follows:
+
+`./export_site.sh -t HTML -r ..`
+
+The parameter for the *export_site.sh* script are:
+
+* l, locale: en, es, etc.
+* t, type of output: HTML, PDF
+* r, render: folder where the site was rendered into
+* p, pandoc parameters: a string containing the non-default settings for *pandoc*
 
 ## Note
 

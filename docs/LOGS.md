@@ -6,6 +6,37 @@ Read here the full design logs, day by day, for the Bash Site Creator from the d
 
 See what happened in the second month of the year.
 
+### 20220227: added PDF export to export_site
+
+* included the *PDF* export feature
+* TODO: include offline images for both *HTML* and *PDF* exports   
+* TODO: include screencap of video file for PDFs + clickable URL
+
+### 20220226: added index correction to export_site in HTML
+
+* *export_site.sh* is now looking into all of the files and linking to *HTML* files instead of Markdown ones, this removes the possibility of having files with the extension *\*.md*
+* TODO: create a nice CSS for this ... maybe extract the one from Github pages
+
+### 20220225: scripting pandoc
+
+* *pandoc* is now officially a dependency to this project, therefore I have updated *BUILD.md* to include dependencies
+* created *export_site.sh*, a script to wrap the operations with *pandoc* after making all the needed preparations to the Markdown files
+* worked out the basic operations for exporting as *HTML*
+
+### 20220224: testing pandoc
+
+* *pandoc* has some serious superpowers, it can use your own CSS, it can generate the TOC in a PDF, etc
+* this also means that, after some testing, I will need to produce a tool which will be searching for materials and produce a preliminary file that could be sent to *pandoc*, e.g. I cannot put a video in a PDF, I will have to extract a screenshot of the video and add the clickable URL as a caption. Yet another example, I might have to locally download remote images with *Curl* prior to producing a compressed file in HTML with all of the assets for offline distribution of the content (which is one of my goals)
+* PDF files should be created from a single massive Markdown file, where contents should be sorted for *pandoc* to create the TOC
+* rendering HTML will require making my own tool looking for all *\*.md* files in a folder structure to be rendered as HTML
+
+### 20220223: research on exporting
+
+* I want mainly two different kinds of exports: HTML (in order to make the system independent from Github when publishing), and PDF (because a lot of people use it to distribute materials to their students). I came to just two possible solutions: *cmark* and *pandoc*
+* [*cmark*](https://github.com/commonmark/cmark) is a C tool, thus the fastest one currently existing capable of converting Markdown to HTML, it is considered the standard tool to benchmark your own against. The issue is that it does not produce PDFs
+* [*pandoc*](https://pandoc.org/) is the Swiss knife of format conversions from CLI, does not only HTML and PDF, but also LaTeX, AsciiDoc, Docx, etc.
+* I think I have to sacrifice performance for versatility, mainly because I will otherwise have to produce my own PDF export tool. The disavantage is obvious: I will need Linux to run my tool (which I do anyway, since I made things in *bash* ¯\\_(ツ)\_/¯)
+
 ### 20220222 (or 22022022): pre-alpha Twosday release
 
 * this is the very first release, pre-alpha 0.0.1 of the **Bash Site Generator**, it has been two months of work to make it to this point with small developments day after day

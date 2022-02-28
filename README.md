@@ -1,6 +1,6 @@
 # Bash Site Generator
 
-The **Bahs Site Generator** is a piece of software to help in the creation of courses which will be rendered as **Markdown** files, including an index, etc.
+The **Bash Site Generator** is a piece of software to help in the creation of courses which will be rendered as **Markdown** files, including an index, etc.
 
 The generator is a collection of scripts that can be executed step by step to:
 
